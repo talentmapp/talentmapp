@@ -74,7 +74,7 @@ export default async function handler(req, res) {
  if (req.method === 'POST') {
     try {
       const { message } = req.body;
-      const apiKey = "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";
+      const apiKey = process.env.OPENAI_API_KEY;
       const url = 'https://api.openai.com/v1/chat/completions';
 
       const body = JSON.stringify({

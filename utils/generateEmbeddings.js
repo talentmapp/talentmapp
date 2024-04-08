@@ -2,7 +2,7 @@
 const { MongoClient } = require("mongodb");
 const axios = require("axios");
 async function generateEmbeddings(text) {
-  const token = "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"; // Replace with your actual OpenAI API key
+  const token = process.env.OPENAI_API_KEY; // Replace with your actual OpenAI API key
   const model = "text-embedding-ada-002"; // The model to use for generating embeddings
 
   try {
