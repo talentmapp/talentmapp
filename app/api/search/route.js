@@ -166,7 +166,6 @@ export default async function handler(req, res) {
 //     temperature: 0.5,
 //   }, {
 //     headers: {
-//       'Authorization': `Bearer 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`,
 //       // 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
 //     },
 //   });

@@ -2,7 +2,6 @@
 // app/pages/index.js
 import Link from "next/link";
 
-// secret key: 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
 import { useState } from "react";
 import MessageForm from "./components/MessageForm";
 import MessagesList from "./components/MessagesList";
