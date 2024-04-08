@@ -1,26 +1,129 @@
-"use client"
-import { useUser } from '@auth0/nextjs-auth0/client';
+"use client";
+// app/pages/index.js
+import Link from "next/link";
+
+// secret key: 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
+import { useState } from "react";
+import MessageForm from "./components/MessageForm";
+import MessagesList from "./components/MessagesList";
+
+import { getOpenAIResponse } from "../utils/openai";
+import { searchProfiles } from './api/search/route';
 
 export default function Home() {
- const { user, isLoading } = useUser();
- console.log(user)
+  const [messages, setMessages] = useState([]);
 
- if (isLoading) return <div>Loading...</div>;
+  const handleSendMessage = async (message) => {
+    try {
+       // Call the search API route to get the matching profiles
+       const response = await fetch('/api/search', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ message }),
+       });
+   
+       if (!response.ok) {
+         throw new Error('Failed to search profiles or interact with OpenAI');
+       }
+   
+       const profiles = await response.json();
+   
+       // Format the profiles for display
+       const profilesText = profiles.map(profile => profile.name).join(', '); // Adjust based on your profile structure
+   
+       // Add the profiles to the messages state
+       setMessages([
+         ...messages,
+         { sender: "user", text: message },
+         { sender: "ai", text: `Here are the matching profiles: ${profilesText}` },
+       ]);
+    } catch (error) {
+       console.error("Failed to get response from OpenAI or search profiles:", error);
+       // Handle the error appropriately in your UI
+    }
+   };
 
- return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Welcome to TalentMapp
-        </p>
-        {user && (
-          <div>
-            <h1>Welcome, {user.name}!</h1>
-            {/* Display LinkedIn information here */}
-            Picture: <img src={user.picture} alt={user.name} />
-          </div>
-        )}
+  return (
+    <div className="p-20 bg-[#090f17] h-screen">
+      <Link href="/api/auth/login">
+          <span className="p-4 bg-indigo-600 text-white mr-8">Login</span>
+      </Link>
+      <Link href="/api/auth/logout">
+          <span className="p-4 bg-red-600 text-white">Logout</span>
+      </Link>
+      <div className="mt-12">
+        <MessagesList messages={messages} />
+        <MessageForm onSendMessage={handleSendMessage} />
       </div>
-    </main>
- );
+    </div>
+  );
 }
+
+  // const handleSendMessage = async (message) => {
+  //   try {
+  //      // Check if the message is a prompt for searching profiles
+  //      if (message.toLowerCase().includes("search profiles")) {
+  //        // Extract the prompt from the message
+  //        const prompt = message.replace("search profiles", "").trim();
+   
+  //        // Call the searchProfiles function to get the matching profiles
+  //        const profiles = await searchProfiles(prompt);
+   
+  //        // Format the profiles for display
+  //        const profilesText = profiles.map(profile => profile.name).join(', '); // Adjust based on your profile structure
+   
+  //        // Add the profiles to the messages state
+  //        setMessages([
+  //          ...messages,
+  //          { sender: "user", text: message },
+  //          { sender: "ai", text: `Here are the matching profiles: ${profilesText}` },
+  //        ]);
+  //      } else {
+  //        // Handle regular messages
+  //        const aiResponse = await getOpenAIResponse(message);
+  //        setMessages([
+  //          ...messages,
+  //          { sender: "user", text: message },
+  //          { sender: "ai", text: aiResponse },
+  //        ]);
+  //      }
+  //   } catch (error) {
+  //      console.error("Failed to get response from OpenAI or search profiles:", error);
+  //      // Handle the error appropriately in your UI
+  //   }
+  //  };
+   
+
+  // const handleSendMessage = async (message) => {
+  //   try {
+  //     // Check if the message is a prompt for searching profiles
+  //     if (message.includes("search profiles")) {
+  //       // Extract the prompt from the message
+  //       const prompt = message.replace("search profiles", "").trim();
+  
+  //       // Call the searchProfiles function to get the matching profiles
+  //       const profiles = await searchProfiles(prompt);
+  
+  //       // Add the profiles to the messages state
+  //       setMessages([
+  //         ...messages,
+  //         { sender: "user", text: message },
+  //         { sender: "ai", text: "Here are the matching profiles:", profiles },
+  //       ]);
+  //     } else {
+  //       // Handle regular messages
+  //       const aiResponse = await getOpenAIResponse(message);
+  //       setMessages([
+  //         ...messages,
+  //         { sender: "user", text: message },
+  //         { sender: "ai", text: aiResponse },
+  //       ]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to get response from OpenAI or search profiles:", error);
+  //     // Handle the error appropriately in your UI
+  //   }
+  // };
+
