@@ -2,10 +2,10 @@
 import openai
 import pymongo
 
-openai.api_key = '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'
+openai.api_key = process.env.OPENAI_API_KEY
 
 # Connect to MongoDB
-client = pymongo.MongoClient('mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp')
+client = pymongo.MongoClient(process.env.MONGODB_URI)
 db = client['tm-mvp']
 collection = db['profile']
 
