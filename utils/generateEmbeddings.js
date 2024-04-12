@@ -2,7 +2,7 @@
 const { MongoClient } = require("mongodb");
 const axios = require("axios");
 async function generateEmbeddings(text) {
-  const token = process.env.OPENAI_API_KEY; // Replace with your actual OpenAI API key
+  const token = "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"; // Replace with your actual OpenAI API key
   const model = "text-embedding-ada-002"; // The model to use for generating embeddings
 
   try {
@@ -31,68 +31,6 @@ async function generateEmbeddings(text) {
 // Function to generate a new profile
 function generateProfile() {
   return {
-    firstName: "Akshay",
-    lastName: "Kumar",
-    email: "akshay.kumar@example.com",
-    phoneNumber: "+911234567890",
-    profilePicture: "https://example.com/akshay-kumar-picture.jpg",
-    summary:
-      "AI Engineer with expertise in machine learning and deep learning.",
-    location: "Bengaluru, Karnataka",
-    experience: [
-      {
-        title: "AI Engineer",
-        company: "TechInnovate",
-        startDate: "2016-07-01",
-        endDate: "2023-01-01",
-        description:
-          "Developed AI models for predictive analytics and natural language processing.",
-        current: false,
-      },
-    ],
-    education: [
-      {
-        institution: "IIT Madras",
-        degree: "Master of Technology in Artificial Intelligence",
-        fieldOfStudy: "Computer Science",
-        startDate: "2012-07-01",
-        endDate: "2016-06-01",
-        description: "Graduated with honors.",
-      },
-    ],
-    skills: [
-      { name: "Python", proficiency: "Expert" },
-      { name: "TensorFlow", proficiency: "Expert" },
-      { name: "PyTorch", proficiency: "Advanced" },
-    ],
-    certifications: [
-      {
-        name: "Google Cloud Certified - Professional Data Engineer",
-        issuer: "Google Cloud",
-        date: "2021-06-01",
-      },
-    ],
-    projects: [
-      {
-        name: "AI Chatbot",
-        description: "Developed a chatbot using NLP for customer service.",
-        url: "https://ai-chatbot.com",
-        startDate: "2019-01-01",
-        endDate: "2019-12-31",
-      },
-    ],
-    languages: [
-      { name: "English", proficiency: "Native" },
-      { name: "Hindi", proficiency: "Native" },
-    ],
-    interests: ["Artificial Intelligence", "Machine Learning", "Data Science"],
-    socialMedia: [
-      { platform: "LinkedIn", url: "https://www.linkedin.com/in/akshay-kumar" },
-      { platform: "GitHub", url: "https://github.com/akshay-kumar" },
-    ],
-    visibility: { profile: true, email: false, phoneNumber: false },
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
   };
 }
 
