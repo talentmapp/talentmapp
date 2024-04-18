@@ -57,14 +57,14 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen bg-black font-jakarta">
-      <div className="flex justify-between items-center w-[90%] py-6">
+      <div className="flex justify-between items-center w-[90%] py-6 ">
         <img
           src="/tm-small-logo.png"
           alt="logo"
-          className="w-[6%] ml-20"
+          className="w-[7%] ml-20"
         />
         <div className="">
-          <span className="font-extrabold px-4 py-3 border-slate-400 border-2 bg-slate-600 text-[#dfdede] flex justify-center items-center rounded-lg"> 🚧 &nbsp; EARLY BUILD &nbsp; 🚧 </span>
+          <span className="font-extrabold px-4 py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] flex justify-center items-center rounded-lg"> 🚧 &nbsp; EARLY BUILD &nbsp; 🚧 </span>
         </div>
       </div>
       <div className="flex-grow px-20 pb-16">
@@ -78,7 +78,7 @@ export default function Home() {
       </div>
       <div
         ref={messagesEndRef}
-        className="bg-gray-950 border-t-2 border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
+        className="bg-gray-950 border-t border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
       >
         <MessageForm onSendMessage={handleSendMessage} />
       </div>

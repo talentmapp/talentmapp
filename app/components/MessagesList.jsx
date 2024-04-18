@@ -7,11 +7,16 @@ const MessagesList = ({ messages }) => {
           key={message._id} // Use a unique identifier like _id
           className={`p-4 ${
             message.sender === "user"
-              ? "text-gray-100 text-3xl w-[100%] self-center mt-8"
+              ? "text-gray-100 self-start text-2xl mt-8"
               : "bg-transparent"
           }`}
         >
-          <div className="flex justify-start font-bold">{message.text}</div>
+          {message.sender === "user" && (
+            <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
+              {/* Matching Profiles For: <span className="font-bold ml-4"> &quot;{message.text}&quot;</span> */}
+              Profiles for: <span className="font-semibold ml-4 text-violet-500">{message.text}</span>
+            </div>
+          )}
           {message.profiles && (
             <div className="space-y-6 ">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -96,6 +101,12 @@ const MessagesList = ({ messages }) => {
                               <img
                                 src="/github.png"
                                 alt="GitHub"
+                                className="w-6 h-6"
+                              />
+                            ) : social.platform === "Behance" ? (
+                              <img
+                                src="/Behance.png"
+                                alt="Behance"
                                 className="w-6 h-6"
                               />
                             ) : (

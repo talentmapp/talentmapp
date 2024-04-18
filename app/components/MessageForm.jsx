@@ -10,7 +10,7 @@ const MessageForm = ({ onSendMessage }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
+    <form onSubmit={handleSubmit} className="flex flex-col justify-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
       <label className="sr-only">
         Your message
       </label>

@@ -3,7 +3,8 @@ import axios from "axios";
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 let client;
-const uri = "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp";
+const uri =
+  "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp";
 
 const connectToDatabase = async () => {
   if (client && client.isConnected) {
@@ -28,12 +29,16 @@ async function generateEmbeddings(text) {
       model: model,
       input: [text],
     };
-    const response = await axios.post("https://api.openai.com/v1/embeddings", requestBody, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.post(
+      "https://api.openai.com/v1/embeddings",
+      requestBody,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const embedding = response.data.data[0].embedding;
     console.log(embedding);
     return embedding;
@@ -47,11 +52,14 @@ export async function POST(request) {
   try {
     const body = await request.json();
     if (!body.message) {
-      return NextResponse.json({ error: "No message provided" }, { status: 400 });
+      return NextResponse.json(
+        { error: "No message provided" },
+        { status: 400 }
+      );
     }
 
     const { message } = body;
-    console.log('Message:', message);
+    console.log("Message:", message);
 
     const queryEmbedding = await generateEmbeddings(message);
     const db = await connectToDatabase();
@@ -72,6 +80,9 @@ export async function POST(request) {
     return NextResponse.json(matchingProfiles);
   } catch (error) {
     console.error("Error:", error);
-    return NextResponse.json({ error: "Failed to search profiles or interact with OpenAI" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to search profiles or interact with OpenAI" },
+      { status: 500 }
+    );
   }
 }
