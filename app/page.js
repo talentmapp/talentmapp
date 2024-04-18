@@ -1,15 +1,22 @@
-"use client";
-// app/pages/index.js
-import Link from "next/link";
-
-import { useState } from "react";
+"use client"
+import { useState, useEffect, useRef } from "react";
 import MessageForm from "./components/MessageForm";
 import MessagesList from "./components/MessagesList";
+
 export default function Home() {
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const handleSendMessage = async (message) => {
-   try {
+    try {
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: {
@@ -17,43 +24,33 @@ export default function Home() {
         },
         body: JSON.stringify({ message }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`Failed to search profiles or interact with OpenAI. Status: ${response.status}`);
       }
-  
+
       const profiles = await response.json();
-  
-      // Assuming profiles is an array of objects with a 'name' property
-      const profilesText = profiles.map(profile => profile.name).join(', ');
-  
+      // console.log(profiles);
+
       setMessages([
         ...messages,
         { sender: "user", text: message },
-        { sender: "ai", text: `Here are the matching profiles: ${profilesText}` },
+        { sender: "ai", profiles },
       ]);
-   } catch (error) {
+    } catch (error) {
       console.error("Error details:", error);
-      // Provide a more descriptive error message to the user
       alert("An error occurred while searching for profiles. Please try again later.");
-   }
+    }
   };
-  
 
   return (
-    <div className="p-20 bg-[#090f17] h-screen">
-      <Link href="/api/auth/login">
-          <span className="p-4 bg-indigo-600 text-white mr-8">Login</span>
-      </Link>
-      <Link href="/api/auth/logout">
-          <span className="p-4 bg-red-600 text-white">Logout</span>
-      </Link>
-      <div className="mt-12">
+    <div className="flex flex-col h-screen bg-black p-20">
+      <div className="flex-grow">
         <MessagesList messages={messages} />
+      </div>
+      <div ref={messagesEndRef}>
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
     </div>
   );
 }
-
- 
