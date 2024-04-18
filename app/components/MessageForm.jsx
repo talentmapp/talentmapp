@@ -11,10 +11,10 @@ const MessageForm = ({ onSendMessage }) => {
 
   return (
     <form onSubmit={handleSubmit} className="flex justify-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-      <label for="chat" class="sr-only">
+      <label className="sr-only">
         Your message
       </label>
-      <div class="flex w-[65%] self-center justify-between items-center p-3 bg-gray-950 border border-opacity-25 border-[#D3CEDC] rounded-full">
+      <div className="flex w-[65%] self-center justify-between items-center p-3 bg-gray-950 border border-opacity-25 border-[#D3CEDC] rounded-full">
         <input
           id="chat"
           rows="1"
@@ -22,15 +22,15 @@ const MessageForm = ({ onSendMessage }) => {
           autoComplete="off"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          class="block mx-1 py-3 pl-4 w-[90%] text-sm rounded-full bg-gray-800 border-gray-600 placeholder-gray-400 text-white"
+          className="block mx-1 py-3 pl-4 w-[90%] text-sm rounded-full bg-gray-800 border-gray-600 placeholder-gray-400 text-white"
           placeholder='" Find me a Full-Stack Developer with experience in developing E-commerce platforms "'
         ></input>
         <button
           type="submit"
-          class="inline-flex justify-center p-2.5 mr-2.5 bg-[#D3CEDC] text-[#5013AF] rounded-full cursor-pointer hover:bg-gray-200"
+          className="inline-flex justify-center p-2.5 mr-2.5 bg-[#D3CEDC] text-[#5013AF] rounded-full cursor-pointer hover:bg-gray-200"
         >
           <svg
-            class="w-6 h-6 rotate-90"
+            className="w-6 h-6 rotate-90"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
