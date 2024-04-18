@@ -27,11 +27,11 @@ const MessagesList = ({ messages }) => {
             )}
             {message.profiles && (
               <div className="space-y-6 ">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {message.profiles.map((profile, idx) => (
                     <div
                       key={idx}
-                      className=" bg-gray-700 rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
+                      className=" bg-gray-800 flex flex-col rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                       // className="border border-[#D3CEDC] bg-gray-700 rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
                     >
                       <div className="flex gap-5 px-8 pt-8">
@@ -53,27 +53,16 @@ const MessagesList = ({ messages }) => {
                       <p className="text-gray-300 text-lg px-8 pt-6 pb-6">
                         {profile.summary}
                       </p>
-                      {/* <div className="bg-slate-900 border-t-2 border-opacity-40 border-[#D3CEDC] rounded-xl"> */}
-                      <div className="bg-slate-900 mx-4 mb-4 rounded-3xl">
-                        {/* <div className="mt-2 space-y-2 p-6">
-                        <p>
-                          <span className="font-semibold">Email:</span>{" "}
-                          {profile.email}
-                        </p>
-                        <p>
-                          <span className="font-semibold">Phone:</span>{" "}
-                          {profile.phoneNumber}
-                        </p>
-                      </div> */}
+                      <div className="flex-1 bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>
                           <br></br>
-                          {profile.interests.map((interest, index) => (
+                          {profile.skills.map((interest, index) => (
                             <span
                               key={index}
                               className="inline-block justify-start bg-[#5013AF] text-white px-4 mr-2 mt-2 py-2 rounded-full text-sm font-semibold"
                             >
-                              {interest}
+                              {interest.name}
                             </span>
                           ))}
                         </div>

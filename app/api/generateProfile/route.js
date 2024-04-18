@@ -15,10 +15,6 @@ export async function POST(req, res) {
       await client.connect();
       const db = client.db("tm-mvp");
       const collection = db.collection("profile");
-
-      // Example: Generate a single profile
-      const profile = {
-       }
        
       // Generate embeddings for the profile
       const embeddings = await generateEmbeddings(profile.summary);

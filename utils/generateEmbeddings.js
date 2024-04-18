@@ -28,98 +28,92 @@ export async function generateEmbeddings(text) {
   }
 }
 
-// Function to generate a new profile
+// Function to insert a profile into the database and generate embeddings
+
 function generateProfile() {
   return {
-    firstName: "Rajesh",
-    lastName: "Kumar",
-    email: "rajesh.kumar@example.com",
-    phoneNumber: "+919876543219",
-    profilePicture: "https://example.com/rajesh-kumar-picture.jpg",
-    summary: "DevOps Engineer with expertise in Docker and Kubernetes.",
-    location: "Hyderabad, Telangana",
-    experience: [
-      {
-        title: "DevOps Engineer",
-        company: "DevOps Solutions",
-        startDate: "2014-01-01",
-        endDate: "2023-01-01",
-        description:
-          "Managed CI/CD pipelines and containerized applications using Docker and Kubernetes.",
-        current: false,
-      },
+    "firstName": "Kashish",
+    "lastName": "Hora",
+    "email": "",
+    "phoneNumber": "",
+    "profilePicture": "https://media.licdn.com/dms/image/C5603AQFBPLeex3cL-A/profile-displayphoto-shrink_800_800/0/1547541663745?e=2147483647&v=beta&t=ANoxyRT1TCYYsunBVbLxA-nSduFYfKOAX1XtPhG8l_k",
+    "summary": "Experienced Product Manager with a background in Data Science and Software Engineering. Currently contributing to Grammarly, previously involved with Zynga and Coatue. Holds a BAS and BS from the University of Pennsylvania.",
+    "location": "New York, New York",
+    "experience": [
+        {
+            "title": "Product Manager",
+            "company": "Grammarly",
+            "startDate": "",
+            "endDate": "",
+            "description": ""
+        },
+        {
+            "title": "Product Manager",
+            "company": "Zynga",
+            "startDate": "",
+            "endDate": "",
+            "description": ""
+        },
+        {
+            "title": "Data Scientist",
+            "company": "Coatue",
+            "startDate": "",
+            "endDate": "",
+            "description": ""
+        },
+        {
+            "title": "Software Engineer",
+            "company": "Bridgewater Associates",
+            "startDate": "",
+            "endDate": "",
+            "description": ""
+        }
     ],
-    education: [
-      {
-        institution: "NIT Warangal",
-        degree: "Bachelor of Technology in Computer Science",
-        fieldOfStudy: "Software Engineering",
-        startDate: "2009-01-01",
-        endDate: "2013-01-01",
-        description: "Graduated with honors.",
-      },
+    "education": [
+        {
+            "degree": "Bachelor of Applied Science (BAS), Bachelor of Science (BS)",
+            "major": "",
+            "university": "University of Pennsylvania"
+        }
     ],
-    skills: [
-      {
-        name: "Docker",
-        proficiency: "Expert",
-      },
-      {
-        name: "Kubernetes",
-        proficiency: "Expert",
-      },
-      {
-        name: "Ansible",
-        proficiency: "Advanced",
-      },
+    "skills": [
+        {
+            "name": "Product Management",
+            "proficiency": "Expert"
+        },
+        {
+            "name": "Data Science",
+            "proficiency": "Intermediate"
+        },
+        {
+            "name": "Software Engineering",
+            "proficiency": "Intermediate"
+        }
     ],
-    certifications: [
-      {
-        name: "Certified Kubernetes Administrator",
-        issuer: "CNCF",
-        date: "2019-06-01",
-      },
+    "interests": [
+        "Product Management",
+        "Data Science",
+        "Software Engineering",
+        "Technology Innovations",
+        "Machine Learning"
     ],
-    projects: [
-      {
-        name: "Microservices Deployment",
-        description:
-          "Deployed microservices architecture using Docker and Kubernetes.",
-        url: "https://microservices-deployment.com",
-        startDate: "2019-01-01",
-        endDate: "2019-12-31",
-      },
+    "languages": [],
+    "socialMedia": [
+        {
+            "platform": "LinkedIn",
+            "url": "https://www.linkedin.com/in/kashishhora"
+        }
     ],
-    languages: [
-      {
-        name: "English",
-        proficiency: "Native",
-      },
-      {
-        name: "Hindi",
-        proficiency: "Native",
-      },
-    ],
-    interests: ["DevOps", "Docker", "Kubernetes"],
-    socialMedia: [
-      {
-        platform: "LinkedIn",
-        url: "https://www.linkedin.com/in/rajesh-kumar",
-      },
-      {
-        platform: "GitHub",
-        url: "https://github.com/rajesh-kumar",
-      },
-    ],
-    visibility: {
-      profile: true,
-      email: false,
-      phoneNumber: false,
-    },
-  };
+    "visibility": {
+        "profile": true,
+        "email": false,
+        "phoneNumber": false
+    }
 }
 
-// Function to insert a profile into the database and generate embeddings
+
+
+}
 async function insertProfileWithEmbeddings(profile) {
   const client = new MongoClient(
     "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp",
@@ -158,3 +152,95 @@ async function main() {
 }
 
 main().catch(console.error);
+
+
+// Function to generate a new profile
+// function generateProfile() {
+//   return {
+//     firstName: "Rajesh",
+//     lastName: "Kumar",
+//     email: "rajesh.kumar@example.com",
+//     phoneNumber: "+919876543219",
+//     profilePicture: "https://example.com/rajesh-kumar-picture.jpg",
+//     summary: "DevOps Engineer with expertise in Docker and Kubernetes.",
+//     location: "Hyderabad, Telangana",
+//     experience: [
+//       {
+//         title: "DevOps Engineer",
+//         company: "DevOps Solutions",
+//         startDate: "2014-01-01",
+//         endDate: "2023-01-01",
+//         description:
+//           "Managed CI/CD pipelines and containerized applications using Docker and Kubernetes.",
+//         current: false,
+//       },
+//     ],
+//     education: [
+//       {
+//         institution: "NIT Warangal",
+//         degree: "Bachelor of Technology in Computer Science",
+//         fieldOfStudy: "Software Engineering",
+//         startDate: "2009-01-01",
+//         endDate: "2013-01-01",
+//         description: "Graduated with honors.",
+//       },
+//     ],
+//     skills: [
+//       {
+//         name: "Docker",
+//         proficiency: "Expert",
+//       },
+//       {
+//         name: "Kubernetes",
+//         proficiency: "Expert",
+//       },
+//       {
+//         name: "Ansible",
+//         proficiency: "Advanced",
+//       },
+//     ],
+//     certifications: [
+//       {
+//         name: "Certified Kubernetes Administrator",
+//         issuer: "CNCF",
+//         date: "2019-06-01",
+//       },
+//     ],
+//     projects: [
+//       {
+//         name: "Microservices Deployment",
+//         description:
+//           "Deployed microservices architecture using Docker and Kubernetes.",
+//         url: "https://microservices-deployment.com",
+//         startDate: "2019-01-01",
+//         endDate: "2019-12-31",
+//       },
+//     ],
+//     languages: [
+//       {
+//         name: "English",
+//         proficiency: "Native",
+//       },
+//       {
+//         name: "Hindi",
+//         proficiency: "Native",
+//       },
+//     ],
+//     interests: ["DevOps", "Docker", "Kubernetes"],
+//     socialMedia: [
+//       {
+//         platform: "LinkedIn",
+//         url: "https://www.linkedin.com/in/rajesh-kumar",
+//       },
+//       {
+//         platform: "GitHub",
+//         url: "https://github.com/rajesh-kumar",
+//       },
+//     ],
+//     visibility: {
+//       profile: true,
+//       email: false,
+//       phoneNumber: false,
+//     },
+//   };
+// }
