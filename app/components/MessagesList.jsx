@@ -1,29 +1,109 @@
 /* eslint-disable @next/next/no-img-element */
 const MessagesList = ({ messages }) => {
-
   return (
     <div className="flex flex-col space-y-4 overflow-y-auto text-white">
-      {messages.map((message, index) => (
-        <div key={index} className={`p-4 rounded-md ${message.sender === 'user' ? 'bg-gray-700' : 'bg-gray-500'}`}>
-          {message.text}
+      {messages.map((message) => (
+        <div
+          key={message._id} // Use a unique identifier like _id
+          className={`p-4 ${
+            message.sender === "user"
+              ? "text-gray-100 text-3xl w-[100%] self-center mt-8"
+              : "bg-transparent"
+          }`}
+        >
+          <div className="flex justify-start font-bold">{message.text}</div>
           {message.profiles && (
-            <div className="mt-4 space-y-6">
-              <h3 className="text-lg font-bold">Matching Profiles:</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-6 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
                 {message.profiles.map((profile, idx) => (
-                  <div key={idx} className="border-2 rounded-md p-4 hover:shadow-lg transition duration-300 ease-in-out">
-                    <img src="https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png" alt={`${profile.firstName} ${profile.lastName}`} className="w-32 h-32 rounded-full mx-auto mb-4" />
-                    <h4 className="text-xl font-semibold">{`${profile.firstName} ${profile.lastName}`}</h4>
-                    <p className="text-gray-300">{profile.summary}</p>
-                    <div className="mt-4 space-y-2">
-                      <p><span className="font-semibold">Location:</span> {profile.location}</p>
-                      <p><span className="font-semibold">Email:</span> {profile.email}</p>
-                      <p><span className="font-semibold">Phone:</span> {profile.phoneNumber}</p>
+                  <div
+                    key={idx}
+                    className=" bg-gray-700 rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
+                    // className="border border-[#D3CEDC] bg-gray-700 rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
+                  >
+                    <div className="flex gap-5 px-8 pt-8">
+                      <img
+                        src={profile.profilePicture}
+                        alt={`${profile.firstName} ${profile.lastName}`}
+                        className="w-32 h-32 rounded-xl mx-auto"
+                      />
+                      <div>
+                        <h4 className="text-2xl font-extrabold text-white">{`${profile.firstName} ${profile.lastName}`}</h4>
+                        <p>
+                          <span className="font-light">Location:</span>{" "}
+                          <span className="font-bold">{profile.location}</span>
+                        </p>
+                      </div>
                     </div>
-                    <div className="mt-4 flex space-x-2 ">
-                      {profile.socialMedia.map((social, idx) => (
-                        <a key={idx} href={social.url} target="_blank" rel="noopener noreferrer" className="text-blue-200 hover:underline bg-blue-500 p-2 rounded-xl">{social.platform}</a>
-                      ))}
+                    <p className="text-gray-300 text-lg px-8 pt-6 pb-6">
+                      {profile.summary}
+                    </p>
+                    {/* <div className="bg-slate-900 border-t-2 border-opacity-40 border-[#D3CEDC] rounded-xl"> */}
+                    <div className="bg-slate-900 mx-4 mb-4 rounded-3xl">
+                      {/* <div className="mt-2 space-y-2 p-6">
+                        <p>
+                          <span className="font-semibold">Email:</span>{" "}
+                          {profile.email}
+                        </p>
+                        <p>
+                          <span className="font-semibold">Phone:</span>{" "}
+                          {profile.phoneNumber}
+                        </p>
+                      </div> */}
+                      <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
+                        <span className="text-xl font-bold">Strengths:</span>
+                        <br></br>
+                        {profile.interests.map((interest, index) => (
+                          <span
+                            key={index}
+                            className="inline-block justify-start bg-[#5013AF] text-white px-4 mr-2 mt-2 py-2 rounded-full text-sm font-semibold"
+                          >
+                            {interest}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="gap-2 space-y-2 p-6">
+                        <span className="text-xl font-bold">
+                          {profile.firstName} is fluent in:
+                        </span>
+                        <br></br>
+                        {profile.languages.map((language, index) => (
+                          <span
+                            key={index}
+                            className="inline-block justify-start bg-[#5013AF] text-white px-4 mr-2 mt-2 py-2 rounded-full text-sm font-semibold"
+                          >
+                            {language.name}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="flex items-center space-x-2 px-8 py-4">
+                        <span className="font-normal text-lg mr-2">find them on: </span>
+                        {profile.socialMedia.map((social, idx) => (
+                          <a
+                            key={idx}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-200 hover:underline bg-[#5013AF] p-2 mr-2 rounded-xl"
+                          >
+                            {social.platform === "LinkedIn" ? (
+                              <img
+                                src="/linkedin.png"
+                                alt="LinkedIn"
+                                className="w-6 h-6"
+                              />
+                            ) : social.platform === "GitHub" ? (
+                              <img
+                                src="/github.png"
+                                alt="GitHub"
+                                className="w-6 h-6"
+                              />
+                            ) : (
+                              social.platform
+                            )}
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 ))}
