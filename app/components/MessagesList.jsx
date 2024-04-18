@@ -14,7 +14,7 @@ const MessagesList = ({ messages }) => {
           <div className="flex justify-start font-bold">{message.text}</div>
           {message.profiles && (
             <div className="space-y-6 ">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {message.profiles.map((profile, idx) => (
                   <div
                     key={idx}
@@ -84,7 +84,7 @@ const MessagesList = ({ messages }) => {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-200 hover:underline bg-[#5013AF] p-2 mr-2 rounded-xl"
+                            className="text-blue-200 hover:underline border-[#845AC7] bg-[#5013AF] border-2 hover:scale-105 p-2 mr-2 rounded-xl"
                           >
                             {social.platform === "LinkedIn" ? (
                               <img

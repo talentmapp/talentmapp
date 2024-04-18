@@ -23,7 +23,7 @@ const MessageForm = ({ onSendMessage }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           class="block mx-1 py-3 pl-4 w-[90%] text-sm rounded-full bg-gray-800 border-gray-600 placeholder-gray-400 text-white"
-          placeholder="Your message..."
+          placeholder='" Find me a Full-Stack Developer with experience in developing E-commerce platforms "'
         ></input>
         <button
           type="submit"
