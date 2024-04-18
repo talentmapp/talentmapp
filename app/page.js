@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import MessageForm from "./components/MessageForm";
 import MessagesList from "./components/MessagesList";
+import Link from "next/link";
 
 export default function Home() {
   const [messages, setMessages] = useState([]);
@@ -27,7 +28,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({message}),
+        body: JSON.stringify({ message }),
       });
 
       setLoading(false); // Set loading to false after receiving response
@@ -57,14 +58,12 @@ export default function Home() {
   return (
     <div className="flex flex-col h-screen bg-black font-jakarta">
       <div className="flex justify-between items-center w-[90%] py-6 ">
-        <img
-          src="/tm-small-logo.png"
-          alt="logo"
-          className="w-[7%] ml-20"
-        />
-        <div className="">
-          <span className="font-extrabold px-4 py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] flex justify-center items-center rounded-lg"> 🚧 &nbsp; EARLY BUILD &nbsp; 🚧 </span>
-        </div>
+        <Link href="/">
+          <img src="/tm-small-logo.png" alt="logo" className="w-[7%] ml-20" />
+        </Link>
+          <span className="font-extrabold w-[25%] py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+            🚧 &nbsp; EARLY BUILD &nbsp; 🚧
+          </span>
       </div>
       <div className="flex-grow px-20 pb-16">
         {loading ? (
