@@ -40,7 +40,6 @@ async function generateEmbeddings(text) {
       }
     );
     const embedding = response.data.data[0].embedding;
-    console.log(embedding);
     return embedding;
   } catch (error) {
     console.error(error);

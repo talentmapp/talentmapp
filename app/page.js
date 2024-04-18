@@ -30,7 +30,6 @@ export default function Home() {
         body: JSON.stringify({message}),
       });
 
-      console.log(message)
       setLoading(false); // Set loading to false after receiving response
 
       if (!response.ok) {
