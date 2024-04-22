@@ -57,15 +57,26 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen bg-black font-jakarta">
-      <div className="flex justify-between items-center w-[90%] py-6 ">
-        <Link href="/">
-          <img src="/tm-small-logo.png" alt="logo" className="w-[7%] ml-20" />
-        </Link>
-          <span className="font-extrabold w-[25%] py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            🚧 &nbsp; EARLY BUILD &nbsp; 🚧
-          </span>
+      <div className="lg:hidden flex flex-col h-full items-center justify-center">
+        <img src="/tm-small-logo.png" alt="logo" className="w-[30%]" />
+        <span className="text-white text-center">
+          please open this site on a{" "}
+          <span className="text-purple-400">bigger screen</span>
+        </span>
       </div>
-      <div className="flex-grow px-20 pb-16">
+      <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
+        <Link href="/">
+          <img
+            src="/tm-small-logo.png"
+            alt="logo"
+            className="w-[12%] xl:w-[7%] ml-20"
+          />
+        </Link>
+        <span className="font-extrabold w-[50%] xl:w-[25%] py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          🚧 &nbsp; EARLY BUILD &nbsp; 🚧
+        </span>
+      </div>
+      <div className="hidden lg:flex flex-grow px-20 pb-16">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <img src="/searching.gif" alt="Searching..." className="w-[30%]" />
@@ -76,7 +87,7 @@ export default function Home() {
       </div>
       <div
         ref={messagesEndRef}
-        className="bg-gray-950 border-t border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
+        className="hidden lg:block bg-gray-950 border-t border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
       >
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
