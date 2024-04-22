@@ -72,11 +72,13 @@ export default function Home() {
             className="w-[12%] xl:w-[7%] ml-20"
           />
         </Link>
-        <span className="font-extrabold w-[50%] xl:w-[25%] py-3 border-[#dfdede] border-opacity-70 bg-amber-950 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          🚧 &nbsp; EARLY BUILD &nbsp; 🚧
+        <span className="font-extrabold w-[50%] xl:w-[20%] py-3 border-[#dfdede] border-opacity-70 bg-purple-950 transition-all hover:bg-cyan-900 hover:scale-105 hover:border-3 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+        <a href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn" target="_blank" rel="noopener noreferrer">
+          JOIN WAITLIST
+        </a>
         </span>
       </div>
-      <div className="hidden lg:flex flex-grow px-20 pb-16">
+      <div className="hidden lg:block flex-grow px-20 pb-16">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <img src="/searching.gif" alt="Searching..." className="w-[30%]" />

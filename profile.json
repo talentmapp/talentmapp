@@ -1,0 +1,227 @@
+{
+    "public_identifier": "garrytan",
+    "profile_pic_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/garrytan/profile?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20240422%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20240422T190203Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=25ccaecea975c263b6d672a11e404a9b5336f78be75e084f7f952d6f4a090204",
+    "background_cover_image_url": "https://s3.us-west-000.backblazeb2.com/proxycurl/person/garrytan/cover?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=0004d7f56a0400b0000000001%2F20240422%2Fus-west-000%2Fs3%2Faws4_request&X-Amz-Date=20240422T190203Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=ae2976afb9629a78309905bec1559a3742dcba1570ea3a1013c12f32adad4172",
+    "first_name": "Garry",
+    "last_name": "Tan",
+    "full_name": "Garry Tan",
+    "follower_count": 174140,
+    "occupation": "President, CEO, and Group Partner at Y Combinator",
+    "headline": "President & CEO, Y Combinator",
+    "summary": "President & CEO of Y Combinator. Y Combinator funds hundreds of companies per year via web-based application and has an acceptance rate of 1%, lower than any other selective process of its kind. YC has funded 90 companies worth a billion dollars or more, each at the earliest possible stage (usually a few people even before launch), and about 10 to 20 companies per year that go through the program will go on to product market fit and become a Unicorn. Over $600B in market value has been created so far, and counting. Before becoming CEO, I was a partner at YC 2011-2015 and built major software including Bookface and Demo Day realtime video. \n\nI'm a designer, PM & engineer turned investor and helper to startups.\n\nSubscribe to my YouTube channel at youtube.com/garrytan\n\nFounder, board partner and advisor at Initialized Capital, an early stage venture capital fund that was earliest in Coinbase and Instacart. Previously managing partner where we grew it to $3.2B in assets under management and startups worth more than $200 billion in market value in 10 years. Forbes Midas List Top 100 Global VC 2019-2023, recently #6.\n\nBefore that, I cofounded Posterous and helped build it to a world-class website used by millions. (Acquired by Twitter) I also cofounded the engineering team for Palantir Technology's quant finance analysis platform, and designed the current Palantir logo and wordmark.\n\nI love building things.\n\nSpecialties: user-centered design, project management, software engineering, interaction design, visual design, entrepreneurship, bootstrapping, branding, design, technical architecture, scaling",
+    "country": "US",
+    "country_full_name": "United States of America",
+    "city": "San Francisco",
+    "state": "California",
+    "experiences": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2023
+            },
+            "ends_at": null,
+            "company": "Initialized Capital",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/initialized-capital/",
+            "title": "Board Partner & Advisor",
+            "description": null,
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/D560BAQGpbvw3n3Ousg/company-logo_400_400/0/1667398712959/initialized_capital_logo?e=1721865600&v=beta&t=25ntuDUbZXuJyI4KxQk5N2O-UZgGXdE7rjR7EUTT5Tk"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2012
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 12,
+                "year": 2022
+            },
+            "company": "Initialized Capital",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/initialized-capital/",
+            "title": "Founder & Managing Partner",
+            "description": "Lead investor in early stage startups. Was early (pre-seed, seed, Series A) investor in founders who have created more than $200B in market value in 9 years.\n\nWe are a team of partners with deep expertise in product, engineering, marketing and design, with a fully institutional LP base and over $3.2B in assets under management.\n\nInvestments include Coinbase (NASDAQ: COIN), Instacart, OpenDoor (NASDAQ: OPEN), Flexport, Cruise Automation (acq by GM), Plangrid (acq by Autodesk), Rippling, Patreon, Bison Trails (acq by Coinbase), HelloSign (acq by Dropbox), EasyPost, Flock Safety, Envoy, Blend Labs (NYSE: BLND), Color Genomics, Ridecell, Lever (acq by Employ), Sift, Lob, Heap, Torch.io, Athelas, Drip Capital, Paperspace (acq by Digital Ocean), Empower Financial, Clipboard Health and many more. \n\nHands-on help with product design, strategy, interaction design, visual design, and hiring.",
+            "location": "San Francisco Bay Area",
+            "logo_url": "https://media.licdn.com/dms/image/D560BAQGpbvw3n3Ousg/company-logo_400_400/0/1667398712959/initialized_capital_logo?e=1721865600&v=beta&t=25ntuDUbZXuJyI4KxQk5N2O-UZgGXdE7rjR7EUTT5Tk"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 3,
+                "year": 2013
+            },
+            "ends_at": null,
+            "company": "Posthaven",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/posthaven/",
+            "title": "Cofounder",
+            "description": "Easy, simple blogs for $5/mo forever. This is a replacement for Posterous.com, but now one that we intend to charge money for, and keep online for as long as possible. We needed a replacement, and other people do too.",
+            "location": "San Francisco, CA",
+            "logo_url": "https://media.licdn.com/dms/image/C4E0BAQH3BW-IGP02gw/company-logo_400_400/0/1630570761075/posthaven_logo?e=1721865600&v=beta&t=ocLE3o94WfY1gH-3Wpuc3fM_HudQuNxymrjrRb3mHBo"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2023
+            },
+            "ends_at": null,
+            "company": "Y Combinator",
+            "company_linkedin_profile_url": "https://www.linkedin.com/school/y-combinator/",
+            "title": "President, CEO, and Group Partner",
+            "description": null,
+            "location": "San Francisco, California, United States",
+            "logo_url": "https://media.licdn.com/dms/image/C4D0BAQGPzdBPNxrmEg/company-logo_400_400/0/1673555093250/y_combinator_logo?e=1721865600&v=beta&t=hzrpQAAvjJAFzpto8CKyFbOT6SqqRqYRtIDM_-2FXb4"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 12,
+                "year": 2010
+            },
+            "ends_at": {
+                "day": 30,
+                "month": 11,
+                "year": 2015
+            },
+            "company": "Y Combinator",
+            "company_linkedin_profile_url": "https://www.linkedin.com/school/y-combinator/",
+            "title": "Partner",
+            "description": "Helped over 700 YC startups over the past 5 years (10 batches) build tomorrow's world-changing companies. Previously designer-in-residence.\n\nWrote key software at YC, including the internal alumni social network and forum Bookface (used by 1 in 3 YC alums every day) and the Demo Day website with realtime video updates.",
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4D0BAQGPzdBPNxrmEg/company-logo_400_400/0/1673555093250/y_combinator_logo?e=1721865600&v=beta&t=hzrpQAAvjJAFzpto8CKyFbOT6SqqRqYRtIDM_-2FXb4"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 2008
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 1,
+                "year": 2011
+            },
+            "company": "Posterous.com",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/posterous/",
+            "title": "Cofounder",
+            "description": "Dead simple posting of everything online using email. Attach documents, photos, music, video, and files of any kind and we'll transcode it to the most web friendly format and host it for you too. Autopost to facebook, twitter, flickr, and all your blogs.\n\nI ran full stack design and development: from product definition, interaction design, visual design to software engineering, scaling, database management, systems administration. I designed and shipped major parts of the app including text processing, post editor, customizable blog theme engine, embed expansion, realtime and digest email notifications and subscriptions, and bookmarklet. \n\nVaryingly over the years I had to wear all the other hats too -- tech architecture, scaling and optimization, customer support, spam and abuse eradication, branding, PR. It was a blast.\n\nLaunched in July of 2008 and at peak was a Quantcast Top 200 site. We grew 10x in 2009 and 2.5x in 2010. Acquired by Twitter.\n\nPosterous has been hailed in the design community for its focus on no-setup no-signup first time experience, and has been featured in Designing Social Interfaces published by O'Reilly and The Smashing Book by Smashing Magazine. \n\n\"What might be the simplest blogging platform to date.\" --Michael Arrington, Techcrunch\n\n\"In terms of making things really dead simple Posterous beats every other service or app I have ever used. We can learn from them.\" -- Werner Vogels, CTO Amazon\n\n\"The quickest and easiest setup I've ever seen.\" --Huffington Post",
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4E0BAQFKitM4NFGgbw/company-logo_400_400/0/1631323067100?e=1721865600&v=beta&t=T8LVetfxT8LZJ9fflFQJ9YUyMLNNrbbgWAtTfphV990"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 9,
+                "year": 2005
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 10,
+                "year": 2007
+            },
+            "company": "Palantir Technologies",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/palantir-technologies/",
+            "title": "Lead Engineer, Designer",
+            "description": "Cofounded v1 product/team for Palantir's financial analysis product. Joined as employee #10.\n\nDefined product vision and design features for 14 engineers working on a next-generation financial analysis platform, now actively deployed to top hedge funds and banks around the world in partnership with Thomson Reuters. Hacked the first few early iterations of the software from scratch. \n\nDesigned the current Palantir mark and logo.",
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4D0BAQGxa0XGCRty6A/company-logo_400_400/0/1644957302590/palantir_technologies_logo?e=1721865600&v=beta&t=2kuZ5LjBsaEY65h5g_SXbvEtYL1HTcYmXm8ULoDVZAQ"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 7,
+                "year": 2003
+            },
+            "ends_at": {
+                "day": 30,
+                "month": 9,
+                "year": 2005
+            },
+            "company": "Microsoft",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/microsoft/",
+            "title": "Program Manager",
+            "description": "Program management of ActiveSync 4.0, 4.1, 4.2 and Windows Vista releases of Windows Mobile synchronization and device management software.",
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C560BAQE88xCsONDULQ/company-logo_400_400/0/1630652622688/microsoft_logo?e=1721865600&v=beta&t=tBwsEKEuwpNB1Dzvnr-whieatv6MKlNAe8MFe9I099Q"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 6,
+                "year": 2002
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 1,
+                "year": 2003
+            },
+            "company": "Sun Microsystems",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/sun-microsystems_1062/",
+            "title": "Software Engineer Intern",
+            "description": null,
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C4D0BAQG8U0EaYqTApg/company-logo_400_400/0/1631306441139?e=1721865600&v=beta&t=qvkWiVMNbuIFyDky4jQlIR_tpARplAeKM_HJel79ZAE"
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 6,
+                "year": 2000
+            },
+            "ends_at": {
+                "day": 30,
+                "month": 9,
+                "year": 2000
+            },
+            "company": "TheMan.com",
+            "company_linkedin_profile_url": null,
+            "title": "Software Engineer Intern",
+            "description": null,
+            "location": null,
+            "logo_url": null
+        },
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 6,
+                "year": 1998
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 1,
+                "year": 2000
+            },
+            "company": "Sapient",
+            "company_linkedin_profile_url": "https://www.linkedin.com/company/sapient/",
+            "title": "Software Engineer Intern",
+            "description": "Worked during high school and college, part time during school, full time during breaks.\n\nWeb application development for clients such premiere brands as Caterpillar, PowerBar, Specialized Mountain Bikes, Esprit, and Virgin Megastore.\n\nPerl web application development, linux administration, and build system integration.",
+            "location": null,
+            "logo_url": "https://media.licdn.com/dms/image/C560BAQHYEF-qq5s_pA/company-logo_400_400/0/1630567352397/sapient_logo?e=1721865600&v=beta&t=KKKiuq5U0Xml6ltu8H8luU8Cmu-Av0WRDvJL54UZBp4"
+        }
+    ],
+    "education": [
+        {
+            "starts_at": {
+                "day": 1,
+                "month": 1,
+                "year": 1999
+            },
+            "ends_at": {
+                "day": 31,
+                "month": 1,
+                "year": 2003
+            },
+            "field_of_study": "Computer Systems Engineering",
+            "degree_name": "BS",
+            "school": "Stanford University",
+            "school_linkedin_profile_url": null,
+            "description": null,
+            "logo_url": "https://media.licdn.com/dms/image/C560BAQHr9suxyJBXMw/company-logo_400_400/0/1635534378870/stanford_university_logo?e=1721865600&v=beta&t=_XxR3Xi-HzJ3eNKreqRD2wfWpdSTd-ViU2rwzWatUgY",
+            "grade": null,
+            "activities_and_societies": "Asia Pacific Student Entrepreneurship Society - Stanford Chapter, Stanford Consulting, Phi Kappa Psi Fraternity"
+        }
+    ],
+    "languages": []
+}

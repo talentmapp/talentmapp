@@ -5,7 +5,7 @@ const MessagesList = ({ messages }) => {
       {messages.length === 0 ? (
         <div className="z-100 flex h-full mt-[8%] items-center tracking-tight justify-center text-7xl font-light text-slate-300">
           Find <span className="font-bold mx-4">Your</span> People
-          <img src="/people.gif" alt="Searching..." className="w-[25%] ml-5" />
+          <img src="/people.gif" alt="Searching..." className="w-[25%] self-center ml-5" />
         </div>
       ) : (
         messages.map((message) => (
