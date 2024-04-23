@@ -6,8 +6,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Talentmapp Search",
-  description: "Bridge the gap between talent and opportunity.",
+  title: "talentmapp",
+  description: "Bridge the gap between talent and opportunity, and find YOUR people",
 };
 
 export default function RootLayout({ children }) {

@@ -31,7 +31,7 @@ const MessagesList = ({ messages }) => {
                   {message.profiles.map((profile, idx) => (
                     <div
                       key={idx}
-                      className=" bg-gray-800 flex flex-col justify-between rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
+                      className=" bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                       // className="border border-[#D3CEDC] bg-gray-700 rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
                     >
                       <div className="flex gap-5 px-8 pt-8">
@@ -53,7 +53,7 @@ const MessagesList = ({ messages }) => {
                       <p className="text-gray-300 text-md xl:text-lg px-8 pt-6 pb-6">
                         {profile.summary}
                       </p>
-                      <div className="flex-1 flex flex-col justify-between max-h-[60%] xl:justify-around bg-slate-900 mx-4 mb-4 rounded-3xl">
+                      <div className="flex-1 flex flex-col justify-between max-h-[75%] xl:justify-around bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>
                           <br></br>
