@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const About = () => {
   return (
-    <div className=" text-white font-mono">
+    <div className=" text-white font-mono mb-12">
       <Link href="/">
         <span className="font-bold mx-28 border-2 border-opacity-60 p-3 mt-20 hover:text-purple-200 hover:border-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
           back to search
@@ -25,12 +25,12 @@ const About = () => {
             <div className="p-10 text-xl flex flex-col">
               <span>finding people is easy.</span>
               <span className="pt-2">
-                finding the right people? much harder
+                finding the right people? not that easy
               </span>
               <span className="pt-8 font-medium gap-2">
                 in the age of levying AI&apos;s insights to drive our everyday
-                tasks, finding people is still something we let algorthims do
-                without our knowledge.
+                tasks, finding people is still something we let algorithms do
+                without our knowledge via personalized &quot;reccomendations&quot;.
               </span>
               <span className="pt-5 font-bold font-mono gap-2">
                 talentmapp takes that algorithm and puts it in your hands.

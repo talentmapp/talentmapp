@@ -14,8 +14,13 @@ const MessagesList = ({ messages }) => {
   return (
     <div className="flex flex-col space-y-4 overflow-y-auto text-white">
       {messages.length === 0 ? (
-        <div className="z-100 flex h-full mt-[8%] items-center tracking-tight justify-center text-7xl font-light text-slate-300">
-          Find <span className="font-bold mx-4">Your</span> People
+        <div className="z-100 flex h-full mt-[8%] items-center  justify-center text-7xl font-light text-slate-300">
+          <div className="flex flex-col">
+            <div className="tracking-tight">Find <span className="font-bold mx-4">Your</span> People</div>
+            <span className="text-lg mt-3 text-slate-400">
+              unfamiliar with talentmapp? check out <span className="text-slate-500 font-bold border-b-[0.5px] border-opacity-60 border-slate-200">learn more</span>
+            </span>
+          </div>
           <img
             src="/people.gif"
             alt="Searching..."
@@ -91,15 +96,14 @@ const MessagesList = ({ messages }) => {
                           </button>
                         )}
 
-                      {
-                        (expandedProfiles[idx]) && (
-                          <button
-                            className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
-                            onClick={() => toggleProfileExpand(idx)}
-                          >
-                            Collapse
-                          </button>
-                        )}
+                      {expandedProfiles[idx] && (
+                        <button
+                          className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
+                          onClick={() => toggleProfileExpand(idx)}
+                        >
+                          Collapse
+                        </button>
+                      )}
 
                       <div className="flex-1 flex flex-col justify-between max-h-[75%] xl:justify-around bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
