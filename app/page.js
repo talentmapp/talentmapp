@@ -57,12 +57,21 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen bg-black font-jakarta">
-      <div className="lg:hidden flex flex-col h-full items-center justify-center">
-        <img src="/tm-small-logo.png" alt="logo" className="w-[30%]" />
+      <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
         <span className="text-white text-center">
           please open this site on a{" "}
           <span className="text-purple-400">bigger screen</span>
         </span>
+        <div className="flex items-center justify-center">
+          <img src="/tm-small-logo.png" alt="logo" className="w-[20%]" />
+          <span className="font-bold w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+            <a
+              href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn"
+            >
+              join waitlist
+            </a>
+          </span>
+        </div>
       </div>
       <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
         <Link href="/">
@@ -73,11 +82,7 @@ export default function Home() {
           />
         </Link>
         <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a
-            href="/about"
-          >
-            learn more.
-          </a>
+          <a href="/about">learn more.</a>
         </span>
         <span className="font-bold w-[50%] xl:max-w-[10%] py-3 border-[#dfdede] border-opacity-70 hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
           <a
