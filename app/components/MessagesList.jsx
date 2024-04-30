@@ -1,11 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
+
 const MessagesList = ({ messages }) => {
+  const [expandedProfiles, setExpandedProfiles] = useState({});
+
+  const toggleProfileExpand = (idx) => {
+    setExpandedProfiles((prevState) => ({
+      ...prevState,
+      [idx]: !prevState[idx],
+    }));
+  };
+
   return (
     <div className="flex flex-col space-y-4 overflow-y-auto text-white">
       {messages.length === 0 ? (
         <div className="z-100 flex h-full mt-[8%] items-center tracking-tight justify-center text-7xl font-light text-slate-300">
           Find <span className="font-bold mx-4">Your</span> People
-          <img src="/people.gif" alt="Searching..." className="w-[25%] self-center ml-5" />
+          <img
+            src="/people.gif"
+            alt="Searching..."
+            className="w-[25%] self-center ml-5"
+          />
         </div>
       ) : (
         messages.map((message) => (
@@ -37,22 +52,55 @@ const MessagesList = ({ messages }) => {
                       <div className="flex gap-5 px-8 pt-8">
                         <img
                           src={profile.profilePicture}
+                          onError={(e) => {
+                            e.target.onerror = null; // Prevent infinite loop
+                            e.target.src =
+                              "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
+                          }}
                           alt={`${profile.firstName} ${profile.lastName}`}
                           className="w-32 h-32 rounded-xl mx-auto"
                         />
                         <div>
                           <h4 className="text-xl xl:text-2xl font-extrabold text-white">{`${profile.firstName} ${profile.lastName}`}</h4>
                           <p>
-                            <span className="font-light text-sm xl:text-base">Location:</span>{" "}
+                            <span className="font-light text-sm xl:text-base">
+                              Location:
+                            </span>{" "}
                             <span className="font-bold text-sm ">
                               {profile.location}
                             </span>
                           </p>
                         </div>
                       </div>
-                      <p className="text-gray-300 text-md xl:text-lg px-8 pt-6 pb-6">
+                      <div
+                        className={`text-gray-300 text-md xl:text-lg px-8 pt-6 pb-4 ${
+                          expandedProfiles[idx]
+                            ? ""
+                            : "max-h-[6rem] overflow-hidden"
+                        }`}
+                      >
                         {profile.summary}
-                      </p>
+                      </div>
+                      {profile.summary.split(" ").length > 15 &&
+                        !expandedProfiles[idx] && (
+                          <button
+                            className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
+                            onClick={() => toggleProfileExpand(idx)}
+                          >
+                            Read more
+                          </button>
+                        )}
+
+                      {
+                        (expandedProfiles[idx]) && (
+                          <button
+                            className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
+                            onClick={() => toggleProfileExpand(idx)}
+                          >
+                            Collapse
+                          </button>
+                        )}
+
                       <div className="flex-1 flex flex-col justify-between max-h-[75%] xl:justify-around bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>

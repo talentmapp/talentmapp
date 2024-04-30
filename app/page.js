@@ -72,10 +72,21 @@ export default function Home() {
             className="w-[12%] xl:w-[7%] ml-20"
           />
         </Link>
-        <span className="font-extrabold w-[50%] xl:w-[20%] py-3 border-[#dfdede] border-opacity-70 bg-purple-950 transition-all hover:bg-cyan-900 hover:scale-105 hover:border-3 border-2 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-        <a href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn" target="_blank" rel="noopener noreferrer">
-          JOIN WAITLIST
-        </a>
+        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <a
+            href="/about"
+          >
+            learn more.
+          </a>
+        </span>
+        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 border-[#dfdede] border-opacity-70 hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <a
+            href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            join waitlist
+          </a>
         </span>
       </div>
       <div className="hidden lg:block flex-grow px-20 pb-16">
