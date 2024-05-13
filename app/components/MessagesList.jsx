@@ -81,7 +81,7 @@ const MessagesList = ({ messages }) => {
                         className={`text-gray-300 text-md xl:text-lg px-8 pt-6 pb-4 ${
                           expandedProfiles[idx]
                             ? ""
-                            : "max-h-[6rem] overflow-hidden"
+                            : "max-h-[8rem] overflow-hidden"
                         }`}
                       >
                         {profile.summary}
@@ -105,7 +105,7 @@ const MessagesList = ({ messages }) => {
                         </button>
                       )}
 
-                      <div className="flex-1 flex flex-col justify-between max-h-[75%] xl:justify-around bg-slate-900 mx-4 mb-4 rounded-3xl">
+                      <div className="flex-1 flex flex-col justify-between xl:justify-around h-56 bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>
                           <br></br>

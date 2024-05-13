@@ -5,9 +5,17 @@ import MessageForm from "./components/MessageForm";
 import MessagesList from "./components/MessagesList";
 import Link from "next/link";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
+import { signOut } from "@auth0/nextjs-auth0";
+
 export default function Home() {
+  const { user, error, isLoading } = useUser();
+
+  console.log(user)
+
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
 
   const messagesEndRef = useRef(null);
 
@@ -55,6 +63,18 @@ export default function Home() {
     }
   };
 
+  const handleLogout = () => {
+    signOut({ callbackUrl: "/" }); // Redirect to the home page after logout
+  };
+
+  const toggleLogout = () => {
+    setShowLogout((prevShowLogout) => !prevShowLogout);
+  };
+
+  const closeLogout = () => {
+    setShowLogout(false);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-black font-jakarta">
       <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
@@ -65,9 +85,7 @@ export default function Home() {
         <div className="flex items-center justify-center">
           <img src="/tm-small-logo.png" alt="logo" className="w-[20%]" />
           <span className="font-bold w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a
-              href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn"
-            >
+            <a href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn">
               join waitlist
             </a>
           </span>
@@ -93,6 +111,26 @@ export default function Home() {
             join waitlist
           </a>
         </span>
+        {!loading && user ? (
+          <div className="relative" onBlur={closeLogout}>
+            <img
+              src={user.picture}
+              alt="Profile"
+              className="rounded-full w-12 h-12 mx-5 cursor-pointer"
+              onClick={toggleLogout}
+              tabIndex="0" // Make the profile image focusable
+            />
+            {showLogout && (
+              <div className="absolute bottom-[-50px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
+                <a href="/api/auth/logout">Logout</a>
+              </div>
+            )}
+          </div>
+        ) : (
+          <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+            <a href="/api/auth/login">login</a>
+          </span>
+        )}
       </div>
       <div className="hidden lg:block flex-grow px-20 pb-16">
         {loading ? (
