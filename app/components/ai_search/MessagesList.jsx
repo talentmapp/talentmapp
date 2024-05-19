@@ -12,9 +12,9 @@ const MessagesList = ({ messages }) => {
   };
 
   return (
-    <div className="flex flex-col space-y-4 overflow-y-auto text-white">
+    <div className="flex flex-col space-y-4 overflow-y-auto text-white bg-black">
       {messages.length === 0 ? (
-        <div className="z-100 flex h-full mt-[8%] items-center  justify-center text-7xl font-light text-slate-300">
+        <div className="z-100 flex h-full mt-[8%] items-center justify-center text-7xl font-light text-slate-300">
           <div className="flex flex-col">
             <div className="tracking-tight">Find <span className="font-bold mx-4">Your</span> People</div>
             <span className="text-lg mt-3 text-slate-400">
@@ -22,7 +22,7 @@ const MessagesList = ({ messages }) => {
             </span>
           </div>
           <img
-            src="/people.gif"
+            src="ai_search/people.gif"
             alt="Searching..."
             className="w-[25%] self-center ml-5"
           />
@@ -46,8 +46,8 @@ const MessagesList = ({ messages }) => {
               </div>
             )}
             {message.profiles && (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6">
+              <div className="space-y-6 bg-black">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
                   {message.profiles.map((profile, idx) => (
                     <div
                       key={idx}
@@ -146,19 +146,19 @@ const MessagesList = ({ messages }) => {
                             >
                               {social.platform === "LinkedIn" ? (
                                 <img
-                                  src="/linkedin.png"
+                                  src="ai_search/linkedin.png"
                                   alt="LinkedIn"
                                   className="w-6 h-6"
                                 />
                               ) : social.platform === "GitHub" ? (
                                 <img
-                                  src="/github.png"
+                                  src="ai_search/github.png"
                                   alt="GitHub"
                                   className="w-6 h-6"
                                 />
                               ) : social.platform === "Behance" ? (
                                 <img
-                                  src="/Behance.png"
+                                  src="ai_search/Behance.png"
                                   alt="Behance"
                                   className="w-6 h-6"
                                 />

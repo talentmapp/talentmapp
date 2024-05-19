@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { useState, useEffect, useRef } from "react";
-import MessageForm from "./components/MessageForm";
-import MessagesList from "./components/MessagesList";
+import MessageForm from "./components/ai_search/MessageForm";
+import MessagesList from "./components/ai_search/MessagesList";
 import Link from "next/link";
 
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -76,14 +76,14 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black font-jakarta">
+    <div className="flex flex-col h-screen bg-black font-jakarta overscroll-none">
       <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
         <span className="text-white text-center">
           please open this site on a{" "}
           <span className="text-purple-400">bigger screen</span>
         </span>
         <div className="flex items-center justify-center">
-          <img src="/tm-small-logo.png" alt="logo" className="w-[20%]" />
+          <img src="ai_search/tm-small-logo.png" alt="logo" className="w-[20%]" />
           <span className="font-bold w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
             <a href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn">
               join waitlist
@@ -111,7 +111,7 @@ export default function Home() {
             join waitlist
           </a>
         </span>
-        {!loading && user ? (
+        {/* {!loading && user ? (
           <div className="relative" onBlur={closeLogout}>
             <img
               src={user.picture}
@@ -130,12 +130,12 @@ export default function Home() {
           <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
             <a href="/api/auth/login">login</a>
           </span>
-        )}
+        )} */}
       </div>
-      <div className="hidden lg:block flex-grow px-20 pb-16">
+      <div className="hidden bg-black lg:block flex-grow px-20 pb-16">
         {loading ? (
           <div className="flex justify-center items-center h-full">
-            <img src="/searching.gif" alt="Searching..." className="w-[30%]" />
+            <img src="ai_search/searching.gif" alt="Searching..." className="w-[30%]" />
           </div>
         ) : (
           <MessagesList messages={messages} />
