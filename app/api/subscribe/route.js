@@ -44,7 +44,7 @@ export async function POST(req) {
 
     // Send welcome email
     const data = {
-      from: 'Hey Talentmapper!',
+      from: 'Talentmapp <postmaster@mg.talentmapp.co>',
       to: email,
       subject: 'Welcome to Talentmapp',
       text: `Hello,\n\nWelcome to Talentmapp!\n\nThank you for subscribing to our newsletter.`,
