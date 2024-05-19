@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import NavBar from "./components/Navbar";
 import { Button, Link } from "@nextui-org/react";
-
 import Footer from "./components/Footer";
 
 const data = {
@@ -44,9 +43,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-white font-jakarta">
       <div className="bg-[#5013AF] h-12 w-full flex items-center justify-center relative">
-        <div className="">
+        <div className="flex items-center text-xs md:text-base justify-center w-full px-4 sm:px-8 md:px-16">
           <span className="text-[#DDD1F0] font-jakarta font-extralight">
-            For product announcements and exclusive insights.{" "}
+            For product announcements and exclusive insights.
           </span>
           <button
             onClick={scrollToFooter}
@@ -57,16 +56,16 @@ export default function Home() {
             Join Waitlist
           </button>
         </div>
-        <img src="banner-overlay.svg" alt="overlay" className="-z-1 absolute pointer-events-none" />
+        <img src="banner-overlay.svg" alt="overlay" className="object-cover object-left md:object-contain -z-1 h-full absolute" />
       </div>
       <NavBar ref={footerRef} />
       {/* SECTION 1 */}
-      <div className="flex items-center justify-between w-full px-16">
-        <div className="w-[50%] py-24  flex flex-col text-6xl font-bold tracking-tight">
-          <span className=" ">Discover the Right</span>
+      <div className="flex flex-col md:flex-row items-center justify-between w-full px-4 sm:px-8 md:px-12 lg:px-16">
+        <div className="w-full md:w-1/2 py-12 md:py-24 flex flex-col text-center md:text-left text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
+          <span className="">Discover the Right</span>
           <span className="text-[#5013AF]">Connections</span>
           <span>Faster Than Ever</span>
-          <span className="font-light text-lg mt-3 w-4/5 tracking-normal">
+          <span className="font-light text-base sm:text-lg mt-5 md:mt-3 px-12 md:px-0 md:w-4/5 tracking-normal">
             Harness the power of AI to refine and expedite your professional
             networking.
           </span>
@@ -75,34 +74,34 @@ export default function Home() {
             href="/search"
             size="lg"
             radius="sm"
-            className="bg-[#5013AF] w-1/3 mt-9 tracking-normal text-white"
+            className="bg-[#5013AF] w-1/2 md:w-1/3 mt-8 md:mt-9 tracking-normal text-white self-center md:self-start"
           >
             Start Your Search
           </Button>
         </div>
-        <div className="w-[50%]">
-          <img src="hero-image.png" alt="hero" className="self-end" />
+        <div className="w-11/12 md:w-1/2">
+          <img src="hero-image.png" alt="hero" className="self-center md:self-end" />
         </div>
       </div>
       {/* SECTION 2 */}
-      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-52">
-        <span className="text-4xl font-semibold w-1/2">
+      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-32 xl:mt-52">
+        <span className="text-2xl xl:text-4xl font-semibold sm:w-1/2">
           Take the next step & get results faster
         </span>
-        <div className="flex gap-14 text-left justify-between mt-16 w-full">
+        <div className="grid grid-rows-3 md:flex md:justify-between gap-5 xl:gap-14 text-left mt-16 w-5/6 md:w-full">
           {data.cards.map((card, index) => (
             <div
               key={index}
-              className="flex flex-col justify-between bg-white shadow-2xl shadow-[#9986b6] w-1/3 p-5 rounded-xl"
+              className="flex flex-col justify-between bg-white shadow-xl md:shadow-2xl shadow-[#baa8d5] md:w-1/3 p-5 rounded-xl"
             >
               <img
                 src={card.image}
                 alt={card.header}
                 className="w-1/4 h-auto"
               />
-              <span className="text-4xl font-semibold">{card.header}</span>
+              <span className="text-2xl xl:text-4xl font-semibold">{card.header}</span>
 
-              <span className="text-lg font-light mt-2">{card.content}</span>
+              <span className="text-base xl:text-lg font-light mt-2">{card.content}</span>
               <Button
                 as={Link}
                 href="#"
@@ -116,13 +115,10 @@ export default function Home() {
           ))}
         </div>
       </div>
-      {/* <div className="mt-32 w-full ">
-          <ProgressSlider items={items} />
-        </div> */}
-      <div className="flex items-center mt-32 w-11/12 bg-[#ede7f9] rounded-lg">
-        <div className="flex flex-col py-24 px-14 w-[50%]">
-          <span className="text-5xl font-bold">Get started!</span>
-          <span className="mt-3 text-lg font-light">
+      <div className="flex flex-col md:flex-row items-center mt-32 w-9/12 md:w-11/12 bg-[#ede7f9] rounded-lg">
+        <div className="flex flex-col my-12 xl:my-24 px-14 md:w-1/2">
+          <span className="text-3xl md:text-4xl xl:text-5xl font-bold">Get started!</span>
+          <span className="mt-3 text-base xl:text-lg font-light">
             Are you ready to transform your professional network? Join
             Talentmapp today.
           </span>
@@ -136,11 +132,10 @@ export default function Home() {
             Try Now
           </Button>
         </div>
-        <img src="/get-started.png" alt="people" className="w-[50%]" />
+        <img src="/get-started.png" alt="people" className=" md:w-3/5 xl:w-1/2 rounded-b-lg md:rounded-none" />
       </div>
       <div className="w-full" ref={footerRef}>
-
-      <Footer  />
+        <Footer />
       </div>
     </main>
   );
