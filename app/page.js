@@ -84,25 +84,25 @@ export default function Home() {
         </div>
       </div>
       {/* SECTION 2 */}
-      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-32 xl:mt-52">
-        <span className="text-2xl xl:text-4xl font-semibold sm:w-1/2">
+      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-24 md:mt-32 xl:mt-52">
+        <span className="text-2xl xl:text-4xl font-semibold w-10/12 sm:w-1/2">
           Take the next step & get results faster
         </span>
-        <div className="grid grid-rows-3 md:flex md:justify-between gap-5 xl:gap-14 text-left mt-16 w-5/6 md:w-full">
+        <div className="grid grid-rows-3 md:flex md:justify-between gap-7 xl:gap-14 text-left mt-10 md:mt-16 w-5/6 md:w-full">
           {data.cards.map((card, index) => (
             <div
               key={index}
-              className="flex flex-col justify-between bg-white shadow-xl md:shadow-2xl shadow-[#baa8d5] md:w-1/3 p-5 rounded-xl"
+              className="flex flex-col justify-between bg-white shadow-xl md:shadow-2xl shadow-[#d8cee7] md:w-1/3 p-5 rounded-xl"
             >
               <img
                 src={card.image}
                 alt={card.header}
                 className="w-1/4 h-auto"
               />
-              <span className="text-2xl xl:text-4xl font-semibold">{card.header}</span>
+              <span className="text-2xl xl:text-4xl font-semibold text-[#5013AF]">{card.header}</span>
 
               <span className="text-base xl:text-lg font-light mt-2">{card.content}</span>
-              <Button
+              {/* <Button
                 as={Link}
                 href="#"
                 size="lg"
@@ -110,13 +110,13 @@ export default function Home() {
                 className="bg-[#5013AF] py-6 mt-3 tracking-normal text-white"
               >
                 Learn More
-              </Button>
+              </Button> */}
             </div>
           ))}
         </div>
       </div>
-      <div className="flex flex-col md:flex-row items-center mt-32 w-9/12 md:w-11/12 bg-[#ede7f9] rounded-lg">
-        <div className="flex flex-col my-12 xl:my-24 px-14 md:w-1/2">
+      <div className="flex flex-col md:flex-row items-center mt-32 w-10/12 md:w-11/12 bg-[#ede7f9] rounded-lg">
+        <div className="flex flex-col my-9 xl:my-24 px-14 md:w-1/2">
           <span className="text-3xl md:text-4xl xl:text-5xl font-bold">Get started!</span>
           <span className="mt-3 text-base xl:text-lg font-light">
             Are you ready to transform your professional network? Join
@@ -125,14 +125,13 @@ export default function Home() {
           <Button
             as={Link}
             href="/search"
-            size="lg"
             radius="sm"
-            className="bg-[#5013AF] w-1/4 py-6 mt-5 tracking-normal text-white"
+            className="bg-[#5013AF] w-1/4 md:w-1/2 text-sm p-3 md:text-base md:py-6 md:px-3 mt-5 tracking-normal text-white"
           >
             Try Now
           </Button>
         </div>
-        <img src="/get-started.png" alt="people" className=" md:w-3/5 xl:w-1/2 rounded-b-lg md:rounded-none" />
+        <img src="/get-started.png" alt="people" className="md:w-3/5 xl:w-1/2 rounded-b-lg md:rounded-none" />
       </div>
       <div className="w-full" ref={footerRef}>
         <Footer />

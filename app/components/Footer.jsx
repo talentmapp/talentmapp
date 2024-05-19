@@ -29,7 +29,7 @@ const Footer = () => {
   };
 
   return (
-    <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-between bg-[#ede7f9] p-8 md:p-20 mt-32">
+    <div className="w-full flex flex-col md:flex-row items-center md:items-start md:justify-between bg-[#ede7f9] px-8 py-12 md:p-20 mt-24">
       <div className="w-2/3 md:w-1/2 flex flex-col items-center md:items-start">
         <img src="/tm-logo-full.png" alt="logo" className="w-48 md:w-56" />
         <span className="text-sm text-center md:text-left md:text-base ml-2 md:w-[60%] text-slate-500">

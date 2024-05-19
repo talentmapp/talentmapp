@@ -84,7 +84,7 @@ export default function Home() {
         </span>
         <div className="flex items-center justify-center">
           <img src="tm-small-logo.png" alt="logo" className="w-[20%]" />
-          <span className="font-bold text-sm w-[30%] my-6  py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <span className="font-bold text-sm w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
             <a href="/">
               back to landing
             </a>
