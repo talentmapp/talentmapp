@@ -1,152 +1,147 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useState, useEffect, useRef } from "react";
-import MessageForm from "./components/ai_search/MessageForm";
-import MessagesList from "./components/ai_search/MessagesList";
-import Link from "next/link";
+import { useRef } from "react";
+import NavBar from "./components/Navbar";
+import { Button, Link } from "@nextui-org/react";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { signOut } from "@auth0/nextjs-auth0";
+import Footer from "./components/Footer";
+
+const data = {
+  cards: [
+    {
+      image: "/cards/nlp.png",
+      header: "NLP-Based Discovery Engine",
+      content:
+        "Input natural language queries to find professionals and opportunities that align perfectly with your needs. Our AI-driven search provides precise and relevant results, enhancing your networking experience.",
+    },
+    {
+      image: "/cards/ai.png",
+      header: "AI-Powered Assistant",
+      content:
+        "Input natural language queries to find professionals and opportunities that align perfectly with your needs. Our AI-driven search provides precise and relevant results, enhancing your networking experience.",
+    },
+    {
+      image: "/cards/network.png",
+      header: "Networking and Collaboration",
+      content:
+        "Build meaningful professional relationships through our sophisticated networking features. Share insights, collaborate on projects, and connect with like-minded professionals effortlessly.",
+    },
+  ],
+};
 
 export default function Home() {
-  const { user, error, isLoading } = useUser();
+  const footerRef = useRef(null);
 
-  console.log(user)
-
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showLogout, setShowLogout] = useState(false);
-
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSendMessage = async (message) => {
-    try {
-      setLoading(true); // Set loading to true when sending a message
-
-      const response = await fetch("/api/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      });
-
-      setLoading(false); // Set loading to false after receiving response
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to search profiles or interact with OpenAI. Status: ${response.status}`
-        );
-      }
-
-      const profiles = await response.json();
-
-      setMessages([
-        ...messages,
-        { sender: "user", text: message },
-        { sender: "ai", profiles },
-      ]);
-    } catch (error) {
-      setLoading(false); // Set loading to false if an error occurs
-      console.error("Error details:", error);
-      alert(
-        "An error occurred while searching for profiles. Please try again later."
-      );
+  // Function to handle scrolling to the footer
+  const scrollToFooter = () => {
+    // Check if the footer ref exists
+    if (footerRef.current) {
+      // Scroll to the footer section
+      footerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" }); // Redirect to the home page after logout
-  };
-
-  const toggleLogout = () => {
-    setShowLogout((prevShowLogout) => !prevShowLogout);
-  };
-
-  const closeLogout = () => {
-    setShowLogout(false);
-  };
-
   return (
-    <div className="flex flex-col h-screen bg-black font-jakarta overscroll-none">
-      <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
-        <span className="text-white text-center">
-          please open this site on a{" "}
-          <span className="text-purple-400">bigger screen</span>
-        </span>
-        <div className="flex items-center justify-center">
-          <img src="ai_search/tm-small-logo.png" alt="logo" className="w-[20%]" />
-          <span className="font-bold w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn">
-              join waitlist
-            </a>
+    <main className="flex min-h-screen flex-col items-center bg-white font-jakarta">
+      <div className="bg-[#5013AF] h-12 w-full flex items-center justify-center relative">
+        <div className="">
+          <span className="text-[#DDD1F0] font-jakarta font-extralight">
+            For product announcements and exclusive insights.{" "}
           </span>
+          <button
+            onClick={scrollToFooter}
+            size="lg"
+            radius="sm"
+            className="mx-2 tracking-normal text-white"
+          >
+            Join Waitlist
+          </button>
+        </div>
+        <img src="banner-overlay.svg" alt="overlay" className="-z-1 absolute pointer-events-none" />
+      </div>
+      <NavBar ref={footerRef} />
+      {/* SECTION 1 */}
+      <div className="flex items-center justify-between w-full px-16">
+        <div className="w-[50%] py-24  flex flex-col text-6xl font-bold tracking-tight">
+          <span className=" ">Discover the Right</span>
+          <span className="text-[#5013AF]">Connections</span>
+          <span>Faster Than Ever</span>
+          <span className="font-light text-lg mt-3 w-4/5 tracking-normal">
+            Harness the power of AI to refine and expedite your professional
+            networking.
+          </span>
+          <Button
+            as={Link}
+            href="/search"
+            size="lg"
+            radius="sm"
+            className="bg-[#5013AF] w-1/3 mt-9 tracking-normal text-white"
+          >
+            Start Your Search
+          </Button>
+        </div>
+        <div className="w-[50%]">
+          <img src="hero-image.png" alt="hero" className="self-end" />
         </div>
       </div>
-      <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
-        <Link href="/">
-          <img
-            src="/tm-small-logo.png"
-            alt="logo"
-            className="w-[12%] xl:w-[7%] ml-20"
-          />
-        </Link>
-        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a href="/about">learn more.</a>
+      {/* SECTION 2 */}
+      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-52">
+        <span className="text-4xl font-semibold w-1/2">
+          Take the next step & get results faster
         </span>
-        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 border-[#dfdede] border-opacity-70 hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a
-            href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            join waitlist
-          </a>
-        </span>
-        {/* {!loading && user ? (
-          <div className="relative" onBlur={closeLogout}>
-            <img
-              src={user.picture}
-              alt="Profile"
-              className="rounded-full w-12 h-12 mx-5 cursor-pointer"
-              onClick={toggleLogout}
-              tabIndex="0" // Make the profile image focusable
-            />
-            {showLogout && (
-              <div className="absolute bottom-[-50px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
-                <a href="/api/auth/logout">Logout</a>
-              </div>
-            )}
-          </div>
-        ) : (
-          <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a href="/api/auth/login">login</a>
+        <div className="flex gap-14 text-left justify-between mt-16 w-full">
+          {data.cards.map((card, index) => (
+            <div
+              key={index}
+              className="flex flex-col justify-between bg-white shadow-2xl shadow-[#9986b6] w-1/3 p-5 rounded-xl"
+            >
+              <img
+                src={card.image}
+                alt={card.header}
+                className="w-1/4 h-auto"
+              />
+              <span className="text-4xl font-semibold">{card.header}</span>
+
+              <span className="text-lg font-light mt-2">{card.content}</span>
+              <Button
+                as={Link}
+                href="#"
+                size="lg"
+                radius="sm"
+                className="bg-[#5013AF] py-6 mt-3 tracking-normal text-white"
+              >
+                Learn More
+              </Button>
+            </div>
+          ))}
+        </div>
+      </div>
+      {/* <div className="mt-32 w-full ">
+          <ProgressSlider items={items} />
+        </div> */}
+      <div className="flex items-center mt-32 w-11/12 bg-[#ede7f9] rounded-lg">
+        <div className="flex flex-col py-24 px-14 w-[50%]">
+          <span className="text-5xl font-bold">Get started!</span>
+          <span className="mt-3 text-lg font-light">
+            Are you ready to transform your professional network? Join
+            Talentmapp today.
           </span>
-        )} */}
+          <Button
+            as={Link}
+            href="/search"
+            size="lg"
+            radius="sm"
+            className="bg-[#5013AF] w-1/4 py-6 mt-5 tracking-normal text-white"
+          >
+            Try Now
+          </Button>
+        </div>
+        <img src="/get-started.png" alt="people" className="w-[50%]" />
       </div>
-      <div className="hidden bg-black lg:block flex-grow px-20 pb-16">
-        {loading ? (
-          <div className="flex justify-center items-center h-full">
-            <img src="ai_search/searching.gif" alt="Searching..." className="w-[30%]" />
-          </div>
-        ) : (
-          <MessagesList messages={messages} />
-        )}
+      <div className="w-full" ref={footerRef}>
+
+      <Footer  />
       </div>
-      <div
-        ref={messagesEndRef}
-        className="hidden lg:block bg-gray-950 border-t border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
-      >
-        <MessageForm onSendMessage={handleSendMessage} />
-      </div>
-    </div>
+    </main>
   );
 }
