@@ -43,7 +43,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center bg-white font-jakarta">
       <div className="bg-[#5013AF] h-12 w-full flex items-center justify-center relative">
-        <div className="flex items-center text-xs md:text-base justify-center w-full px-4 sm:px-8 md:px-16">
+        <div className="flex items-center text-[10px] md:text-base justify-center w-full px-4 sm:px-8 md:px-16">
           <span className="text-[#DDD1F0] font-jakarta font-extralight">
             For product announcements and exclusive insights.
           </span>
@@ -56,7 +56,7 @@ export default function Home() {
             Join Waitlist
           </button>
         </div>
-        <img src="banner-overlay.svg" alt="overlay" className="object-cover object-left md:object-contain -z-1 h-full absolute" />
+        <img src="banner-overlay.svg" alt="overlay" className="object-cover object-left md:object-contain -z-1 h-full absolute pointer-events-none" />
       </div>
       <NavBar ref={footerRef} />
       {/* SECTION 1 */}
