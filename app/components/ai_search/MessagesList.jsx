@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
+import Link from "next/link";
 
 const MessagesList = ({ messages }) => {
   const [expandedProfiles, setExpandedProfiles] = useState({});
@@ -18,7 +19,7 @@ const MessagesList = ({ messages }) => {
           <div className="flex flex-col">
             <div className="tracking-tight">Find <span className="font-bold mx-4">Your</span> People</div>
             <span className="text-lg mt-3 text-slate-400">
-              unfamiliar with talentmapp? check out <span className="text-slate-500 font-bold border-b-[0.5px] border-opacity-60 border-slate-200">learn more</span>
+              unfamiliar with talentmapp? <Link href="/about" className="text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300">learn more</Link>
             </span>
           </div>
           <img

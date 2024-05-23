@@ -132,7 +132,7 @@ export default function Home() {
           </span>
         )} */}
       </div>
-      <div className="hidden bg-black lg:block flex-grow px-20 pb-16">
+      <div className="hidden bg-black lg:block flex-grow px-20 pb-28">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <img src="ai_search/searching.gif" alt="Searching..." className="w-[30%]" />
@@ -143,7 +143,7 @@ export default function Home() {
       </div>
       <div
         ref={messagesEndRef}
-        className="hidden lg:block bg-gray-950 border-t border-opacity-25 border-[#D3CEDC] pb-12 pt-8 w-full"
+        className="hidden  fixed bottom-0 lg:block w-full"
       >
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
