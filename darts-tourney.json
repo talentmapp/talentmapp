@@ -1,0 +1,230 @@
+{
+    "tournament": {
+      "id": "tourn123",
+      "name": "Spring Dart League",
+      "startDate": "2024-06-01T00:00:00Z",
+      "endDate": "2024-07-01T00:00:00Z",
+      "createdAt": "2024-05-01T00:00:00Z",
+      "updatedAt": "2024-05-01T00:00:00Z",
+      "players": [
+        {
+          "id": "player001",
+          "username": "dartmaster",
+          "email": "dartmaster@example.com",
+          "createdAt": "2024-04-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z",
+          "stats": {
+            "gamesPlayed": 10,
+            "gamesWon": 7,
+            "highestScore": 180,
+            "averageScore": 150.5,
+            "totalPoints": 1505,
+            "totalTime": 6000,
+            "totalBullseyes": 45,
+            "accuracy": 0.75
+          }
+        },
+        {
+          "id": "player002",
+          "username": "sharpShooter",
+          "email": "sharpshooter@example.com",
+          "createdAt": "2024-04-02T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z",
+          "stats": {
+            "gamesPlayed": 10,
+            "gamesWon": 6,
+            "highestScore": 170,
+            "averageScore": 145.3,
+            "totalPoints": 1453,
+            "totalTime": 6200,
+            "totalBullseyes": 40,
+            "accuracy": 0.72
+          }
+        },
+        {
+          "id": "player003",
+          "username": "bullseye",
+          "email": "bullseye@example.com",
+          "createdAt": "2024-04-03T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z",
+          "stats": {
+            "gamesPlayed": 10,
+            "gamesWon": 8,
+            "highestScore": 190,
+            "averageScore": 160.7,
+            "totalPoints": 1607,
+            "totalTime": 5900,
+            "totalBullseyes": 50,
+            "accuracy": 0.78
+          }
+        },
+        {
+          "id": "player004",
+          "username": "ninjaDart",
+          "email": "ninjadart@example.com",
+          "createdAt": "2024-04-04T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z",
+          "stats": {
+            "gamesPlayed": 12,
+            "gamesWon": 9,
+            "highestScore": 200,
+            "averageScore": 170.2,
+            "totalPoints": 2042,
+            "totalTime": 7200,
+            "totalBullseyes": 60,
+            "accuracy": 0.80
+          }
+        },
+        {
+          "id": "player005",
+          "username": "ace",
+          "email": "ace@example.com",
+          "createdAt": "2024-04-05T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z",
+          "stats": {
+            "gamesPlayed": 9,
+            "gamesWon": 5,
+            "highestScore": 160,
+            "averageScore": 140.1,
+            "totalPoints": 1261,
+            "totalTime": 5500,
+            "totalBullseyes": 35,
+            "accuracy": 0.70
+          }
+        }
+      ],
+      "matchups": [
+        {
+          "id": "match001",
+          "tournamentId": "tourn123",
+          "player1Id": "player001",
+          "player2Id": "player002",
+          "winnerId": "player001",
+          "player1Score": 160,
+          "player2Score": 140,
+          "player1Stats": {
+            "pointsHit": 160,
+            "timeTaken": 600, 
+            "rounds": 3,
+            "bullseyes": 5,
+            "accuracy": 0.8
+          },
+          "player2Stats": {
+            "pointsHit": 140,
+            "timeTaken": 620,
+            "rounds": 3,
+            "bullseyes": 4,
+            "accuracy": 0.75
+          },
+          "matchDate": "2024-06-01T10:00:00Z",
+          "createdAt": "2024-05-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z"
+        },
+        {
+          "id": "match002",
+          "tournamentId": "tourn123",
+          "player1Id": "player003",
+          "player2Id": "player001",
+          "winnerId": "player003",
+          "player1Score": 180,
+          "player2Score": 170,
+          "player1Stats": {
+            "pointsHit": 180,
+            "timeTaken": 550,
+            "rounds": 3,
+            "bullseyes": 6,
+            "accuracy": 0.85
+          },
+          "player2Stats": {
+            "pointsHit": 170,
+            "timeTaken": 580,
+            "rounds": 3,
+            "bullseyes": 5,
+            "accuracy": 0.82
+          },
+          "matchDate": "2024-06-02T10:00:00Z",
+          "createdAt": "2024-05-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z"
+        },
+        {
+          "id": "match003",
+          "tournamentId": "tourn123",
+          "player1Id": "player002",
+          "player2Id": "player003",
+          "winnerId": "player003",
+          "player1Score": 150,
+          "player2Score": 170,
+          "player1Stats": {
+            "pointsHit": 150,
+            "timeTaken": 600,
+            "rounds": 3,
+            "bullseyes": 5,
+            "accuracy": 0.78
+          },
+          "player2Stats": {
+            "pointsHit": 170,
+            "timeTaken": 590,
+            "rounds": 3,
+            "bullseyes": 6,
+            "accuracy": 0.80
+          },
+          "matchDate": "2024-06-03T10:00:00Z",
+          "createdAt": "2024-05-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z"
+        },
+        {
+          "id": "match004",
+          "tournamentId": "tourn123",
+          "player1Id": "player004",
+          "player2Id": "player005",
+          "winnerId": "player004",
+          "player1Score": 190,
+          "player2Score": 160,
+          "player1Stats": {
+            "pointsHit": 190,
+            "timeTaken": 630,
+            "rounds": 3,
+            "bullseyes": 7,
+            "accuracy": 0.88
+          },
+          "player2Stats": {
+            "pointsHit": 160,
+            "timeTaken": 620,
+            "rounds": 3,
+            "bullseyes": 5,
+            "accuracy": 0.76
+          },
+          "matchDate": "2024-06-04T10:00:00Z",
+          "createdAt": "2024-05-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z"
+        },
+        {
+          "id": "match005",
+          "tournamentId": "tourn123",
+          "player1Id": "player001",
+          "player2Id": "player004",
+          "winnerId": "player004",
+          "player1Score": 170,
+          "player2Score": 180,
+          "player1Stats": {
+            "pointsHit": 170,
+            "timeTaken": 600,
+            "rounds": 3,
+            "bullseyes": 6,
+            "accuracy": 0.83
+          },
+          "player2Stats": {
+            "pointsHit": 180,
+            "timeTaken": 590,
+            "rounds": 3,
+            "bullseyes": 7,
+            "accuracy": 0.85
+          },
+          "matchDate": "2024-06-05T10:00:00Z",
+          "createdAt": "2024-05-01T00:00:00Z",
+          "updatedAt": "2024-05-01T00:00:00Z"
+        }
+      ]
+    }
+  }
+  
