@@ -60,8 +60,9 @@ const MessageForm = ({ onSendMessage }) => {
       className="flex flex-col justify-center shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]"
     >
       <label className="sr-only">Your message</label>
-      <div className="flex w-[60%] border-slate-600 border-x-[2px] border-t-[2px] pb-5 pt-1 px-4 rounded-t-xl self-center gap-3 justify-between items-center bg-gray-800 relative">
-        <input
+      <div className="flex w-[65%] border-slate-600 border-x-[2px] border-t-[2px] pb-5 pt-1 px-4 rounded-t-xl self-center gap-3 justify-between items-center bg-gray-800 relative">
+        <div className="flex flex-col w-full">
+        <textarea
           id="chat"
           rows="1"
           type="text"
@@ -73,9 +74,11 @@ const MessageForm = ({ onSendMessage }) => {
             setMessage(e.target.value);
             setUserInteracted(true);
           }}
-          className="block pl-4 focus:outline-none py-4 w-[90%] text-base bg-gray-800 border-gray-600 placeholder-transparent text-white focus:border-0"
+          className="block pl-4 resize-none focus:outline-none py-4 w-[90%] text-base bg-gray-800 border-gray-600 placeholder-transparent text-white focus:border-0"
           placeholder="Find me a Full-Stack Developer with experience in developing E-commerce platforms"
-        ></input>
+        ></textarea>
+        <span className="pl-3 text-slate-400 text-sm">talentmapp MVP Build</span>
+        </div>
         <button
           type="submit"
           className="inline-flex justify-center p-1.5 mr-2.5 bg-[#D3CEDC] text-[#5013AF] rounded-lg cursor-pointer hover:bg-gray-200"
@@ -90,7 +93,7 @@ const MessageForm = ({ onSendMessage }) => {
           </svg>
         </button>
         {!userInteracted && (
-          <div className="absolute -top-2 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
+          <div className="absolute -top-5 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
             <span className="text-gray-600 text-base transition-all duration-1000 ease-in-out transform">
               {displayedText}
             </span>

@@ -5,7 +5,7 @@ import Link from "next/link";
 const About = () => {
   return (
     <div className=" text-white font-mono pb-12 overscroll-none">
-      <Link href="/">
+      <Link href="/search">
         <span className="font-bold mx-28 border-2 border-opacity-60 p-3 mt-20 hover:text-purple-200 hover:border-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
           back to search
         </span>
