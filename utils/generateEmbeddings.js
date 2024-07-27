@@ -2,8 +2,8 @@
 const { MongoClient } = require("mongodb");
 const axios = require("axios");
 export async function generateEmbeddings(text) {
-  const token = "sk-proj-Hs6W1EZbZ40iuildcjGnT3BlbkFJvTM0vcKhQyKCgsh2zRQa"; // Replace with your actual OpenAI API key
-  const model = "text-embedding-ada-002"; // The model to use for generating embeddings
+  const token = process.env.NEW_OPENAI_API_KEY // Replace with your actual OpenAI API key
+  const model = "text-embedding-3-small"; // The model to use for generating embeddings
 
   try {
     const response = await axios.post(
@@ -21,19 +21,17 @@ export async function generateEmbeddings(text) {
     );
 
     console.log(response.data);
-    return response.data; // This should be the embeddings array
+    return response.data;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to generate embeddings");
   }
 }
 
-// Function to insert a profile into the database and generate embeddings
-
 function generateProfile() {}
 async function insertProfileWithEmbeddings(profile) {
   const client = new MongoClient(
-    "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp",
+    process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true }
   );
   try {
@@ -60,9 +58,8 @@ async function insertProfileWithEmbeddings(profile) {
   }
 }
 
-// Generate and insert multiple profiles
 async function main() {
-  const profiles = Array.from({ length: 1 }, generateProfile); // Generate 10 profiles
+  const profiles = Array.from({ length: 1 }, generateProfile); 
   for (const profile of profiles) {
     await insertProfileWithEmbeddings(profile);
   }

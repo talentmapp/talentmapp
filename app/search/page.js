@@ -11,7 +11,7 @@ import { signOut } from "@auth0/nextjs-auth0";
 export default function Home() {
   const { user, error, isLoading } = useUser();
 
-  console.log(user)
+  console.log(process.env.MONGODB_URI)
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -111,7 +111,7 @@ export default function Home() {
             join waitlist
           </a>
         </span>
-        {/* {!loading && user ? (
+        {!loading && user ? (
           <div className="relative" onBlur={closeLogout}>
             <img
               src={user.picture}
@@ -130,7 +130,7 @@ export default function Home() {
           <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
             <a href="/api/auth/login">login</a>
           </span>
-        )} */}
+        )}
       </div>
       <div className="hidden bg-black lg:block flex-grow px-20 pb-28">
         {loading ? (

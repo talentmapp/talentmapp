@@ -4,39 +4,39 @@ import { generateEmbeddings } from "../../../utils/generateEmbeddings"; // Adjus
 
 export async function POST(req, res) {
   if (req.method === "POST") {
-    const client = new MongoClient(
-      "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    );
+    const client = new MongoClient(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
 
     try {
       await client.connect();
       const db = client.db("tm-mvp");
       const collection = db.collection("profile");
 
-      // Extract the profile data from the request body
-      const profiles = [
-      
-      ];
+      const profiles = [];
 
-      // Generate embeddings for each profile and insert into the database
       const results = await Promise.all(
         profiles.map(async (profile) => {
-          // Concatenate profile fields into a single text string
           const textToEmbed = [
             profile.firstName,
             profile.lastName,
-            profile.location,
             ...profile.skills
               .map((skill) => `${skill.name} (${skill.proficiency})`)
               .join(", "),
             profile.summary,
             profile.interests.join(", "),
             profile.experience
-              .map((exp) => exp.title + " at " + exp.company + " from " + exp.startDate + " to " + exp.endDate)
+              .map(
+                (exp) =>
+                  exp.title +
+                  " at " +
+                  exp.company +
+                  " from " +
+                  exp.startDate +
+                  " to " +
+                  exp.endDate
+              )
               .join(", "),
             profile.education
               .map(
@@ -44,18 +44,13 @@ export async function POST(req, res) {
                   edu.degree + " in " + edu.major + " from " + edu.university
               )
               .join(", "),
-            profile.languages.map((lang) => "can speak" + lang.name).join(", "), // Include languages
-            profile.socialMedia.map((sm) => sm.platform).join(", "),
-            // Add other fields as needed
+            profile.languages.map((lang) => "can speak" + lang.name).join(", "),
           ].join(" ");
 
-          // Generate embeddings for the c  oncatenated text
           const embeddings = await generateEmbeddings(textToEmbed);
 
-          // Extract the embedding vector from the embeddings object
           const embeddingVector = embeddings.data[0].embedding;
 
-          // Insert the profile with the embedding vector into the database
           return collection.insertOne({
             ...profile,
             embedding: embeddingVector,
