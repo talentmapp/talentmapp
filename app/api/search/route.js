@@ -4,7 +4,7 @@ import { MongoClient, ServerApiVersion } from "mongodb";
 
 let client;
 const uri =
-  "mongodb+srv://sarvag:mUsgWnuspL5CghIv@talentmapp.iks0k0t.mongodb.net/?retryWrites=true&w=majority&appName=talentmapp";
+  process.env.MONGODB_URI
 
 const connectToDatabase = async () => {
   if (client && client.isConnected) {
@@ -22,7 +22,7 @@ const connectToDatabase = async () => {
 };
 
 async function generateEmbeddings(text) {
-  const token = "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";
+  const token = process.env.NEW_OPENAI_API_KEY
   const model = "text-embedding-ada-002";
   try {
     const requestBody = {
