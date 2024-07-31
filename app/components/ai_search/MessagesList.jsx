@@ -17,9 +17,17 @@ const MessagesList = ({ messages }) => {
       {messages.length === 0 ? (
         <div className="z-100 flex h-full mt-[8%] items-center justify-center text-7xl font-light text-slate-300">
           <div className="flex flex-col">
-            <div className="tracking-tight">Find <span className="font-bold mx-4">Your</span> People</div>
+            <div className="tracking-tight">
+              Find <span className="font-bold mx-4">Your</span> People
+            </div>
             <span className="text-lg mt-3 text-slate-400">
-              unfamiliar with talentmapp? <Link href="/about" className="text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300">learn more</Link>
+              unfamiliar with talentmapp?{" "}
+              <Link
+                href="/about"
+                className="text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300"
+              >
+                learn more
+              </Link>
             </span>
           </div>
           <img
@@ -85,9 +93,15 @@ const MessagesList = ({ messages }) => {
                             : "max-h-[8rem] overflow-hidden"
                         }`}
                       >
-                        {profile.summary}
+                        {profile.summary ? ( // Check if summary exists
+                          profile.summary
+                        ) : (
+                          <p>User has no summary</p> // Optional: message if no summary exists
+                        )}
                       </div>
-                      {profile.summary.split(" ").length > 15 &&
+
+                      {profile.summary &&
+                        profile.summary.split(" ").length > 15 &&
                         !expandedProfiles[idx] && (
                           <button
                             className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
@@ -137,37 +151,18 @@ const MessagesList = ({ messages }) => {
                           <span className="font-normal text-lg mr-2">
                             find them on:{" "}
                           </span>
-                          {profile.socialMedia.map((social, idx) => (
-                            <a
-                              key={idx}
-                              href={social.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-200 hover:underline border-[#845AC7] bg-[#5013AF] border-2 hover:scale-105 p-2 mr-2 rounded-xl"
-                            >
-                              {social.platform === "LinkedIn" ? (
-                                <img
-                                  src="ai_search/linkedin.png"
-                                  alt="LinkedIn"
-                                  className="w-6 h-6"
-                                />
-                              ) : social.platform === "GitHub" ? (
-                                <img
-                                  src="ai_search/github.png"
-                                  alt="GitHub"
-                                  className="w-6 h-6"
-                                />
-                              ) : social.platform === "Behance" ? (
-                                <img
-                                  src="ai_search/Behance.png"
-                                  alt="Behance"
-                                  className="w-6 h-6"
-                                />
-                              ) : (
-                                social.platform
-                              )}
-                            </a>
-                          ))}
+                          <a
+                            href={`https://www.linkedin.com/in/${profile.socialMedia.LinkedIn}`} // Construct the LinkedIn URL
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-200 hover:underline border-[#845AC7] bg-[#5013AF] border-2 hover:scale-105 p-2 mr-2 rounded-xl"
+                          >
+                            <img
+                              src="ai_search/linkedin.png"
+                              alt="LinkedIn"
+                              className="w-6 h-6"
+                            />
+                          </a>
                         </div>
                       </div>
                     </div>
