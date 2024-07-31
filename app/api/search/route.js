@@ -23,7 +23,7 @@ const connectToDatabase = async () => {
 
 async function generateEmbeddings(text) {
   const token = process.env.NEW_OPENAI_API_KEY
-  const model = "text-embedding-ada-002";
+  const model = "text-embedding-3-small";
   try {
     const requestBody = {
       model: model,
