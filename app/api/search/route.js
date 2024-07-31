@@ -39,7 +39,7 @@ async function generateEmbeddings(text) {
         },
       }
     );
-    const embedding = response.data.data[0].embedding;
+    const embedding = response.data.data[0].embedding.slice(0, 512);
     return embedding;
   } catch (error) {
     console.error(error);
@@ -70,7 +70,7 @@ export async function POST(request) {
             index: "vector_index",
             path: "embedding",
             queryVector: queryEmbedding,
-            numCandidates: 10,
+            numCandidates: 90,
             limit: 3,
           },
         },
