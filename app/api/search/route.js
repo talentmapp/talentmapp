@@ -28,6 +28,7 @@ async function generateEmbeddings(text) {
     const requestBody = {
       model: model,
       input: [text],
+      dimensions: 512
     };
     const response = await axios.post(
       "https://api.openai.com/v1/embeddings",
@@ -39,7 +40,7 @@ async function generateEmbeddings(text) {
         },
       }
     );
-    const embedding = response.data.data[0].embedding.slice(0, 512);
+    const embedding = response.data.data[0].embedding;
     return embedding;
   } catch (error) {
     console.error(error);

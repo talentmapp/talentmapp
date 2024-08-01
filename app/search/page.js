@@ -11,8 +11,6 @@ import { signOut } from "@auth0/nextjs-auth0";
 export default function Home() {
   const { user, error, isLoading } = useUser();
 
-  console.log(process.env.MONGODB_URI)
-
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showLogout, setShowLogout] = useState(false);

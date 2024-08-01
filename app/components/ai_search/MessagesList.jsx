@@ -37,7 +37,8 @@ const MessagesList = ({ messages }) => {
           />
         </div>
       ) : (
-        messages.map((message) => (
+        // Reverse the messages array to display the most recent first
+        [...messages].reverse().map((message) => (
           <div
             key={message._id} // Use a unique identifier like _id
             className={`p-4 ${
@@ -60,8 +61,7 @@ const MessagesList = ({ messages }) => {
                   {message.profiles.map((profile, idx) => (
                     <div
                       key={idx}
-                      className=" bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
-                      // className="border border-[#D3CEDC] bg-gray-700 rounded-xl hover:shadow-lg transition duration-300 ease-in-out"
+                      className="bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                     >
                       <div className="flex gap-5 px-8 pt-8">
                         <img
@@ -93,10 +93,10 @@ const MessagesList = ({ messages }) => {
                             : "max-h-[8rem] overflow-hidden"
                         }`}
                       >
-                        {profile.summary ? ( // Check if summary exists
+                        {profile.summary ? (
                           profile.summary
                         ) : (
-                          <p>User has no summary</p> // Optional: message if no summary exists
+                          <p>User has no summary</p>
                         )}
                       </div>
 
@@ -123,7 +123,7 @@ const MessagesList = ({ messages }) => {
                       <div className="flex-1 flex flex-col justify-between xl:justify-around h-56 bg-slate-900 mx-4 mb-4 rounded-3xl">
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>
-                          <br></br>
+                          <br />
                           {profile.skills.map((interest, index) => (
                             <span
                               key={index}
@@ -137,7 +137,7 @@ const MessagesList = ({ messages }) => {
                           <span className="text-xl font-bold">
                             {profile.firstName} is fluent in:
                           </span>
-                          <br></br>
+                          <br />
                           {profile.languages.map((language, index) => (
                             <span
                               key={index}
