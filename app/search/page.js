@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { signOut } from "@auth0/nextjs-auth0";
 
+// JYWZGHJX87Z7VK7N49359JAQ
+
 export default function Home() {
   const { user, error, isLoading } = useUser();
 
