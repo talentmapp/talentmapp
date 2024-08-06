@@ -120,13 +120,13 @@ export default function Home() {
             />
             {showLogout && (
               <div className="absolute bottom-[-50px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
-                <a href="/api/auth/logout">Logout</a>
+                <a href="https://talentmapp.co/api/auth/logout">Logout</a>
               </div>
             )}
           </div>
         ) : (
           <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a href="/api/auth/login">login</a>
+            <a href="https://talentmapp.co/api/auth/login">login</a>
           </span>
         )}
       </div>
@@ -141,7 +141,7 @@ export default function Home() {
       </div>
       <div
         ref={messagesEndRef}
-        className="hidden  fixed bottom-0 lg:block w-full"
+        className="hidden fixed bottom-0 lg:block w-full"
       >
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
