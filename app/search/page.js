@@ -127,7 +127,7 @@ export default function Home() {
                   </Button>
                 </div>
                 <div className="w-full p-1 flex justify-center">
-                  <Button as={Link} href="/api/auth/logout">
+                  <Button as={Link} href="/api/auth/signout">
                     Logout
                   </Button>
                 </div>
