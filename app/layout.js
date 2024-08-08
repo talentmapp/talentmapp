@@ -1,7 +1,5 @@
 import { Inter } from "next/font/google";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { NextUIProvider } from "@nextui-org/react";
-
+import ClientProvider from "./ClientProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,12 +12,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <UserProvider>
-      <html lang="en">
-        <NextUIProvider >
-          <body className={inter.className}>{children}</body>
-        </NextUIProvider>
-      </html>
-    </UserProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <ClientProvider>{children}</ClientProvider>
+      </body>
+    </html>
   );
 }
