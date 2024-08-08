@@ -5,13 +5,14 @@ import MessageForm from "../components/ai_search/MessageForm";
 import MessagesList from "../components/ai_search/MessagesList";
 import Link from "next/link";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
-import { signOut } from "@auth0/nextjs-auth0";
+import { useSession, signOut } from "next-auth/react";
 
 // JYWZGHJX87Z7VK7N49359JAQ
 
 export default function Home() {
-  const { user, error, isLoading } = useUser();
+  const { data: session } = useSession(); // Get session data
+  const user = session?.user; // Access user data
+
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -63,8 +64,9 @@ export default function Home() {
     }
   };
 
-  const handleLogout = () => {
-    signOut({ callbackUrl: "/" }); // Redirect to the home page after logout
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/search" }); 
+    window.location.reload();
   };
 
   const toggleLogout = () => {
@@ -114,15 +116,15 @@ export default function Home() {
         {!loading && user ? (
           <div className="relative" onBlur={closeLogout}>
             <img
-              src={user.picture}
-              alt="Profile"
+              src={user.image}
+              alt={user.name}
               className="rounded-full w-12 h-12 mx-5 cursor-pointer"
               onClick={toggleLogout}
               tabIndex="0" // Make the profile image focusable
             />
             {showLogout && (
               <div className="absolute bottom-[-50px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
-                <a href="/api/auth/signout">Logout</a>
+                <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>Logout</button>
               </div>
             )}
           </div>
