@@ -115,7 +115,7 @@ export default function Home() {
         {!loading && user ? (
           <div className="relative" onBlur={closeLogout}>
             <img
-              src={user.picture}
+              src={user.image}
               alt="Profile"
               className="rounded-full w-12 h-12 mx-5 cursor-pointer"
               onClick={toggleLogout}
