@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import MessageForm from "../components/ai_search/MessageForm";
 import MessagesList from "../components/ai_search/MessagesList";
-import Link from "next/link";
+import { Button, Link } from "@nextui-org/react";
 
 import { useSession, signOut } from "next-auth/react";
 
@@ -64,7 +64,7 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
-    await signOut({ callbackUrl: "/search" }); 
+    await signOut({ callbackUrl: "/search" });
     window.location.reload();
   };
 
@@ -86,9 +86,7 @@ export default function Home() {
         <div className="flex items-center justify-center">
           <img src="tm-small-logo.png" alt="logo" className="w-[20%]" />
           <span className="font-bold text-sm w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a href="/">
-              back to landing
-            </a>
+            <a href="/">back to landing</a>
           </span>
         </div>
       </div>
@@ -113,18 +111,27 @@ export default function Home() {
           </a>
         </span>
         {!loading && user ? (
-          <div className="relative" onBlur={closeLogout}>
+          <div className="relative">
             <img
               src={user.image}
               alt="Profile"
-              className="rounded-full w-12 h-12 mx-5 cursor-pointer"
+              className="rounded-full w-14 border-dashed p-1 border-[1px] h-auto mx-5 cursor-pointer"
               onClick={toggleLogout}
               tabIndex="0" // Make the profile image focusable
             />
             {showLogout && (
-              <div className="absolute bottom-[-50px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
-                <button onClick={() => signOut({ redirect: true, callbackUrl: '/' })}>Logout</button>
-              </div>
+              <ul className="absolute z-100 flex flex-col items-center jusitfy-between bottom-[-115px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
+                <div className="w-full p-1 flex justify-center">
+                  <Button as={Link} href="/profile">
+                    Profile
+                  </Button>
+                </div>
+                <div className="w-full p-1 flex justify-center">
+                  <Button as={Link} href="/api/auth/logout">
+                    Logout
+                  </Button>
+                </div>
+              </ul>
             )}
           </div>
         ) : (
@@ -136,7 +143,11 @@ export default function Home() {
       <div className="hidden bg-black lg:block flex-grow px-20 pb-28">
         {loading ? (
           <div className="flex justify-center items-center h-full">
-            <img src="ai_search/searching.gif" alt="Searching..." className="w-[30%]" />
+            <img
+              src="ai_search/searching.gif"
+              alt="Searching..."
+              className="w-[30%]"
+            />
           </div>
         ) : (
           <MessagesList messages={messages} />
