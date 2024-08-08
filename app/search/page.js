@@ -13,7 +13,6 @@ export default function Home() {
   const { data: session } = useSession(); // Get session data
   const user = session?.user; // Access user data
 
-
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
@@ -116,8 +115,8 @@ export default function Home() {
         {!loading && user ? (
           <div className="relative" onBlur={closeLogout}>
             <img
-              src={user.image}
-              alt={user.name}
+              src={user.picture}
+              alt="Profile"
               className="rounded-full w-12 h-12 mx-5 cursor-pointer"
               onClick={toggleLogout}
               tabIndex="0" // Make the profile image focusable
