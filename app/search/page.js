@@ -116,7 +116,7 @@ export default function Home() {
             <img
               src={user.picture}
               alt="Profile"
-              className="rounded-full w-12 h-12 mx-5 cursor-pointer"
+              className="rounded-full w-auto mx-5 cursor-pointer"
               onClick={toggleLogout}
               tabIndex="0" // Make the profile image focusable
             />
@@ -143,7 +143,7 @@ export default function Home() {
       </div>
       <div
         ref={messagesEndRef}
-        className="hidden  fixed bottom-0 lg:block w-full"
+        className="hidden fixed bottom-0 lg:block w-full"
       >
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
