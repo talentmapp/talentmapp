@@ -20,6 +20,8 @@ export default function Profile() {
   const { data: session } = useSession(); // Get session data
   const user = session?.user; // Access user data
 
+  console.log(session?.user)
+
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
       <span></span>
@@ -93,6 +95,7 @@ export default function Profile() {
                 "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
               )}
               rows={3}
+              placeholder={user?.customSummary}
             />
           </Field>
           <button className="py-2 px-3 mt-2 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md">Save Changes</button>

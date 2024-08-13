@@ -1,141 +1,164 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { useRef } from "react";
-import NavBar from "./components/Navbar";
+import { useState, useEffect, useRef } from "react";
+import MessageForm from "./components/ai_search/MessageForm";
+import MessagesList from "./components/ai_search/MessagesList";
 import { Button, Link } from "@nextui-org/react";
-import Footer from "./components/Footer";
 
-const data = {
-  cards: [
-    {
-      image: "/cards/nlp.png",
-      header: "NLP-Based Discovery Engine",
-      content:
-        "Input natural language queries to find professionals and opportunities that align perfectly with your needs. Our AI-driven search provides precise and relevant results, enhancing your networking experience.",
-    },
-    {
-      image: "/cards/ai.png",
-      header: "AI-Powered Assistant",
-      content:
-        "Input natural language queries to find professionals and opportunities that align perfectly with your needs. Our AI-driven search provides precise and relevant results, enhancing your networking experience.",
-    },
-    {
-      image: "/cards/network.png",
-      header: "Networking and Collaboration",
-      content:
-        "Build meaningful professional relationships through our sophisticated networking features. Share insights, collaborate on projects, and connect with like-minded professionals effortlessly.",
-    },
-  ],
-};
+import { useSession, signOut } from "next-auth/react";
+
+// JYWZGHJX87Z7VK7N49359JAQ
 
 export default function Home() {
-  const footerRef = useRef(null);
+  const { data: session } = useSession(); // Get session data
+  const user = session?.user; // Access user data
 
-  // Function to handle scrolling to the footer
-  const scrollToFooter = () => {
-    // Check if the footer ref exists
-    if (footerRef.current) {
-      // Scroll to the footer section
-      footerRef.current.scrollIntoView({ behavior: "smooth" });
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSendMessage = async (message) => {
+    try {
+      setLoading(true); // Set loading to true when sending a message
+
+      const response = await fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+
+      setLoading(false); // Set loading to false after receiving response
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to search profiles or interact with OpenAI. Status: ${response.status}`,
+        );
+      }
+
+      const profiles = await response.json();
+
+      setMessages([
+        ...messages,
+        { sender: "user", text: message },
+        { sender: "ai", profiles },
+      ]);
+    } catch (error) {
+      setLoading(false); // Set loading to false if an error occurs
+      console.error("Error details:", error);
+      alert(
+        "An error occurred while searching for profiles. Please try again later.",
+      );
     }
   };
 
-  return (
-    <main className="flex min-h-screen flex-col items-center bg-white font-jakarta">
-      <div className="bg-[#5013AF] h-12 w-full flex items-center justify-center relative">
-        <div className="flex items-center text-[10px] md:text-base justify-center w-full px-4 sm:px-8 md:px-16">
-          <span className="text-[#DDD1F0] font-jakarta font-extralight">
-            For product announcements and exclusive insights.
-          </span>
-          <button
-            onClick={scrollToFooter}
-            size="lg"
-            radius="sm"
-            className="mx-2 tracking-normal text-white"
-          >
-            Join Waitlist
-          </button>
-        </div>
-        <img src="banner-overlay.svg" alt="overlay" className="object-cover object-left md:object-contain -z-1 h-full absolute pointer-events-none" />
-      </div>
-      <NavBar ref={footerRef} />
-      {/* SECTION 1 */}
-      <div className="flex flex-col md:flex-row items-center justify-between w-full px-4 sm:px-8 md:px-12 lg:px-16">
-        <div className="w-full md:w-1/2 py-12 md:py-24 flex flex-col text-center md:text-left text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
-          <span className="">Discover the Right</span>
-          <span className="text-[#5013AF]">Connections</span>
-          <span>Faster Than Ever</span>
-          <span className="font-light text-base sm:text-lg mt-5 md:mt-3 px-12 md:px-0 md:w-4/5 tracking-normal">
-            Harness the power of AI to refine and expedite your professional
-            networking.
-          </span>
-          <Button
-            as={Link}
-            href="/search"
-            size="lg"
-            radius="sm"
-            className="bg-[#5013AF] w-1/2 md:w-1/3 mt-8 md:mt-9 tracking-normal text-white self-center md:self-start"
-          >
-            Start Your Search
-          </Button>
-        </div>
-        <div className="w-11/12 md:w-1/2">
-          <img src="hero-image.png" alt="hero" className="self-center md:self-end" />
-        </div>
-      </div>
-      {/* SECTION 2 */}
-      <div className="w-11/12 flex flex-col justify-center items-center text-center mt-24 md:mt-32 xl:mt-52">
-        <span className="text-2xl xl:text-4xl font-semibold w-10/12 sm:w-1/2">
-          Take the next step & get results faster
-        </span>
-        <div className="grid grid-rows-3 md:flex md:justify-between gap-7 xl:gap-14 text-left mt-10 md:mt-16 w-5/6 md:w-full">
-          {data.cards.map((card, index) => (
-            <div
-              key={index}
-              className="flex flex-col justify-between bg-white shadow-xl md:shadow-2xl shadow-[#d8cee7] md:w-1/3 p-5 rounded-xl"
-            >
-              <img
-                src={card.image}
-                alt={card.header}
-                className="w-1/4 h-auto"
-              />
-              <span className="text-2xl xl:text-4xl font-semibold text-[#5013AF]">{card.header}</span>
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/search" });
+    window.location.reload();
+  };
 
-              <span className="text-base xl:text-lg font-light mt-2">{card.content}</span>
-              {/* <Button
-                as={Link}
-                href="#"
-                size="lg"
-                radius="sm"
-                className="bg-[#5013AF] py-6 mt-3 tracking-normal text-white"
-              >
-                Learn More
-              </Button> */}
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col md:flex-row items-center mt-32 w-10/12 md:w-11/12 bg-[#ede7f9] rounded-lg">
-        <div className="flex flex-col my-9 xl:my-24 px-14 md:w-1/2">
-          <span className="text-3xl md:text-4xl xl:text-5xl font-bold">Get started!</span>
-          <span className="mt-3 text-base xl:text-lg font-light">
-            Are you ready to transform your professional network? Join
-            Talentmapp today.
+  const toggleLogout = () => {
+    setShowLogout((prevShowLogout) => !prevShowLogout);
+  };
+
+  const closeLogout = () => {
+    setShowLogout(false);
+  };
+
+  return (
+    <div className="flex flex-col h-screen bg-black font-jakarta overscroll-none">
+      <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
+        <span className="text-white text-center">
+          please open this site on a{" "}
+          <span className="text-purple-400">bigger screen</span>
+        </span>
+        <div className="flex items-center justify-center">
+          <img src="tm-small-logo.png" alt="logo" className="w-[20%]" />
+          <span className="font-bold text-sm w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+            <a href="/">back to landing</a>
           </span>
-          <Button
-            as={Link}
-            href="/search"
-            radius="sm"
-            className="bg-[#5013AF] w-1/4 md:w-1/2 text-sm p-3 md:text-base md:py-6 md:px-3 mt-5 tracking-normal text-white"
-          >
-            Try Now
-          </Button>
         </div>
-        <img src="/get-started.png" alt="people" className="md:w-3/5 xl:w-1/2 rounded-b-lg md:rounded-none" />
       </div>
-      <div className="w-full" ref={footerRef}>
-        <Footer />
+      <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
+        <Link href="/">
+          <img
+            src="/tm-small-logo.png"
+            alt="logo"
+            className="w-[12%] xl:w-[7%] ml-20"
+          />
+        </Link>
+        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <a href="/about">learn more.</a>
+        </span>
+        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 border-[#dfdede] border-opacity-70 hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <a
+            href="https://jgg07b9ji7m.typeform.com/to/nWBQtOpn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            join waitlist
+          </a>
+        </span>
+        {!loading && user ? (
+          <div className="relative">
+            <img
+              src={user.image}
+              alt="Profile"
+              className="rounded-full w-14 border-dashed p-1 border-[1px] h-auto mx-5 cursor-pointer"
+              onClick={toggleLogout}
+              tabIndex="0" // Make the profile image focusable
+            />
+            {showLogout && (
+              <ul className="absolute z-100 flex flex-col items-center jusitfy-between bottom-[-115px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
+                <div className="w-full p-1 flex justify-center">
+                  <Button as={Link} href="/profile">
+                    Profile
+                  </Button>
+                </div>
+                <div className="w-full p-1 flex justify-center">
+                  <Button as={Link} href="/api/auth/signout">
+                    Logout
+                  </Button>
+                </div>
+              </ul>
+            )}
+          </div>
+        ) : (
+          <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+            <a href="/api/auth/signin">login</a>
+          </span>
+        )}
       </div>
-    </main>
+      <div className="hidden bg-black lg:block flex-grow px-20 pb-28">
+        {loading ? (
+          <div className="flex justify-center items-center h-full">
+            <img
+              src="ai_search/searching.gif"
+              alt="Searching..."
+              className="w-[30%]"
+            />
+          </div>
+        ) : (
+          <MessagesList messages={messages} />
+        )}
+      </div>
+      <div
+        ref={messagesEndRef}
+        className="hidden fixed bottom-0 lg:block w-full"
+      >
+        <MessageForm onSendMessage={handleSendMessage} />
+      </div>
+    </div>
   );
 }

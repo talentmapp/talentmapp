@@ -22,7 +22,7 @@ const MessageForm = ({ onSendMessage }) => {
       setDisplayedText(
         isDeleting
           ? currentText.substring(0, displayedText.length - 1)
-          : currentText.substring(0, displayedText.length + 1)
+          : currentText.substring(0, displayedText.length + 1),
       );
 
       setTypingSpeed(isDeleting ? 50 : 70);
@@ -38,7 +38,14 @@ const MessageForm = ({ onSendMessage }) => {
     const typingInterval = setInterval(handleTyping, typingSpeed);
 
     return () => clearInterval(typingInterval);
-  }, [displayedText, isDeleting, loopNum, placeholders, typingSpeed, userInteracted]);
+  }, [
+    displayedText,
+    isDeleting,
+    loopNum,
+    placeholders,
+    typingSpeed,
+    userInteracted,
+  ]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,22 +69,24 @@ const MessageForm = ({ onSendMessage }) => {
       <label className="sr-only">Your message</label>
       <div className="flex w-[65%] border-slate-600 border-x-[2px] border-t-[2px] pb-5 pt-1 px-4 rounded-t-xl self-center gap-3 justify-between items-center bg-gray-800 relative">
         <div className="flex flex-col w-full">
-        <textarea
-          id="chat"
-          rows="1"
-          type="text"
-          autoComplete="off"
-          value={message}
-          onFocus={handleInputFocus}
-          onBlur={handleInputBlur}
-          onChange={(e) => {
-            setMessage(e.target.value);
-            setUserInteracted(true);
-          }}
-          className="block pl-4 resize-none focus:outline-none py-4 w-[90%] text-base bg-gray-800 border-gray-600 placeholder-transparent text-white focus:border-0"
-          placeholder="Find me a Full-Stack Developer with experience in developing E-commerce platforms"
-        ></textarea>
-        <span className="pl-3 text-slate-400 text-sm">talentmapp MVP Build</span>
+          <input
+            id="chat"
+            rows="1"
+            type="text"
+            autoComplete="off"
+            value={message}
+            onFocus={handleInputFocus}
+            onBlur={handleInputBlur}
+            onChange={(e) => {
+              setMessage(e.target.value);
+              setUserInteracted(true);
+            }}
+            className="block pl-4 resize-none focus:outline-none py-4 w-[90%] text-base bg-gray-800 border-gray-600 placeholder-transparent text-white focus:border-0"
+            placeholder="Find me a Full-Stack Developer with experience in developing E-commerce platforms"
+          ></input>
+          <span className="pl-3 text-slate-400 text-sm">
+            talentmapp MVP Build
+          </span>
         </div>
         <button
           type="submit"

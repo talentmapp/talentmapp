@@ -40,12 +40,8 @@ const MessagesList = ({ messages }) => {
         // Reverse the messages array to display the most recent first
         [...messages].reverse().map((message) => (
           <div
-            key={message._id} // Use a unique identifier like _id
-            className={`p-4 ${
-              message.sender === "user"
-                ? "text-gray-100 self-start text-2xl mt-8"
-                : "bg-transparent"
-            }`}
+            key={message._id}
+            className={`p-4 ${message.sender === "user" ? "text-gray-100 self-start text-2xl mt-8" : "bg-transparent"}`}
           >
             {message.sender === "user" && (
               <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
@@ -57,6 +53,14 @@ const MessagesList = ({ messages }) => {
             )}
             {message.profiles && (
               <div className="space-y-6 bg-black">
+                {message.sender === "user" && (
+                  <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
+                    Profiles for:{" "}
+                    <span className="font-semibold ml-4 text-violet-500">
+                      {message.text}
+                    </span>
+                  </div>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
                   {message.profiles.map((profile, idx) => (
                     <div
@@ -87,21 +91,21 @@ const MessagesList = ({ messages }) => {
                         </div>
                       </div>
                       <div
-                        className={`text-gray-300 text-md xl:text-lg px-8 pt-6 pb-4 ${
+                        className={`text-gray-300 text-md xl:text-lg px-8 pt-4 pb-4 ${
                           expandedProfiles[idx]
                             ? ""
                             : "max-h-[8rem] overflow-hidden"
                         }`}
                       >
-                        {profile.summary ? (
-                          profile.summary
+                        {profile.customSummary ? (
+                          profile.customSummary
                         ) : (
                           <p>User has no summary</p>
                         )}
                       </div>
 
-                      {profile.summary &&
-                        profile.summary.split(" ").length > 15 &&
+                      {profile.customSummary &&
+                        profile.customSummary.split(" ").length > 20 &&
                         !expandedProfiles[idx] && (
                           <button
                             className="text-base text-violet-500 font-semibold my-4 focus:outline-none"
@@ -133,23 +137,9 @@ const MessagesList = ({ messages }) => {
                             </span>
                           ))}
                         </div>
-                        <div className="gap-2 space-y-2 p-6">
-                          <span className="text-xl font-bold">
-                            {profile.firstName} is fluent in:
-                          </span>
-                          <br />
-                          {profile.languages.map((language, index) => (
-                            <span
-                              key={index}
-                              className="inline-block justify-start bg-[#5013AF] text-white px-4 mr-2 mt-2 py-2 rounded-full text-sm font-semibold"
-                            >
-                              {language.name}
-                            </span>
-                          ))}
-                        </div>
                         <div className="flex items-center space-x-2 px-8 py-4">
                           <span className="font-normal text-lg mr-2">
-                            find them on:{" "}
+                            find {profile.firstName} on:{" "}
                           </span>
                           <a
                             href={`https://www.linkedin.com/in/${profile.socialMedia.LinkedIn}`} // Construct the LinkedIn URL
