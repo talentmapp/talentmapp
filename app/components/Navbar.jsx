@@ -1,6 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import React, { useState } from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
 import { MdMenu, MdClose } from "react-icons/md";
 
 export default function NavBar() {
@@ -29,7 +36,7 @@ export default function NavBar() {
         <div
           className={`${
             showMenu ? "block" : "hidden"
-          } sm:hidden bg-[#F6F6F6] rounded-xl w-full absolute top-20 left-0 z-10 flex flex-col gap-4 p-6 font-light text-black`}
+          } sm:hidden bg-[#F6F6F6] rounded-xl w-full z-10 absolute top-20 left-0 flex flex-col gap-4 p-6 font-light text-black`}
         >
           <NavbarItem>
             <Link className="text-black" href="#">
@@ -52,7 +59,10 @@ export default function NavBar() {
             </Link>
           </NavbarItem>
         </div>
-        <NavbarContent className="hidden sm:flex gap-8 font-light text-black" justify="end">
+        <NavbarContent
+          className="hidden sm:flex gap-8 font-light text-black"
+          justify="end"
+        >
           <NavbarItem>
             <Link className="text-[#5013AF]" href="#">
               Home

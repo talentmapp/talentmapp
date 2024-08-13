@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
 import Link from "next/link";
+import { FaStar } from "react-icons/fa";
 
 const MessagesList = ({ messages }) => {
   const [expandedProfiles, setExpandedProfiles] = useState({});
@@ -21,12 +22,12 @@ const MessagesList = ({ messages }) => {
               Find <span className="font-bold mx-4">Your</span> People
             </div>
             <span className="text-lg mt-3 text-slate-400">
-              unfamiliar with talentmapp?{" "}
+              Get found by people looking for YOUR profile:{" "}
               <Link
-                href="/about"
+                href="/api/auth/signin"
                 className="text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300"
               >
-                learn more
+                Register Here
               </Link>
             </span>
           </div>
@@ -52,7 +53,7 @@ const MessagesList = ({ messages }) => {
               </div>
             )}
             {message.profiles && (
-              <div className="space-y-6 bg-black">
+              <div className="space-y-6 bg-black z-10">
                 {message.sender === "user" && (
                   <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
                     Profiles for:{" "}
@@ -61,12 +62,15 @@ const MessagesList = ({ messages }) => {
                     </span>
                   </div>
                 )}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
+                <div className="z-10 grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
                   {message.profiles.map((profile, idx) => (
                     <div
                       key={idx}
-                      className="bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
+                      className="relative z-0 bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                     >
+                      <button className="absolute top-2 left-2 text-slate-500 hover:underline border-slate-500 bg-slate-900 border-2 hover:scale-105 p-3 rounded-full">
+                        <FaStar />
+                      </button>
                       <div className="flex gap-5 px-8 pt-8">
                         <img
                           src={profile.profilePicture}
@@ -84,8 +88,10 @@ const MessagesList = ({ messages }) => {
                             <span className="font-light text-sm xl:text-base">
                               Location:
                             </span>{" "}
-                            <span className="font-bold text-sm ">
-                              {profile.location}
+                            <span className="font-bold text-sm">
+                              {profile.location
+                                ? profile.location
+                                : "Not Available"}
                             </span>
                           </p>
                         </div>

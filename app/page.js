@@ -91,13 +91,11 @@ export default function Home() {
         </div>
       </div>
       <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
-        <Link href="/">
-          <img
-            src="/tm-small-logo.png"
-            alt="logo"
-            className="w-[12%] xl:w-[7%] ml-20"
-          />
-        </Link>
+        <div className="w-[100%]">
+          <Link href="/" className="w-[12%] xl:w-[7%] ml-20">
+            <img src="/tm-small-logo.png" alt="logo" className="" />
+          </Link>
+        </div>
         <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
           <a href="/about">learn more.</a>
         </span>
@@ -121,12 +119,12 @@ export default function Home() {
             />
             {showLogout && (
               <ul className="absolute z-100 flex flex-col items-center jusitfy-between bottom-[-115px] bg-gray-900 text-white rounded-md py-1 px-3 shadow-md">
-                <div className="w-full p-1 flex justify-center">
+                <div className="w-full z-100 p-1 flex justify-center">
                   <Button as={Link} href="/profile">
                     Profile
                   </Button>
                 </div>
-                <div className="w-full p-1 flex justify-center">
+                <div className="w-full z-100 p-1 flex justify-center">
                   <Button as={Link} href="/api/auth/signout">
                     Logout
                   </Button>
@@ -135,7 +133,7 @@ export default function Home() {
             )}
           </div>
         ) : (
-          <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <span className="font-bold w-[50%] xl:max-w-[7%] border-[#845AC7] border-2 bg-[#5013AF] py-2 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
             <a href="/api/auth/signin">login</a>
           </span>
         )}
