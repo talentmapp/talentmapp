@@ -131,7 +131,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="hidden lg:block flex-grow px-20 pb-28 relative z-10">
+      <div className="hidden lg:block flex-grow pb-28 relative z-10">
         {loading ? (
           <div className="flex justify-center items-center h-full">
             <img

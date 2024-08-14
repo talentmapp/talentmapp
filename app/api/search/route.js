@@ -71,7 +71,7 @@ export async function POST(request) {
           path: "embedding",
           queryVector: queryEmbedding,
           numCandidates: 90,
-          limit: 3,
+          limit: 9,
           filter: location ? { location: location } : {},
         },
       },
