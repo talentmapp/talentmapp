@@ -47,11 +47,11 @@ const MessagesList = ({ messages }) => {
             <div className="tracking-tight">
               Find <span className="font-bold mx-4">Your</span> People
             </div>
-            <span className="text-lg mt-3 text-slate-400">
+            <span className="text-lg mt-3 text-slate-400 tracking-normal">
               Get found by people looking for YOUR profile:{" "}
               <Link
                 href="/api/auth/signin"
-                className="text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300"
+                className="ml-1 text-slate-500 hover:text-slate-300 font-bold transition-all border-b-[0.5px] border-opacity-60 border-slate-500 hover:border-slate-300"
               >
                 Register Here
               </Link>

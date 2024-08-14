@@ -50,8 +50,8 @@ export const authOptions = {
         return true;
       } else {
         const newUser = {
-          firstName: profile.firstName,
-          lastName: profile.lastName,
+          firstName: profile.given_name,
+          lastName: profile.family_name,
           email: profile.email,
           profilePicture: profile.picture,
           customSummary: "",
