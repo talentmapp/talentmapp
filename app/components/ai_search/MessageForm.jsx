@@ -19,7 +19,7 @@ const MessageForm = ({ onSendMessage }) => {
   ];
 
   useEffect(() => {
-    if (userInteracted) return;
+    if (userInteracted || message) return; // Don't play animation if user has interacted or message is not empty
 
     const handleTyping = () => {
       const currentText = placeholders[loopNum];
@@ -49,6 +49,7 @@ const MessageForm = ({ onSendMessage }) => {
     placeholders,
     typingSpeed,
     userInteracted,
+    message,
   ]);
 
   const handleSubmit = (e) => {
@@ -128,13 +129,14 @@ const MessageForm = ({ onSendMessage }) => {
             <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
           </svg>
         </button>
-        {!userInteracted && (
-          <div className="absolute -top-7 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
-            <span className="text-gray-600 text-base transition-all duration-1000 ease-in-out transform">
-              {displayedText}
-            </span>
-          </div>
-        )}
+        {!userInteracted &&
+          !message && ( // Check if there's no user interaction and the message is empty
+            <div className="absolute -top-7 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
+              <span className="text-gray-600 text-base transition-all duration-1000 ease-in-out transform">
+                {displayedText}
+              </span>
+            </div>
+          )}
       </div>
     </form>
   );

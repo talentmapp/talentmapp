@@ -103,19 +103,19 @@ export default function Home() {
               tabIndex="0" // Make the profile image focusable
             />
             {showLogout && (
-              <ul className="absolute z-50 flex flex-col divide-y-1 divide-neutral-700 border-[1px] border-neutral-700 items-center justify-between bottom-[-90px] text-gray-500 rounded-md shadow-md">
-                <div className="group w-full z-60 py-2 px-4 flex justify-center rounded-t-md transition bg-gray-200 hover:bg-gray-600">
+              <ul className="absolute z-50 flex flex-col divide-y-1 divide-slate-700 border-[1px] border-slate-700 items-center justify-between bottom-[-90px] text-gray-500 rounded-sm shadow-md">
+                <div className="group w-full z-60 py-2 px-4 flex justify-center rounded-t-sm transition bg-slate-800 hover:bg-slate-200">
                   <Link
                     href="/profile"
-                    className="group-hover:font-semibold group-hover:text-gray-300 text-gray-600"
+                    className="group-hover:font-semibold group-hover:text-slate-600 text-slate-300"
                   >
                     Profile
                   </Link>
                 </div>
-                <div className="group w-full z-50 py-2 px-4 flex justify-center rounded-b-md transition bg-gray-200 hover:bg-gray-600">
+                <div className="group w-full z-60 py-2 px-4 flex justify-center rounded-t-sm transition bg-slate-800 hover:bg-slate-200">
                   <Link
                     href="/api/auth/signout"
-                    className="group-hover:font-semibold group-hover:text-gray-300 text-gray-600"
+                    className="group-hover:font-semibold group-hover:text-slate-600 text-slate-300"
                   >
                     Logout
                   </Link>

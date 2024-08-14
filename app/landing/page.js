@@ -75,7 +75,7 @@ export default function Home() {
           </span>
           <Button
             as={Link}
-            href="/search"
+            href="/"
             size="lg"
             radius="sm"
             className="bg-[#5013AF] w-1/2 md:w-1/3 mt-8 md:mt-9 tracking-normal text-white self-center md:self-start"
@@ -138,7 +138,7 @@ export default function Home() {
           </span>
           <Button
             as={Link}
-            href="/search"
+            href="/"
             radius="sm"
             className="bg-[#5013AF] w-1/4 md:w-1/2 text-sm p-3 md:text-base md:py-6 md:px-3 mt-5 tracking-normal text-white"
           >
