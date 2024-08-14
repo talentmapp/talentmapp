@@ -48,9 +48,9 @@ const MessagesList = ({ messages }) => {
             }`}
           >
             {message.sender === "user" && (
-              <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
+              <div className="text-gray-100 self-start text-2xl mb-4">
                 Profiles for:{" "}
-                <span className="font-semibold ml-4 text-violet-500">
+                <span className="font-semibold text-violet-500">
                   {message.text}
                 </span>
               </div>

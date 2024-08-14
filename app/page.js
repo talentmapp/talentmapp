@@ -146,7 +146,7 @@ export default function Home() {
       </div>
 
       {/* Message Form - Positioned at the Bottom */}
-      <div className="lg:block w-full absolute bottom-0 left-0 z-50">
+      <div className="hidden lg:block w-full absolute bottom-0 left-0 z-50">
         <MessageForm onSendMessage={handleSendMessage} />
       </div>
     </div>

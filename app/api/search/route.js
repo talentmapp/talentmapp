@@ -72,22 +72,14 @@ export async function POST(request) {
           queryVector: queryEmbedding,
           numCandidates: 90,
           limit: 3,
+          filter: location ? { location: location } : {},
         },
       },
     ];
 
-    // Add location filtering if location is provided and not "Anywhere"
-    if (location) {
-      pipeline.push({
-        $match: {
-          location: location,
-        },
-      });
-    }
-
     console.log(pipeline);
-
     const matchingProfiles = await collection.aggregate(pipeline).toArray();
+
     return NextResponse.json(matchingProfiles);
   } catch (error) {
     console.error("Error:", error);
