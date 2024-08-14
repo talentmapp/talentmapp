@@ -1,6 +1,22 @@
 import NextAuth from "next-auth";
 import LinkedInProvider from "next-auth/providers/linkedin";
 
+import { MongoClient } from "mongodb";
+
+const uri = process.env.MONGODB_URI;
+
+let client;
+const connectToDatabase = async () => {
+  if (!client) {
+    client = new MongoClient(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    await client.connect();
+  }
+  return client.db("tm-mvp");
+};
+
 export const authOptions = {
   providers: [
     LinkedInProvider({
@@ -25,8 +41,32 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile }) {
-      // console.log("SignIn Callback:", { user, account, profile });
-      return account;
+      const db = await connectToDatabase();
+      const collection = db.collection("profile");
+
+      const existingUser = await collection.findOne({ email: profile.email });
+
+      if (existingUser) {
+        return true;
+      } else {
+        const newUser = {
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          email: profile.email,
+          profilePicture: profile.picture,
+          customSummary: "",
+          education: [],
+          experience: [],
+          interests: [],
+          skills: [],
+          languages: [],
+          location: "",
+          visibility: { profile: true, email: false, phoneNumber: false },
+        };
+
+        await collection.insertOne(newUser);
+        return true;
+      }
     },
     async redirect({ url, baseUrl }) {
       // console.log("Redirect Callback:", { url, baseUrl });

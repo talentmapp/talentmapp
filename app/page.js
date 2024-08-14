@@ -91,7 +91,7 @@ export default function Home() {
           </Link>
         </div>
         <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a href="/about">learn more.</a>
+          <a href="/landing">learn more.</a>
         </span>
         {!loading && user ? (
           <div className="relative">
