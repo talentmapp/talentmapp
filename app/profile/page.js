@@ -20,7 +20,7 @@ export default function Profile() {
   const { data: session } = useSession(); // Get session data
   const user = session?.user; // Access user data
 
-  console.log(session?.user)
+  console.log(session?.user);
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
@@ -31,10 +31,16 @@ export default function Profile() {
         <Fieldset className=" space-y-6 rounded-xl bg-white/5 p-6 sm:p-10 ">
           <div className="flex justify-between items-center">
             <div className="flex flex-col">
-            <a href="/search" className="text-gray-600 mb-4 hover:text-gray-400 transition text-sm"> Back to Search</a>
-            <Legend className="text-3xl font-semibold text-white">
-              Account Details
-            </Legend>
+              <a
+                href="/"
+                className="text-gray-600 mb-4 hover:text-gray-400 transition text-sm"
+              >
+                {" "}
+                Back to Search
+              </a>
+              <Legend className="text-3xl font-semibold text-white">
+                Account Details
+              </Legend>
             </div>
             {user ? (
               <img
@@ -52,7 +58,7 @@ export default function Profile() {
             <Input
               className={clsx(
                 "mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
-                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
               )}
               placeholder={user?.name}
             />
@@ -68,7 +74,7 @@ export default function Profile() {
                   "mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
                   "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
                   // Make the text of each option black on Windows
-                  "*:text-black"
+                  "*:text-black",
                 )}
               >
                 <option>San Francisco</option>
@@ -92,13 +98,15 @@ export default function Profile() {
             <Textarea
               className={clsx(
                 "mt-3 block w-full resize-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
-                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+                "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
               )}
               rows={3}
               placeholder={user?.customSummary}
             />
           </Field>
-          <button className="py-2 px-3 mt-2 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md">Save Changes</button>
+          <button className="py-2 px-3 mt-2 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md">
+            Save Changes
+          </button>
         </Fieldset>
       </div>
     </div>

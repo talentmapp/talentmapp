@@ -3,8 +3,7 @@ import axios from "axios";
 import { MongoClient, ServerApiVersion } from "mongodb";
 
 let client;
-const uri =
-  process.env.MONGODB_URI
+const uri = process.env.MONGODB_URI;
 
 const connectToDatabase = async () => {
   if (client && client.isConnected) {
@@ -22,13 +21,13 @@ const connectToDatabase = async () => {
 };
 
 async function generateEmbeddings(text) {
-  const token = process.env.NEW_OPENAI_API_KEY
+  const token = process.env.NEW_OPENAI_API_KEY;
   const model = "text-embedding-3-small";
   try {
     const requestBody = {
       model: model,
       input: [text],
-      dimensions: 512
+      dimensions: 512,
     };
     const response = await axios.post(
       "https://api.openai.com/v1/embeddings",
@@ -38,7 +37,7 @@ async function generateEmbeddings(text) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     const embedding = response.data.data[0].embedding;
     return embedding;
@@ -51,38 +50,50 @@ async function generateEmbeddings(text) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    if (!body.message) {
+    const { message, location } = body;
+    console.log(body);
+
+    if (!message) {
       return NextResponse.json(
         { error: "No message provided" },
-        { status: 400 }
+        { status: 400 },
       );
     }
-
-    const { message } = body;
-    console.log("Message:", message);
 
     const queryEmbedding = await generateEmbeddings(message);
     const db = await connectToDatabase();
     const collection = db.collection("profile");
-    const matchingProfiles = await collection
-      .aggregate([
-        {
-          $vectorSearch: {
-            index: "vector_index",
-            path: "embedding",
-            queryVector: queryEmbedding,
-            numCandidates: 90,
-            limit: 3,
-          },
+
+    const pipeline = [
+      {
+        $vectorSearch: {
+          index: "vector_index",
+          path: "embedding",
+          queryVector: queryEmbedding,
+          numCandidates: 90,
+          limit: 3,
         },
-      ])
-      .toArray();
+      },
+    ];
+
+    // Add location filtering if location is provided and not "Anywhere"
+    if (location) {
+      pipeline.push({
+        $match: {
+          location: location,
+        },
+      });
+    }
+
+    console.log(pipeline);
+
+    const matchingProfiles = await collection.aggregate(pipeline).toArray();
     return NextResponse.json(matchingProfiles);
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
       { error: "Failed to search profiles or interact with OpenAI" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -38,11 +38,14 @@ const MessagesList = ({ messages }) => {
           />
         </div>
       ) : (
-        // Reverse the messages array to display the most recent first
-        [...messages].reverse().map((message) => (
+        [...messages].reverse().map((message, messageIndex) => (
           <div
-            key={message._id}
-            className={`p-4 ${message.sender === "user" ? "text-gray-100 self-start text-2xl mt-8" : "bg-transparent"}`}
+            key={messageIndex}
+            className={`p-4 ${
+              message.sender === "user"
+                ? "text-gray-100 self-start text-2xl mt-8"
+                : "bg-transparent"
+            }`}
           >
             {message.sender === "user" && (
               <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
@@ -52,16 +55,9 @@ const MessagesList = ({ messages }) => {
                 </span>
               </div>
             )}
-            {message.profiles && (
+
+            {message.profiles && message.profiles.length > 0 ? (
               <div className="space-y-6 bg-black z-10">
-                {message.sender === "user" && (
-                  <div className="flex font-light border-2 border-white rounded-full py-4 px-12">
-                    Profiles for:{" "}
-                    <span className="font-semibold ml-4 text-violet-500">
-                      {message.text}
-                    </span>
-                  </div>
-                )}
                 <div className="z-10 grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
                   {message.profiles.map((profile, idx) => (
                     <div
@@ -134,12 +130,12 @@ const MessagesList = ({ messages }) => {
                         <div className="mt-2 gap-2 space-y-2 px-6 pt-6 pb-3">
                           <span className="text-xl font-bold">Strengths:</span>
                           <br />
-                          {profile.skills.map((interest, index) => (
+                          {profile.strengths.map((interest, index) => (
                             <span
                               key={index}
                               className="inline-block justify-start bg-[#5013AF] text-white px-4 mr-2 mt-2 py-2 rounded-full text-sm font-semibold"
                             >
-                              {interest.name}
+                              {interest}
                             </span>
                           ))}
                         </div>
@@ -165,6 +161,17 @@ const MessagesList = ({ messages }) => {
                   ))}
                 </div>
               </div>
+            ) : (
+              message.sender !== "user" && (
+                <div className="text-center  rounded-lg py-14 bg-slate-800">
+                  <p className="text-2xl font-semibold text-white ">
+                    No matching profiles found.
+                  </p>
+                  <p className="text-lg mt-2 font-light text-slate-500">
+                    Please try a different search or adjust your criteria.
+                  </p>
+                </div>
+              )
             )}
           </div>
         ))
@@ -174,3 +181,14 @@ const MessagesList = ({ messages }) => {
 };
 
 export default MessagesList;
+
+// message.sender !== "user" && (
+//   <div className="text-center  rounded-lg py-14 bg-slate-800">
+//     <p className="text-2xl font-semibold text-white ">
+//       No matching profiles found.
+//     </p>
+//     <p className="text-lg mt-2 font-light text-slate-500">
+//       Please try a different search or adjust your criteria.
+//     </p>
+//   </div>
+// )

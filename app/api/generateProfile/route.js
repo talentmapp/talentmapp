@@ -35,16 +35,15 @@ export async function POST(req, res) {
                   " from " +
                   exp.startDate +
                   " to " +
-                  exp.endDate
+                  exp.endDate,
               )
               .join(", "),
             profile.education
               .map(
                 (edu) =>
-                  edu.degree + " in " + edu.major + " from " + edu.university
+                  edu.degree + " in " + edu.major + " from " + edu.university,
               )
               .join(", "),
-            profile.languages.map((lang) => "can speak" + lang.name).join(", "),
           ].join(" ");
 
           const embeddings = await generateEmbeddings(textToEmbed);
@@ -55,7 +54,7 @@ export async function POST(req, res) {
             ...profile,
             embedding: embeddingVector,
           });
-        })
+        }),
       );
 
       res.status(200).json({ message: `Inserted ${results.length} profiles` });
