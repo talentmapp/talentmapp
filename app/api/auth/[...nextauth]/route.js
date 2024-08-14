@@ -95,6 +95,5 @@ export const authOptions = {
   },
   debug: true, // Enable debug mode
 };
-
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
