@@ -230,7 +230,7 @@ const insertOrUpdateProfileInMongoDB = async (updatedData) => {
 };
 
 // Main Function: Integrate All Steps
-export const processLinkedInProfile = async (linkedinUrl, userEmail) => {
+const processLinkedInProfile = async (linkedinUrl, userEmail) => {
   // Step 1: Fetch Data
   const proxyCurlData = await fetchDataFromProxyCurl(linkedinUrl);
   if (proxyCurlData.error) {
