@@ -16,7 +16,7 @@ const connectToDatabase = async () => {
   return client.db("tm-mvp");
 };
 
-export const authOptions = {
+const authOptions = {
   providers: [
     LinkedInProvider({
       clientId: process.env.LINKEDIN_CLIENT_ID || "",
