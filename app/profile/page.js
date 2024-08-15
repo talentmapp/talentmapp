@@ -21,19 +21,33 @@ export default function Profile() {
   const user = session?.user; // Access user data
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Handler for generating the profile based on LinkedIn URL
   const handleGenerateProfile = async () => {
+    setLoading(true); // Start loading spinner
     try {
       const linkedinUrl = `https://www.linkedin.com/in/${linkedinUsername}`;
       const response = await axios.post("/api/generateProfile", {
         linkedinUrl,
         userEmail: user?.email,
       });
+
       setMessage("Profile generated successfully!");
     } catch (error) {
-      setMessage("An error occurred while generating the profile.");
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.error ===
+          "You can only generate your profile once a week."
+      ) {
+        setMessage("You can only generate your profile once a week.");
+      } else {
+        setMessage("An error occurred while generating the profile.");
+      }
       console.error("Profile generation error:", error);
+    } finally {
+      setLoading(false); // Stop loading spinner
     }
   };
 
@@ -81,31 +95,6 @@ export default function Profile() {
               placeholder={user?.name}
             />
           </Field>
-          {/* <Field>
-            <Label className="text-sm/6 font-medium text-white">City</Label>
-            <Description className="text-sm/6 text-white/50">
-              More country options coming soon
-            </Description>
-            <div className="relative">
-              <Select
-                className={clsx(
-                  "mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
-                  "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
-                  "*:text-black",
-                )}
-                placeholder={user?.location}
-              >
-                <option>San Francisco</option>
-                <option>Pittsburgh</option>
-                <option>Chicago</option>
-                <option>Austin, TX</option>
-              </Select>
-              <FaChevronDown
-                className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
-                aria-hidden="true"
-              />
-            </div>
-          </Field> */}
           <Field>
             <Label className="text-sm/6 font-medium text-white">
               LinkedIn URL
@@ -128,8 +117,13 @@ export default function Profile() {
           <button
             className="py-2 px-3 mt-5 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md"
             onClick={handleGenerateProfile}
+            disabled={loading}
           >
-            Generate Profile
+            {loading ? (
+              <span className="animate-spin rounded-full h-5 w-5 border-t-2 border-white inline-block"></span>
+            ) : (
+              "Generate Profile"
+            )}
           </button>
           {message && (
             <p className="text-sm text-white mt-3 text-center">{message}</p>

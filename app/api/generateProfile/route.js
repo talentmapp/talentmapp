@@ -128,6 +128,7 @@ const createOpenAIEmbedding = async (profileData) => {
   const requestBody = {
     model,
     input: [textToEmbed],
+    dimensions: 512,
   };
 
   const headers = {
