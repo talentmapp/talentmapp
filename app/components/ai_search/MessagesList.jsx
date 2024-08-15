@@ -70,11 +70,7 @@ const MessagesList = ({ messages }) => {
           return (
             <div
               key={messageIndex}
-              className={`p-4 ${
-                message.sender === "user"
-                  ? "text-gray-100 self-start text-2xl "
-                  : "bg-transparent"
-              }`}
+              className="p-4 bg-transparent flex flex-col items-start"
             >
               {message.sender === "user" && (
                 <div className="text-gray-100 self-start text-2xl mb-4 border-slate-600 border-2 px-5 py-3 rounded-full">
@@ -86,7 +82,7 @@ const MessagesList = ({ messages }) => {
               )}
 
               {message.profiles && message.profiles.length > 0 ? (
-                <div className="relative space-y-6 bg-black z-10">
+                <div className="relative space-y-6 bg-black z-10 w-full">
                   <div className="z-10 grid grid-cols-1 md:grid-cols-3 gap-3 xl:gap-6 bg-black">
                     {message.profiles
                       .slice(

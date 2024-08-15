@@ -25,7 +25,7 @@ export default function Home() {
 
   const handleSendMessage = async (message, location) => {
     try {
-      setLoading(true); // Set loading to true when sending a message
+      setLoading(true);
 
       const response = await fetch("/api/search", {
         method: "POST",
@@ -35,7 +35,7 @@ export default function Home() {
         body: JSON.stringify({ message, location }),
       });
 
-      setLoading(false); // Set loading to false after receiving response
+      setLoading(false);
 
       if (!response.ok) {
         throw new Error(

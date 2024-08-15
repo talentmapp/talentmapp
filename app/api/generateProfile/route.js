@@ -45,7 +45,6 @@ const convertData = (inputData, userEmail) => {
     lastName: inputData.last_name || "",
     email: userEmail || "",
     phoneNumber: inputData.phone || "",
-    profilePicture: inputData.profile_pic_url || "",
     summary: inputData.summary || "",
     location: inputData.city || "",
     experience: [],
