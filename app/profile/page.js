@@ -9,18 +9,33 @@ import {
   Label,
   Legend,
   Select,
-  Textarea,
 } from "@headlessui/react";
-import { FaChevronDown, FaChevronLeft } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
-
+import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
+import axios from "axios";
 
 export default function Profile() {
   const { data: session } = useSession(); // Get session data
   const user = session?.user; // Access user data
+  const [linkedinUsername, setLinkedinUsername] = useState("");
+  const [message, setMessage] = useState("");
 
-  console.log(session?.user);
+  // Handler for generating the profile based on LinkedIn URL
+  const handleGenerateProfile = async () => {
+    try {
+      const linkedinUrl = `https://www.linkedin.com/in/${linkedinUsername}`;
+      const response = await axios.post("/api/generateProfile", {
+        linkedinUrl,
+        userEmail: user?.email,
+      });
+      setMessage("Profile generated successfully!");
+    } catch (error) {
+      setMessage("An error occurred while generating the profile.");
+      console.error("Profile generation error:", error);
+    }
+  };
 
   return (
     <div className="h-screen w-full flex flex-col justify-center items-center">
@@ -42,8 +57,7 @@ export default function Profile() {
                 Account Details
               </Legend>
               <span className="w-[90%] text-sm text-neutral-500/80 font-light mt-2">
-                Option to populate profile with data from your linkedin coming
-                soon ;)
+                Populate profile with data from your LinkedIn account.
               </span>
             </div>
             {user ? (
@@ -51,7 +65,7 @@ export default function Profile() {
                 src={user.image}
                 alt="Profile"
                 className="rounded-full w-[1/2] h-[1/2] mx-5 cursor-pointer border-3 border-dotted border-gray-600 p-1.5"
-                tabIndex="0" // Make the profile image focusable
+                tabIndex="0"
               />
             ) : (
               ""
@@ -67,7 +81,7 @@ export default function Profile() {
               placeholder={user?.name}
             />
           </Field>
-          <Field>
+          {/* <Field>
             <Label className="text-sm/6 font-medium text-white">City</Label>
             <Description className="text-sm/6 text-white/50">
               More country options coming soon
@@ -77,9 +91,9 @@ export default function Profile() {
                 className={clsx(
                   "mt-3 block w-full appearance-none rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
                   "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
-                  // Make the text of each option black on Windows
                   "*:text-black",
                 )}
+                placeholder={user?.location}
               >
                 <option>San Francisco</option>
                 <option>Pittsburgh</option>
@@ -91,7 +105,7 @@ export default function Profile() {
                 aria-hidden="true"
               />
             </div>
-          </Field>
+          </Field> */}
           <Field>
             <Label className="text-sm/6 font-medium text-white">
               LinkedIn URL
@@ -105,13 +119,21 @@ export default function Profile() {
                   "block w-full rounded-r-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
                   "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
                 )}
-                placeholder={user?.vanityName}
+                value={linkedinUsername}
+                onChange={(e) => setLinkedinUsername(e.target.value)}
+                placeholder="your-username"
               />
             </div>
           </Field>
-          <button className="py-2 px-3 mt-5 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md">
-            Save Changes
+          <button
+            className="py-2 px-3 mt-5 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md"
+            onClick={handleGenerateProfile}
+          >
+            Generate Profile
           </button>
+          {message && (
+            <p className="text-sm text-white mt-3 text-center">{message}</p>
+          )}
         </Fieldset>
       </div>
     </div>

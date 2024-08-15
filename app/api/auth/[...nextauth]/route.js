@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import LinkedInProvider from "next-auth/providers/linkedin";
-
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
@@ -59,7 +58,6 @@ export const authOptions = {
           experience: [],
           interests: [],
           skills: [],
-          languages: [],
           location: "",
           visibility: { profile: true, email: false, phoneNumber: false },
         };
