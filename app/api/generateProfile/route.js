@@ -16,7 +16,26 @@ const connectToDatabase = async () => {
   return mongoClient.db("tm-mvp");
 };
 
-// Step 1: Fetch Data from ProxyCurl
+// Step 1: Check if the profile can be generated
+const canGenerateProfile = async (userEmail) => {
+  const db = await connectToDatabase();
+  const collection = db.collection("profile");
+
+  const existingProfile = await collection.findOne({ email: userEmail });
+  if (existingProfile) {
+    const lastGenerated = existingProfile.lastGenerated;
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    if (lastGenerated && lastGenerated > oneWeekAgo) {
+      return { error: "You can only generate your profile once a week." };
+    }
+  }
+
+  return { canGenerate: true };
+};
+
+// Step 2: Fetch Data from ProxyCurl
 const fetchDataFromProxyCurl = async (linkedinUrl) => {
   const url = `https://nubela.co/proxycurl/api/v2/linkedin?url=${linkedinUrl}`;
   const headers = {
@@ -38,13 +57,14 @@ const fetchDataFromProxyCurl = async (linkedinUrl) => {
   }
 };
 
-// Step 2: Data Cleaning and Conversion
+// Step 3: Data Cleaning and Conversion
 const convertData = (inputData, userEmail) => {
   const outputData = {
     firstName: inputData.first_name || "",
     lastName: inputData.last_name || "",
     email: userEmail || "",
     phoneNumber: inputData.phone || "",
+    profilePicture: inputData.profile_pic_url || "",
     summary: inputData.summary || "",
     location: inputData.city || "",
     experience: [],
@@ -105,7 +125,7 @@ const convertData = (inputData, userEmail) => {
   return outputData;
 };
 
-// Step 3: Create OpenAI Embedding
+// Step 4: Create OpenAI Embedding
 const createOpenAIEmbedding = async (profileData) => {
   const apiUrl = "https://api.openai.com/v1/embeddings";
   const model = "text-embedding-3-small";
@@ -144,7 +164,7 @@ const createOpenAIEmbedding = async (profileData) => {
   }
 };
 
-// Step 4: Call OpenAI API for Summary
+// Step 5: Call OpenAI API for Summary
 const callOpenAIForSummary = async (profile) => {
   const prompt = `
 Generate a summary for this user profile. The summary should highlight the user's key achievements and skills and be limited to 100 words. Additionally, provide the 5 top strengths of the user profile. Each strength should be a maximum of 2 words, emphasizing the user's strengths based on the profile. The output should be in JSON format with two keys: customSummary and strengths. Strengths should be an array of strings ordered from top to low importance. Strengths can be a mix of soft and hard skills, with a higher emphasis on hard skills. Here is the profile data:
@@ -190,7 +210,7 @@ Interests: ${JSON.stringify(profile.interests)}
   }
 };
 
-// Step 5: Update MongoDB
+// Step 6: Update MongoDB
 const insertOrUpdateProfileInMongoDB = async (updatedData) => {
   const db = await connectToDatabase();
   const collection = db.collection("profile");
@@ -201,14 +221,6 @@ const insertOrUpdateProfileInMongoDB = async (updatedData) => {
     });
 
     if (existingProfile) {
-      const lastGenerated = existingProfile.lastGenerated;
-      const oneWeekAgo = new Date();
-      oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-
-      if (lastGenerated && lastGenerated > oneWeekAgo) {
-        return { error: "You can only generate your profile once a week." };
-      }
-
       await collection.updateOne(
         { email: updatedData.email },
         { $set: { ...updatedData, lastGenerated: new Date() } },
@@ -231,23 +243,29 @@ const insertOrUpdateProfileInMongoDB = async (updatedData) => {
 
 // Main Function: Integrate All Steps
 const processLinkedInProfile = async (linkedinUrl, userEmail) => {
-  // Step 1: Fetch Data
+  // Step 1: Check if the profile can be generated
+  const checkResult = await canGenerateProfile(userEmail);
+  if (checkResult.error) {
+    return checkResult;
+  }
+
+  // Step 2: Fetch Data from ProxyCurl
   const proxyCurlData = await fetchDataFromProxyCurl(linkedinUrl);
   if (proxyCurlData.error) {
     return { error: proxyCurlData.error.description };
   }
 
-  // Step 2: Convert Data
+  // Step 3: Convert Data
   const profileData = convertData(proxyCurlData, userEmail);
 
-  // Step 3: Create OpenAI Embedding
+  // Step 4: Create OpenAI Embedding
   const embedding = await createOpenAIEmbedding(profileData);
   if (!embedding) {
     return { error: "Failed to create embedding." };
   }
   profileData.embedding = embedding;
 
-  // Step 4: Call OpenAI
+  // Step 5: Call OpenAI for Summary
   const openAIResponse = await callOpenAIForSummary(profileData);
   if (openAIResponse.error) {
     return { error: openAIResponse.error };
@@ -257,7 +275,7 @@ const processLinkedInProfile = async (linkedinUrl, userEmail) => {
   profileData.customSummary = openAIResponse.customSummary || "";
   profileData.strengths = openAIResponse.strengths || [];
 
-  // Step 5: Update MongoDB
+  // Step 6: Update MongoDB
   const dbOperation = await insertOrUpdateProfileInMongoDB(profileData);
   if (dbOperation.error) {
     return { error: dbOperation.error };
