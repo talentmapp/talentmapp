@@ -67,9 +67,10 @@ const convertData = (inputData, userEmail) => {
     profilePicture: inputData.profile_pic_url || "",
     summary: inputData.summary || "",
     location: inputData.city || "",
+    country: inputData.country || "",
     experience: [],
     education: [],
-    skills: inputData.skills || [],
+    skills: [],
     interests: inputData.interests || [],
     languages: [],
     socialMedia: [
@@ -108,6 +109,15 @@ const convertData = (inputData, userEmail) => {
         degree: edu.degree_name || "",
         major: edu.field_of_study || "",
         university: edu.school || "",
+      });
+    });
+  }
+
+  if (inputData.certifications) {
+    inputData.certifications.forEach((edu) => {
+      outputData.skills.push({
+        authority: edu.authority || "",
+        name: edu.name || "",
       });
     });
   }

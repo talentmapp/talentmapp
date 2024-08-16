@@ -6,8 +6,6 @@ const MessagesList = ({ messages }) => {
   const [expandedProfiles, setExpandedProfiles] = useState({});
   const [currentPages, setCurrentPages] = useState({});
 
-  console.log(messages);
-
   const profilesPerPage = 3;
 
   const toggleProfileExpand = (idx) => {

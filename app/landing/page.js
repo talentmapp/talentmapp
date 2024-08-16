@@ -45,16 +45,11 @@ export default function Home() {
       <div className="bg-[#5013AF] h-12 w-full flex items-center justify-center relative">
         <div className="flex items-center text-[10px] md:text-base justify-center w-full px-4 sm:px-8 md:px-16">
           <span className="text-[#DDD1F0] font-jakarta font-extralight">
-            For product announcements and exclusive insights.
+            Talentmapp People Search is live -
           </span>
-          <button
-            onClick={scrollToFooter}
-            size="lg"
-            radius="sm"
-            className="mx-2 tracking-normal text-white"
-          >
-            Join Waitlist
-          </button>
+          <Link href="/" className="mx-1 text-base tracking-normal text-white">
+            Try Now!
+          </Link>
         </div>
         <img
           src="banner-overlay.svg"

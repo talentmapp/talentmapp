@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Select } from "@headlessui/react";
+import { useSession } from "next-auth/react";
 import clsx from "clsx";
 import { FaMapMarkerAlt, FaChevronDown } from "react-icons/fa";
 
@@ -11,6 +12,11 @@ const MessageForm = ({ onSendMessage }) => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(70);
   const [userInteracted, setUserInteracted] = useState(false);
+
+  const { data: session } = useSession();
+  const user = session?.user;
+
+  console.log(user);
 
   const placeholders = [
     "Find me a Full-Stack Developer E-commerce site",
@@ -54,7 +60,14 @@ const MessageForm = ({ onSendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSendMessage(message, location === "Anywhere" ? null : location); // Pass location if it's not "Anywhere"
+    const userEmail = session?.user?.email;
+
+    onSendMessage(
+      message,
+      location === "Anywhere" ? null : location,
+      userEmail,
+    );
+
     setMessage("");
   };
 

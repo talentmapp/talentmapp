@@ -13,12 +13,12 @@ import {
 import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 
 export default function Profile() {
-  const { data: session } = useSession(); // Get session data
-  const user = session?.user; // Access user data
+  const { data: session } = useSession();
+  const user = session?.user;
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);

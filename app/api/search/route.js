@@ -50,8 +50,8 @@ async function generateEmbeddings(text) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { message, location } = body;
-    console.log(body);
+    const { message, location, userEmail } = body;
+    console.log(message, location, userEmail);
 
     if (!message) {
       return NextResponse.json(
@@ -77,7 +77,7 @@ export async function POST(request) {
       },
     ];
 
-    console.log(pipeline);
+    // console.log(pipeline);
     const matchingProfiles = await collection.aggregate(pipeline).toArray();
 
     return NextResponse.json(matchingProfiles);
