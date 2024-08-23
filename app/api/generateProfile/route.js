@@ -73,11 +73,9 @@ const convertData = (inputData, userEmail) => {
     skills: [],
     interests: inputData.interests || [],
     languages: [],
-    socialMedia: [
-      {
-        LinkedIn: inputData.public_identifier || "",
-      },
-    ],
+    socialMedia: {
+      LinkedIn: inputData.public_identifier || "",
+    },
     visibility: {
       profile: true,
       email: false,
@@ -266,6 +264,7 @@ const processLinkedInProfile = async (linkedinUrl, userEmail) => {
   }
 
   // Step 3: Convert Data
+  console.log(proxyCurlData);
   const profileData = convertData(proxyCurlData, userEmail);
 
   // Step 4: Create OpenAI Embedding

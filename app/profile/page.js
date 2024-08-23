@@ -12,13 +12,14 @@ import {
 } from "@headlessui/react";
 import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 
 export default function Profile() {
-  const { data: session } = useSession();
-  const user = session?.user;
+  const { data: session, status } = useSession();
+  const loadingSession = status === "loading";
+
   const [linkedinUsername, setLinkedinUsername] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ export default function Profile() {
       const linkedinUrl = `https://www.linkedin.com/in/${linkedinUsername}`;
       const response = await axios.post("/api/generateProfile", {
         linkedinUrl,
-        userEmail: user?.email,
+        userEmail: session?.user?.email,
       });
 
       setMessage("Profile generated successfully!");
@@ -74,9 +75,9 @@ export default function Profile() {
                 Populate profile with data from your LinkedIn account.
               </span>
             </div>
-            {user ? (
+            {!loadingSession && session?.user ? (
               <img
-                src={user.image}
+                src={session.user.image}
                 alt="Profile"
                 className="rounded-full w-[1/2] h-[1/2] mx-5 cursor-pointer border-3 border-dotted border-gray-600 p-1.5"
                 tabIndex="0"
@@ -92,7 +93,7 @@ export default function Profile() {
                 "mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
                 "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
               )}
-              placeholder={user?.name}
+              placeholder={session?.user?.name}
             />
           </Field>
           <Field>
