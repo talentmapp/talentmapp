@@ -17,7 +17,7 @@ const data = {
       image: "/cards/ai.png",
       header: "AI-Powered Assistant",
       content:
-        "Input natural language queries to find professionals and opportunities that align perfectly with your needs. Our AI-driven search provides precise and relevant results, enhancing your networking experience.",
+        "Get tailored advice for career advancement, financial planning, and skill development. Our AI assistant analyzes your profile and goals to offer customized guidance.",
     },
     {
       image: "/cards/network.png",
