@@ -90,8 +90,8 @@ export default function Home() {
             <img src="/tm-small-logo.png" alt="logo" className="" />
           </Link>
         </div>
-        <span className="font-bold w-[50%] xl:max-w-[10%] py-3 mx-3 hover:text-purple-400 transition-all text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a href="/landing">learn more.</a>
+        <span className="font-bold w-[50%] lg:max-w-[10%] py-3 mx-5  hover:text-purple-400 transition-all text-[#dfdede] inline-flex justify-center items-center rounded-lg">
+          <a href="/about">learn more.</a>
         </span>
         {!loading && user ? (
           <div className="relative">
@@ -126,7 +126,7 @@ export default function Home() {
         ) : (
           <Link
             href="/api/auth/signin"
-            className="font-bold w-[50%] xl:max-w-[7%] border-[#845AC7] border-2 bg-[#5013AF] py-2 mx-3 hover:bg-purple-900 transition-all text-[#dfdede] hover:text-white inline-flex justify-center items-center rounded-lg"
+            className="font-bold w-[50%] lg:max-w-[7%] border-[#845AC7] border-2 bg-[#5013AF] py-2 mr-3 hover:bg-purple-900 transition-all text-[#dfdede] hover:text-white inline-flex justify-center items-center rounded-lg"
           >
             <span>login</span>
           </Link>
