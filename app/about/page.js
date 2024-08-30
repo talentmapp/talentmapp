@@ -5,7 +5,7 @@ import Link from "next/link";
 const About = () => {
   return (
     <div className=" text-white font-mono pb-12 overscroll-none">
-      <Link href="/search">
+      <Link href="/">
         <span className="font-bold mx-28 border-2 border-opacity-60 p-3 mt-20 hover:text-purple-200 hover:border-purple-200 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
           back to search
         </span>
@@ -30,7 +30,8 @@ const About = () => {
               <span className="pt-8 font-medium gap-2">
                 in the age of levying AI&apos;s insights to drive our everyday
                 tasks, finding people is still something we let algorithms do
-                without our knowledge via personalized &quot;reccomendations&quot;.
+                without our knowledge via personalized
+                &quot;reccomendations&quot;.
               </span>
               <span className="pt-5 font-bold font-mono gap-2">
                 talentmapp takes that algorithm and puts it in your hands.
@@ -59,10 +60,10 @@ const About = () => {
                     join waitlist.
                   </a>
                 </span>
-            </div>
-            <div className="w-full text-xl flex justify-center items-center h-24 border-2 rounded-xl bg-opacity-40 bg-violet-900">
+              </div>
+              <div className="w-full text-xl flex justify-center items-center h-24 border-2 rounded-xl bg-opacity-40 bg-violet-900">
                 <span>- team talentmapp, with ❤️</span>
-            </div>
+              </div>
             </div>
             <div className="w-full border-2 rounded-xl flex flex-col">
               <span className="text-4xl border-b-2 py-6 px-12 w-auto bg-cyan-900 rounded-t-xl">
