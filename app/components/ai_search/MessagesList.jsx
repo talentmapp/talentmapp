@@ -119,6 +119,9 @@ const MessagesList = ({ messages }) => {
                                     ? profile.location
                                     : "Not Available"}
                                 </span>
+                                {/* <div className="text-lg text-gray-500">
+                                  Relevancy: {profile.relevancyScore.toFixed(2)}
+                                </div> */}
                               </p>
                             </div>
                           </div>

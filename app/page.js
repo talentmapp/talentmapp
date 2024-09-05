@@ -23,7 +23,7 @@ export default function Home() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = async (message, location) => {
+  const handleSendMessage = async (message, location, userId) => {
     try {
       setLoading(true);
 
@@ -32,7 +32,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message, location }),
+        body: JSON.stringify({ message, location, userId }),
       });
 
       setLoading(false);

@@ -50,8 +50,7 @@ async function generateEmbeddings(text) {
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { message, location, userEmail } = body;
-    console.log(message, location, userEmail);
+    const { message, location, userId } = body;
 
     if (!message) {
       return NextResponse.json(
@@ -75,10 +74,44 @@ export async function POST(request) {
           filter: location ? { location: location } : {},
         },
       },
+      {
+        $project: {
+          _id: 1,
+          firstName: 1,
+          lastName: 1,
+          email: 1,
+          phoneNumber: 1,
+          profilePicture: 1,
+          location: 1,
+          country: 1,
+          experience: 1,
+          education: 1,
+          skills: 1,
+          strengths: 1,
+          customSummary: 1,
+          interests: 1,
+          languages: 1,
+          socialMedia: 1,
+          visibility: 1,
+          relevancyScore: { $meta: "vectorSearchScore" },
+        },
+      },
     ];
 
-    // console.log(pipeline);
     const matchingProfiles = await collection.aggregate(pipeline).toArray();
+
+    // Collect profile IDs
+    const profileIds = matchingProfiles.map((profile) => profile._id);
+
+    // Insert the search into the "searches" collection with userId
+    const searchesCollection = db.collection("searches");
+    await searchesCollection.insertOne({
+      userId, // Use user ID instead of email
+      message,
+      location,
+      profileIds,
+      timestamp: new Date(),
+    });
 
     return NextResponse.json(matchingProfiles);
   } catch (error) {

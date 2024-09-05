@@ -71,23 +71,23 @@ const authOptions = {
       return baseUrl;
     },
     async session({ session, token }) {
-      // console.log("Session Callback:", { session, token });
-      session.user = {
-        id: token.id,
-        name: token.name,
-        email: token.email,
-        image: token.picture,
-      };
+      session.user.id = token.id; // Store MongoDB user ID in the session
+      session.user.email = token.email;
+      session.user.name = token.name;
+      session.user.image = token.picture;
       return session;
     },
     async jwt({ token, account, profile }) {
-      // console.log("JWT Callback:", { token, account, profile });
-      if (account) {
-        token.id = profile.sub;
-        token.name = profile.name;
-        token.email = profile.email;
-        token.picture = profile.picture;
+      const db = await connectToDatabase();
+      const collection = db.collection("profile");
+
+      // Find user by email and get MongoDB _id
+      const userFromDb = await collection.findOne({ email: token.email });
+
+      if (userFromDb) {
+        token.id = userFromDb._id; // Store MongoDB _id in token
       }
+
       return token;
     },
   },

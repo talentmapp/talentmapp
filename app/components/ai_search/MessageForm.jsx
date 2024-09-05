@@ -16,8 +16,6 @@ const MessageForm = ({ onSendMessage }) => {
   const { data: session } = useSession();
   const user = session?.user;
 
-  console.log(user);
-
   const placeholders = [
     "Find me a Full-Stack Developer E-commerce site",
     "Find me Product Devs in Hyderabad",
@@ -60,13 +58,9 @@ const MessageForm = ({ onSendMessage }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userEmail = session?.user?.email;
+    const userId = user?.id || "n/a";
 
-    onSendMessage(
-      message,
-      location === "Anywhere" ? null : location,
-      userEmail,
-    );
+    onSendMessage(message, location === "Anywhere" ? null : location, userId);
 
     setMessage("");
   };
@@ -142,14 +136,13 @@ const MessageForm = ({ onSendMessage }) => {
             <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
           </svg>
         </button>
-        {!userInteracted &&
-          !message && ( // Check if there's no user interaction and the message is empty
-            <div className="absolute -top-7 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
-              <span className="text-gray-600 text-base transition-all duration-1000 ease-in-out transform">
-                {displayedText}
-              </span>
-            </div>
-          )}
+        {!userInteracted && !message && (
+          <div className="absolute -top-7 left-3 pl-4 py-4 w-full h-full flex items-center pointer-events-none">
+            <span className="text-gray-600 text-base transition-all duration-1000 ease-in-out transform">
+              {displayedText}
+            </span>
+          </div>
+        )}
       </div>
     </form>
   );
