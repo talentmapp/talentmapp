@@ -36,12 +36,12 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen font-jakarta pb-14 w-full flex flex-col items-center md:justify-between bg-[#f6f6f6] relative overflow-hidden">
+    <div className="h-screen md:min-h-screen font-jakarta md:pb-14 w-full flex flex-col items-center md:justify-between bg-[#f6f6f6] relative overflow-hidden">
       {/* Blob gradients */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="w-[45rem] h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 bottom-5 md:-bottom-36" />
+        <div className="w-[45rem] h-[15rem] sm:h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 bottom-20 md:-bottom-36" />
         <div className="w-[45rem] hidden md:block h-[30rem] bg-blue-500 absolute rounded-full opacity-40 blur-3xl -bottom-36 left-1/2 transform -translate-x-1/2" />
-        <div className="w-[45rem] h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-24 md:-bottom-36" />
+        <div className="w-[45rem] h-[15rem] sm:h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-24 md:-bottom-36" />
       </div>
 
       {/* Navbar */}
@@ -63,21 +63,21 @@ export default function LandingPage() {
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold text-[#000000] leading-tight">
           Noiseless Networking at <br /> your fingertips
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-4 mb-10 md:mb-16 max-w-lg sm:max-w-xl md:max-w-2xl">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-4 mb-10 md:mb-16 md:max-w-2xl">
           Find your next business partner, mentor, or collaborator instantly
           with our AI-powered algorithm based on your skills, industry, and
           goals.
         </p>
 
         {/* Search input with button */}
-        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/20 border-white border-3 rounded-full p-5 md:py-10 md:px-20 z-10">
+        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/40 md:bg-white/20 border-white border-1 sm:border-3 rounded-2xl sm:rounded-full p-5 md:py-10 md:px-20 z-10">
           <div className="relative">
             <input
               type="text"
               placeholder="Technical Co-Founder with AI expertise"
-              className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 pr-36 text-xs md:text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
+              className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 md:pr-36 text-xs md:text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
             />
-            <button className="absolute right-2 top-2 bottom-2 bg-[#000000] hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-4 md:px-6 md:py-2 rounded-full transition duration-300">
+            <button className="w-1/2 h-9 mt-3 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 bg-[#000000] hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-2 md:px-6 md:py-2 rounded-full transition duration-300">
               Start Scanning
             </button>
           </div>
