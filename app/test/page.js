@@ -39,9 +39,9 @@ export default function LandingPage() {
     <div className="h-screen md:min-h-screen font-jakarta md:pb-14 w-full flex flex-col items-center md:justify-between bg-[#f6f6f6] relative overflow-hidden">
       {/* Blob gradients */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="w-[45rem] h-[15rem] sm:h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 bottom-20 md:-bottom-36" />
+        <div className="w-[45rem] h-[15rem] sm:h-[25rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 bottom-20 md:-bottom-36" />
         <div className="w-[45rem] hidden md:block h-[30rem] bg-blue-500 absolute rounded-full opacity-40 blur-3xl -bottom-36 left-1/2 transform -translate-x-1/2" />
-        <div className="w-[45rem] h-[15rem] sm:h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-24 md:-bottom-36" />
+        <div className="w-[45rem] h-[15rem] sm:h-[25rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-24 md:-bottom-36" />
       </div>
 
       {/* Navbar */}
