@@ -25,24 +25,22 @@ export default function LandingPage() {
     "Growth Specialist with Marketing Expertise",
   ];
   const examplePrompts2 = [
-    "Business Development Pro",
-    "UX Designer with Startup Experience",
-    "Product Manager with Design Eye",
-    "Growth Specialist with Marketing Expertise",
-    "Sales Expert with Startup Experience",
-    "Content Creator with Tech Knowledge",
-    "Marketing Guru with Tech Background",
+    "Technical Co-Founder with AI Expertise",
+    "Data Scientist with Machine Learning Skills",
+    "Blockchain Developer with FinTech Experience",
+    "Creative Director with Branding Expertise",
+    "Cybersecurity Expert with Compliance Knowledge",
+    "DevOps Engineer with Cloud Infrastructure Experience",
+    "Full Stack Developer with JavaScript Expertise",
+    "Digital Marketing Strategist with SEO Expertise",
   ];
 
   return (
     <div className="min-h-screen font-jakarta pb-14 w-full flex flex-col items-center justify-between bg-[#f6f6f6] relative overflow-hidden">
       {/* Blob gradients */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        {/* Right purple blob */}
-        <div className="w-[45rem] h-[20rem] bg-[#5013AF] absolute rounded-full opacity-40 blur-3xl -right-16 -bottom-36" />
-        {/* Left blue blob */}
-        <div className="w-[50rem] h-[30rem] bg-blue-400 absolute rounded-full opacity-40 blur-3xl -bottom-36" />
-        {/* Left cyan blob */}
+        <div className="w-[45rem] h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 -bottom-36" />
+        <div className="w-[45rem] h-[30rem] bg-blue-500 absolute rounded-full opacity-40 blur-3xl -bottom-36 left-1/2 transform -translate-x-1/2" />
         <div className="w-[45rem] h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-36" />
       </div>
 
@@ -70,12 +68,12 @@ export default function LandingPage() {
         </p>
 
         {/* Search input with button */}
-        <div className="w-[75%] bg-white/20 border-white border-4 rounded-full py-10 px-24 z-10">
-          <div className="relative ">
+        <div className="w-[80%] max-w-5xl bg-white/20 border-white border-3 rounded-full py-10 px-20 z-10">
+          <div className="relative">
             <input
               type="text"
               placeholder="Technical Co-Founder with AI expertise"
-              className="w-full py-4 px-6 text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
+              className="w-full py-5 px-6 pr-44 text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
             />
             <button className="absolute right-2 top-2 bottom-2 bg-[#000000] hover:bg-[#333333] text-white font-semibold px-6 py-2 rounded-full transition duration-300">
               Start Scanning
@@ -94,7 +92,7 @@ export default function LandingPage() {
             examplePrompts.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
-                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:bg-white/20 border-1 border-white cursor-pointer transition"
+                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag}
               </span>
@@ -109,7 +107,7 @@ export default function LandingPage() {
             examplePrompts2.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
-                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:bg-white/20 border-1 border-white cursor-pointer transition"
+                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag}
               </span>
