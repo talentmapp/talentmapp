@@ -65,17 +65,30 @@ const MessagesList = ({ messages }) => {
   };
 
   const handleToggleFavorite = async (profileId) => {
-    if (!userEmail) return; // If user is not logged in, do nothing
+    if (!userEmail) {
+      return;
+    }
+
     try {
-      // Add profile to user's favorites
-      await axios.post("/api/favorites/add", {
-        userEmail,
-        profileId,
+      const response = await axios.post("/api/favorites/add", {
+        userEmail, // The logged-in user's email
+        profileId, // The profile to favorite/unfavorite
       });
-      // Update the favorite list after the change
-      fetchUserFavorites();
+
+      if (response.data.success) {
+        const action = response.data.action;
+        if (action === "added") {
+          // Add the profile to the favorites list in the UI
+          setUserFavorites((prevFavorites) => [...prevFavorites, profileId]);
+        } else if (action === "removed") {
+          // Remove the profile from the favorites list in the UI
+          setUserFavorites((prevFavorites) =>
+            prevFavorites.filter((favId) => favId !== profileId),
+          );
+        }
+      }
     } catch (error) {
-      console.error("Error adding profile to favorites:", error);
+      console.error("Error toggling profile favorite:", error);
     }
   };
 

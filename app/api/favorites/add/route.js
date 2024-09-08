@@ -1,30 +1,21 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { NextResponse } from "next/server";
+import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
-let client;
 
 const connectToDatabase = async () => {
-  if (client && client.isConnected) {
-    return client.db("tm-mvp");
-  }
-  client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: false,
-      deprecationErrors: true,
-    },
-  });
+  const client = new MongoClient(uri);
   await client.connect();
   return client.db("tm-mvp");
 };
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const { email, profileId } = await req.json();
+    const { userEmail, profileId } = await request.json();
 
-    if (!email || !profileId) {
-      return new Response(
-        JSON.stringify({ error: "Missing email or profileId" }),
+    if (!userEmail || !profileId) {
+      return NextResponse.json(
+        { error: "Missing userEmail or profileId" },
         { status: 400 },
       );
     }
@@ -32,20 +23,35 @@ export async function POST(req) {
     const db = await connectToDatabase();
     const usersCollection = db.collection("profile");
 
-    // Add profileId to the user's favorites array
-    await usersCollection.updateOne(
-      { email },
-      { $addToSet: { favorites: profileId } }, // $addToSet ensures the profileId is only added once
-    );
+    // Find the user by email
+    const user = await usersCollection.findOne({ email: userEmail });
 
-    return new Response(
-      JSON.stringify({ message: "Profile added to favorites" }),
-      { status: 200 },
-    );
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    // Check if the profile is already in the user's favorites
+    const isFavorite = user.favorites?.includes(profileId);
+
+    if (isFavorite) {
+      // Remove the profile from the favorites list
+      await usersCollection.updateOne(
+        { email: userEmail },
+        { $pull: { favorites: profileId } },
+      );
+      return NextResponse.json({ success: true, action: "removed" });
+    } else {
+      // Add the profile to the favorites list
+      await usersCollection.updateOne(
+        { email: userEmail },
+        { $addToSet: { favorites: profileId } },
+      );
+      return NextResponse.json({ success: true, action: "added" });
+    }
   } catch (error) {
-    console.error("Error adding to favorites:", error);
-    return new Response(
-      JSON.stringify({ error: "Error adding to favorites" }),
+    console.error("Error toggling favorite:", error);
+    return NextResponse.json(
+      { error: "Failed to toggle favorite" },
       { status: 500 },
     );
   }
