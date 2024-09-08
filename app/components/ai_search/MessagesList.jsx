@@ -1,12 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import axios from "axios";
 import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useSession } from "next-auth/react"; // Import session to check if the user is logged in
 
 const MessagesList = ({ messages }) => {
   const [expandedProfiles, setExpandedProfiles] = useState({});
   const [currentPages, setCurrentPages] = useState({});
+  const [userFavorites, setUserFavorites] = useState([]);
+  const { data: session } = useSession(); // Use NextAuth to check user session
+  const userEmail = session?.user?.email || ""; // Set user email from session
 
   const profilesPerPage = 3;
+
+  // Fetch user favorites
+  const fetchUserFavorites = async () => {
+    if (!userEmail) return; // Do not fetch if user is not logged in
+    try {
+      const response = await axios.get("/api/favorites", {
+        params: { email: userEmail },
+      });
+      setUserFavorites(response.data.favorites || []);
+    } catch (error) {
+      console.error("Error fetching user favorites:", error);
+    }
+  };
+
+  useEffect(() => {
+    // Call this when userEmail is available
+    if (userEmail) {
+      fetchUserFavorites();
+    }
+  }, [userEmail]);
 
   const toggleProfileExpand = (idx) => {
     setExpandedProfiles((prevState) => ({
@@ -21,7 +46,7 @@ const MessagesList = ({ messages }) => {
       return {
         ...prevPages,
         [messageIndex]:
-          nextPage * profilesPerPage < message.profiles.length ? nextPage : 0, // Loop back to the first page
+          nextPage * profilesPerPage < message.profiles.length ? nextPage : 0,
       };
     });
   };
@@ -37,6 +62,21 @@ const MessagesList = ({ messages }) => {
             : prevPage,
       };
     });
+  };
+
+  const handleToggleFavorite = async (profileId) => {
+    if (!userEmail) return; // If user is not logged in, do nothing
+    try {
+      // Add profile to user's favorites
+      await axios.post("/api/favorites/add", {
+        userEmail,
+        profileId,
+      });
+      // Update the favorite list after the change
+      fetchUserFavorites();
+    } catch (error) {
+      console.error("Error adding profile to favorites:", error);
+    }
   };
 
   return (
@@ -94,9 +134,33 @@ const MessagesList = ({ messages }) => {
                           key={idx}
                           className="relative z-0 bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                         >
-                          <button className="absolute top-2 left-2 text-slate-500 hover:underline border-slate-500 bg-slate-900 border-2 hover:scale-105 p-3 rounded-full">
-                            <FaStar />
-                          </button>
+                          {/* Favorite Button with Tooltip for Non-Logged-in Users */}
+                          <div className="relative group">
+                            <button
+                              className={`absolute top-2 left-2 ${
+                                userEmail
+                                  ? userFavorites.includes(profile._id)
+                                    ? "text-yellow-500"
+                                    : "text-slate-500"
+                                  : "text-gray-400"
+                              } hover:underline border-slate-500 bg-slate-900 border-2 hover:scale-105 p-3 rounded-full`}
+                              onClick={() =>
+                                userEmail
+                                  ? handleToggleFavorite(profile._id)
+                                  : null
+                              }
+                              disabled={!userEmail}
+                            >
+                              <FaStar />
+                            </button>
+
+                            {!userEmail && (
+                              <span className="absolute z-[100] w-32 p-2 text-xs text-white bg-gray-700 rounded-lg shadow-lg top-1 left-14 transform opacity-0 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">
+                                Create an account to favorite profiles!
+                              </span>
+                            )}
+                          </div>
+
                           <div className="flex gap-5 px-8 pt-8">
                             <img
                               src={profile.profilePicture}
@@ -119,9 +183,6 @@ const MessagesList = ({ messages }) => {
                                     ? profile.location
                                     : "Not Available"}
                                 </span>
-                                {/* <div className="text-lg text-gray-500">
-                                  Relevancy: {profile.relevancyScore.toFixed(2)}
-                                </div> */}
                               </p>
                             </div>
                           </div>
@@ -179,7 +240,7 @@ const MessagesList = ({ messages }) => {
                                 find {profile.firstName} on:{" "}
                               </span>
                               <a
-                                href={`https://www.linkedin.com/in/${profile.socialMedia.LinkedIn}`} // Construct the LinkedIn URL
+                                href={`https://www.linkedin.com/in/${profile.socialMedia.LinkedIn}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-blue-200 hover:underline border-[#845AC7] bg-[#5013AF] border-2 hover:scale-105 p-2 mr-2 rounded-xl"
