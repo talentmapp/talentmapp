@@ -100,11 +100,12 @@ export async function POST(req) {
       let entityScore = 0;
       const feedback = [];
       const strengths = [];
+      const weaknesses = [];
 
-      // Extracting the person's first name and last name
+      // Extracting the person's full name
       const fullName = `${profile.firstName} ${profile.lastName}`;
 
-      // Check for Skill match
+      // Skill Match
       const skillMatch = extractedEntities.includes(profile.skills?.join(", "));
       if (skillMatch) {
         entityScore += 0.6;
@@ -112,9 +113,11 @@ export async function POST(req) {
           `Their skills in ${profile.skills.join(", ")} are directly relevant.`,
         );
         strengths.push("Skills");
+      } else {
+        weaknesses.push(`Lacks specific required skills.`);
       }
 
-      // Check for Company match
+      // Company Match
       const companyMatch = extractedEntities.includes(
         profile.experience?.map((exp) => exp.company).join(", "),
       );
@@ -127,9 +130,11 @@ export async function POST(req) {
             .join(", ")} strongly aligns with the requirements.`,
         );
         strengths.push("Company experience");
+      } else {
+        weaknesses.push(`No experience at required companies.`);
       }
 
-      // Check for Education match
+      // Education Match
       const educationMatch = extractedEntities.includes(
         profile.education?.map((edu) => edu.university).join(", "),
       );
@@ -141,6 +146,8 @@ export async function POST(req) {
             .join(", ")} gives them a strong foundation.`,
         );
         strengths.push("Education");
+      } else {
+        weaknesses.push(`Education doesn't match the required background.`);
       }
 
       // Custom Summary insights (removing first-person references)
@@ -153,7 +160,7 @@ export async function POST(req) {
         ${fullName} stands out due to their strong skill set in ${profile.skills?.join(", ") || "various areas"}.
         Their experience at top companies like ${profile.experience
           ?.map((exp) => exp.company)
-          .slice(0, 2) // Focus on up to 2 companies
+          .slice(0, 2)
           .join(", ")} further highlights their fit for the role.
         ${summaryInsights}
         ${feedback.length > 0 ? feedback.join(" ") : `${fullName} brings a versatile and suitable background for this role.`}
@@ -162,7 +169,7 @@ export async function POST(req) {
       // Overall score combining entity and vector search relevancy
       const combinedScore = profile.relevancyScore * 0.5 + entityScore * 0.5;
 
-      // Create final profile object with strongest matches highlighted
+      // Create final profile object with strongest matches highlighted and weaknesses shown
       return {
         ...profile,
         combinedScore,
@@ -171,6 +178,10 @@ export async function POST(req) {
           strengths.length > 0
             ? strengths.join(", ")
             : "No specific strong match",
+        unmetRequirements:
+          weaknesses.length > 0
+            ? weaknesses.join(", ")
+            : "No significant unmet requirements",
       };
     });
 

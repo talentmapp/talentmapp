@@ -180,6 +180,13 @@ export default function Home() {
                         </span>
                       </p>
 
+                      <div>
+                        <h4 className="font-bold text-red-500">
+                          Unmet Requirements:
+                        </h4>
+                        <p>{profile.unmetRequirements}</p>
+                      </div>
+
                       <div className="flex items-center space-x-2 py-4">
                         <span className="font-bold mr-2">
                           Find {profile.firstName} on:{" "}
