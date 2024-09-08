@@ -36,46 +36,48 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen font-jakarta pb-14 w-full flex flex-col items-center justify-between bg-[#f6f6f6] relative overflow-hidden">
+    <div className="min-h-screen font-jakarta pb-14 w-full flex flex-col items-center md:justify-between bg-[#f6f6f6] relative overflow-hidden">
       {/* Blob gradients */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="w-[45rem] h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 -bottom-36" />
-        <div className="w-[45rem] h-[30rem] bg-blue-500 absolute rounded-full opacity-40 blur-3xl -bottom-36 left-1/2 transform -translate-x-1/2" />
-        <div className="w-[45rem] h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-36" />
+        <div className="w-[45rem] h-[20rem] bg-[#5013AF] absolute rounded-full opacity-50 blur-3xl -right-16 bottom-5 md:-bottom-36" />
+        <div className="w-[45rem] hidden md:block h-[30rem] bg-blue-500 absolute rounded-full opacity-40 blur-3xl -bottom-36 left-1/2 transform -translate-x-1/2" />
+        <div className="w-[45rem] h-[30rem] bg-cyan-700 absolute rounded-full opacity-40 blur-3xl -left-16 -bottom-24 md:-bottom-36" />
       </div>
 
       {/* Navbar */}
-      <header className="w-full flex justify-between items-center px-10 py-5 bg-transparent z-10">
-        <img src="/tm-logo.png" alt="logo" className="w-10" />
-        <span className="text-[#1B1B1B] text-3xl font-bold">talentmapp.</span>
+      <header className="w-full flex justify-between items-center px-5 py-5 md:px-10 md:py-5 bg-transparent z-10">
+        <img src="/tm-logo.png" alt="logo" className="w-8 md:w-10" />
+        <span className="text-[#1B1B1B] text-2xl md:text-3xl font-bold">
+          talentmapp.
+        </span>
         {/* User profile picture */}
         <img
           src="https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2" // replace with user's profile image
           alt="User profile"
-          className="rounded-full w-12 h-12 object-cover p-1 border-2"
+          className="rounded-full w-10 h-10 md:w-12 md:h-12 object-cover p-1 border-2"
         />
       </header>
 
       {/* Main section */}
-      <main className="mt-24 w-full flex flex-col items-center justify-center text-center z-10">
-        <h1 className="text-4xl sm:text-6xl font-semibold text-[#000000]">
+      <main className="mt-24 px-8 md:px-0 w-full flex flex-col items-center justify-center text-center z-10">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold text-[#000000] leading-tight">
           Noiseless Networking at <br /> your fingertips
         </h1>
-        <p className="text-lg sm:text-xl text-gray-600 mt-4 mb-16 max-w-2xl">
+        <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-4 mb-10 md:mb-16 max-w-lg sm:max-w-xl md:max-w-2xl">
           Find your next business partner, mentor, or collaborator instantly
           with our AI-powered algorithm based on your skills, industry, and
           goals.
         </p>
 
         {/* Search input with button */}
-        <div className="w-[80%] max-w-5xl bg-white/20 border-white border-3 rounded-full py-10 px-20 z-10">
+        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/20 border-white border-3 rounded-full p-5 md:py-10 md:px-20 z-10">
           <div className="relative">
             <input
               type="text"
               placeholder="Technical Co-Founder with AI expertise"
-              className="w-full py-5 px-6 pr-44 text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
+              className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 pr-36 text-xs md:text-lg rounded-full bg-white shadow-lg focus:outline-none text-gray-600"
             />
-            <button className="absolute right-2 top-2 bottom-2 bg-[#000000] hover:bg-[#333333] text-white font-semibold px-6 py-2 rounded-full transition duration-300">
+            <button className="absolute right-2 top-2 bottom-2 bg-[#000000] hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-4 md:px-6 md:py-2 rounded-full transition duration-300">
               Start Scanning
             </button>
           </div>
@@ -83,7 +85,7 @@ export default function LandingPage() {
       </main>
 
       {/* Scrolling Example Prompts */}
-      <div className="relative mt-6 z-20 w-full overflow-hidden">
+      <div className="relative mt-28 md:mt-8 z-20 w-full overflow-hidden px-2 sm:px-4">
         <div
           className="flex items-center gap-3 mb-3 whitespace-nowrap"
           style={{ transform: `translateX(-${scrollPosition}px)` }}
@@ -92,7 +94,7 @@ export default function LandingPage() {
             examplePrompts.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
-                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
+                className="p-3 sm:p-4 bg-white/40 text-xs sm:text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag}
               </span>
@@ -107,7 +109,7 @@ export default function LandingPage() {
             examplePrompts2.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
-                className="p-4 bg-white/40 text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
+                className="p-3 sm:p-4 bg-white/40 text-xs sm:text-sm text-white rounded-md shadow-md hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag}
               </span>
