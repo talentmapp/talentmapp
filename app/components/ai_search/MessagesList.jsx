@@ -2,20 +2,19 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { useSession } from "next-auth/react"; // Import session to check if the user is logged in
+import { useSession } from "next-auth/react";
 
 const MessagesList = ({ messages }) => {
   const [expandedProfiles, setExpandedProfiles] = useState({});
   const [currentPages, setCurrentPages] = useState({});
   const [userFavorites, setUserFavorites] = useState([]);
-  const { data: session } = useSession(); // Use NextAuth to check user session
-  const userEmail = session?.user?.email || ""; // Set user email from session
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email || "";
 
   const profilesPerPage = 3;
 
-  // Fetch user favorites
   const fetchUserFavorites = async () => {
-    if (!userEmail) return; // Do not fetch if user is not logged in
+    if (!userEmail) return;
     try {
       const response = await axios.get("/api/favorites", {
         params: { email: userEmail },
@@ -27,7 +26,6 @@ const MessagesList = ({ messages }) => {
   };
 
   useEffect(() => {
-    // Call this when userEmail is available
     if (userEmail) {
       fetchUserFavorites();
     }
@@ -71,17 +69,15 @@ const MessagesList = ({ messages }) => {
 
     try {
       const response = await axios.post("/api/favorites/add", {
-        userEmail, // The logged-in user's email
-        profileId, // The profile to favorite/unfavorite
+        userEmail,
+        profileId,
       });
 
       if (response.data.success) {
         const action = response.data.action;
         if (action === "added") {
-          // Add the profile to the favorites list in the UI
           setUserFavorites((prevFavorites) => [...prevFavorites, profileId]);
         } else if (action === "removed") {
-          // Remove the profile from the favorites list in the UI
           setUserFavorites((prevFavorites) =>
             prevFavorites.filter((favId) => favId !== profileId),
           );
@@ -91,6 +87,26 @@ const MessagesList = ({ messages }) => {
       console.error("Error toggling profile favorite:", error);
     }
   };
+
+  function getRelevancyBarWidth(score) {
+    const normalizedScore = Math.min(score, 1); // Ensure the score stays in the 0.0-1.0 range
+    return `${normalizedScore * 100}%`; // Convert decimal score to percentage
+  }
+
+  // Calculate color based on the 0.0 to 1.0 range
+  function getRelevancyColor(score) {
+    const normalizedScore = Math.min(score, 1); // Ensure the score stays in the 0.0-1.0 range
+    const percentage = normalizedScore * 100;
+
+    // Interpolating color based on percentage (0 - 100%)
+    if (percentage <= 33) {
+      return "red"; // Low score = red
+    } else if (percentage <= 66) {
+      return "yellow"; // Medium score = yellow
+    } else {
+      return "green"; // High score = green
+    }
+  }
 
   return (
     <div className="flex flex-col space-y-4 overflow-y-auto text-white bg-black px-20">
@@ -147,7 +163,6 @@ const MessagesList = ({ messages }) => {
                           key={idx}
                           className="relative z-0 bg-gray-800 flex flex-col justify-between xl:justify-around rounded-3xl hover:shadow-lg transition duration-300 ease-in-out"
                         >
-                          {/* Favorite Button with Tooltip for Non-Logged-in Users */}
                           <div className="relative group">
                             <button
                               className={`absolute top-2 left-2 ${
@@ -178,27 +193,48 @@ const MessagesList = ({ messages }) => {
                             <img
                               src={profile.profilePicture}
                               onError={(e) => {
-                                e.target.onerror = null; // Prevent infinite loop
+                                e.target.onerror = null;
                                 e.target.src =
                                   "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
                               }}
                               alt={`${profile.firstName} ${profile.lastName}`}
                               className="w-32 h-32 rounded-xl mx-auto"
                             />
-                            <div>
-                              <h4 className="text-xl xl:text-2xl font-extrabold text-white">{`${profile.firstName} ${profile.lastName}`}</h4>
-                              <p>
-                                <span className="font-light text-sm xl:text-base">
-                                  Location:
-                                </span>{" "}
-                                <span className="font-bold text-sm">
-                                  {profile.location
-                                    ? profile.location
-                                    : "Not Available"}
-                                </span>
-                              </p>
+                            <div className="flex flex-col justify-between">
+                              <div>
+                                <h4 className="text-xl xl:text-2xl font-extrabold text-white">{`${profile.firstName} ${profile.lastName}`}</h4>
+                                <p>
+                                  <span className="font-light text-sm xl:text-base">
+                                    Location:
+                                  </span>{" "}
+                                  <span className="font-bold text-sm">
+                                    {profile.location || "Not Available"}
+                                  </span>
+                                </p>
+                              </div>
+                              {/* Relevancy Bar */}
+                              <div className="mt-2">
+                                <div className="text-sm text-gray-500 mb-1">
+                                  Relevancy to your search
+                                </div>
+                                <div className="relative w-full h-3 rounded-full bg-gray-700">
+                                  <div
+                                    className="absolute h-full rounded-full"
+                                    style={{
+                                      width: getRelevancyBarWidth(
+                                        profile.relevancyScore,
+                                      ), // Correctly use the decimal score for width
+                                      backgroundColor: getRelevancyColor(
+                                        profile.relevancyScore,
+                                      ), // Color based on score
+                                    }}
+                                  ></div>
+                                </div>
+                              </div>
                             </div>
                           </div>
+
+                          {/* Profile summary */}
                           <div
                             className={`text-gray-300 text-md xl:text-lg px-8 pt-4 pb-4 ${
                               expandedProfiles[idx]
