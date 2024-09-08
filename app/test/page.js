@@ -70,7 +70,7 @@ export default function LandingPage() {
         </p>
 
         {/* Search input with button */}
-        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/40 md:bg-white/20 border-white border-1 sm:border-3 rounded-2xl sm:rounded-full p-5 md:py-10 md:px-20 z-10">
+        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white border-1 sm:border-3 rounded-2xl sm:rounded-full p-5 md:py-10 md:px-20 z-10">
           <div className="relative">
             <input
               type="text"

@@ -202,7 +202,7 @@ const MessagesList = ({ messages }) => {
                             />
                             <div className="flex flex-col justify-between">
                               <div>
-                                <h4 className="text-xl xl:text-2xl font-extrabold text-white">{`${profile.firstName} ${profile.lastName}`}</h4>
+                                <h4 className="text-xl xl:text-2xl font-extrabold text-white ">{`${profile.firstName} ${profile.lastName}`}</h4>
                                 <p>
                                   <span className="font-light text-sm xl:text-base">
                                     Location:
