@@ -78,6 +78,7 @@ const authOptions = {
       return session;
     },
     async jwt({ token, account, profile }) {
+      console.log(token);
       const db = await connectToDatabase();
       const collection = db.collection("profile");
 

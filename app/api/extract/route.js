@@ -13,7 +13,7 @@ export async function POST(req) {
     const OPENAI_API_KEY = process.env.NEW_OPENAI_API_KEY;
 
     // OpenAI API call to extract entities and understand user intent
-    const entityExtractionPrompt = `Extract the following from the query: ${query}\n
+    const entityExtractionPrompt = `Extract the following from the query and make sure the ressponse is only the below in a subheading, content format with space and formatting between each section: ${query}\n
     - Skill(s)
     - Requirement(s)
     - List of Priorities (skills, tasks, ect.) needed in most to least important
@@ -105,55 +105,77 @@ export async function POST(req) {
       // Extracting the person's full name
       const fullName = `${profile.firstName} ${profile.lastName}`;
 
-      // Skill Match
-      const skillMatch = extractedEntities.includes(profile.skills?.join(", "));
-      if (skillMatch) {
+      // Extracted Entities broken down for checking specifics
+      const requiredSkills = extractedEntities.skills || []; // Extracted required skills
+      const requiredCompanies = extractedEntities.companies || []; // Extracted required companies
+      const requiredEducation = extractedEntities.education || []; // Extracted required education
+
+      // Skill Match - More specific checking for unmet skills
+      const profileSkills = profile.skills || [];
+      const missingSkills = requiredSkills.filter(
+        (skill) => !profileSkills.includes(skill),
+      );
+
+      if (missingSkills.length === 0 && profileSkills.length > 0) {
         entityScore += 0.6;
         feedback.push(
           `Their skills in ${profile.skills.join(", ")} are directly relevant.`,
         );
         strengths.push("Skills");
       } else {
-        weaknesses.push(`Lacks specific required skills.`);
+        weaknesses.push(
+          `Lacks the required skills: ${missingSkills.join(", ") || "not specified"}`,
+        );
       }
 
-      // Company Match
-      const companyMatch = extractedEntities.includes(
-        profile.experience?.map((exp) => exp.company).join(", "),
+      // Company Match - More specific checking for unmet companies
+      const profileCompanies =
+        profile.experience?.map((exp) => exp.company) || [];
+      const missingCompanies = requiredCompanies.filter(
+        (company) => !profileCompanies.includes(company),
       );
-      if (companyMatch) {
+
+      if (missingCompanies.length === 0 && profileCompanies.length > 0) {
         entityScore += 0.5;
         feedback.push(
-          `Their experience at companies like ${profile.experience
-            ?.map((exp) => exp.company)
+          `Their experience at companies like ${profileCompanies
             .slice(0, 2) // Limit to 2 companies for brevity
             .join(", ")} strongly aligns with the requirements.`,
         );
         strengths.push("Company experience");
       } else {
-        weaknesses.push(`No experience at required companies.`);
+        weaknesses.push(
+          `No experience at required companies: ${missingCompanies.join(", ") || "not specified"}`,
+        );
       }
 
-      // Education Match
-      const educationMatch = extractedEntities.includes(
-        profile.education?.map((edu) => edu.university).join(", "),
+      // Education Match - More specific checking for unmet education
+      const profileEducation =
+        profile.education?.map((edu) => edu.university) || [];
+      const missingEducation = requiredEducation.filter(
+        (edu) => !profileEducation.includes(edu),
       );
-      if (educationMatch) {
+
+      if (missingEducation.length === 0 && profileEducation.length > 0) {
         entityScore += 0.4;
         feedback.push(
-          `Their education at ${profile.education
-            ?.map((edu) => edu.university)
-            .join(", ")} gives them a strong foundation.`,
+          `Their education at ${profileEducation.join(", ")} gives them a strong foundation.`,
         );
         strengths.push("Education");
       } else {
-        weaknesses.push(`Education doesn't match the required background.`);
+        weaknesses.push(
+          `Education doesn't match the required background: ${missingEducation.join(", ") || "not specified"}`,
+        );
       }
 
       // Custom Summary insights (removing first-person references)
       const summaryInsights = profile.customSummary
         ? `${fullName}'s background as ${profile.customSummary} demonstrates expertise in relevant areas.`
         : "No custom summary available.";
+
+      // Normalize the profile's relevancy score and entity score
+      const normalizedRelevancyScore = Math.min(profile.relevancyScore, 1);
+      const normalizedEntityScore = Math.min(entityScore, 1);
 
       // Generating a shorter, engaging, and non-redundant reason
       const reason = `
@@ -166,8 +188,11 @@ export async function POST(req) {
         ${feedback.length > 0 ? feedback.join(" ") : `${fullName} brings a versatile and suitable background for this role.`}
       `;
 
-      // Overall score combining entity and vector search relevancy
-      const combinedScore = profile.relevancyScore * 0.5 + entityScore * 0.5;
+      // Overall score combining normalized entity and vector search relevancy (both capped at 1)
+      const combinedScore = Math.min(
+        normalizedRelevancyScore * 0.5 + normalizedEntityScore * 0.5,
+        1,
+      );
 
       // Create final profile object with strongest matches highlighted and weaknesses shown
       return {
