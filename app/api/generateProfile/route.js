@@ -58,13 +58,13 @@ const fetchDataFromProxyCurl = async (linkedinUrl) => {
 };
 
 // Step 3: Data Cleaning and Conversion
-const convertData = (inputData, userEmail) => {
+const convertData = (inputData, userEmail, linkedinProfilePicture) => {
   const outputData = {
     firstName: inputData.first_name || "",
     lastName: inputData.last_name || "",
     email: userEmail || "",
     phoneNumber: inputData.phone || "",
-    profilePicture: inputData.profile_pic_url || "",
+    profilePicture: linkedinProfilePicture || inputData.profile_pic_url || "", // Use LinkedIn picture first
     summary: inputData.summary || "",
     location: inputData.city || "",
     country: inputData.country || "",
@@ -250,7 +250,11 @@ const insertOrUpdateProfileInMongoDB = async (updatedData) => {
 };
 
 // Main Function: Integrate All Steps
-const processLinkedInProfile = async (linkedinUrl, userEmail) => {
+const processLinkedInProfile = async (
+  linkedinUrl,
+  userEmail,
+  linkedinProfilePicture,
+) => {
   // Step 1: Check if the profile can be generated
   const checkResult = await canGenerateProfile(userEmail);
   if (checkResult.error) {
@@ -263,9 +267,12 @@ const processLinkedInProfile = async (linkedinUrl, userEmail) => {
     return { error: proxyCurlData.error.description };
   }
 
-  // Step 3: Convert Data
-  console.log(proxyCurlData);
-  const profileData = convertData(proxyCurlData, userEmail);
+  // Step 3: Convert Data and set LinkedIn profile picture
+  const profileData = convertData(
+    proxyCurlData,
+    userEmail,
+    linkedinProfilePicture,
+  );
 
   // Step 4: Create OpenAI Embedding
   const embedding = await createOpenAIEmbedding(profileData);
@@ -295,7 +302,8 @@ const processLinkedInProfile = async (linkedinUrl, userEmail) => {
 
 export async function POST(request) {
   try {
-    const { linkedinUrl, userEmail } = await request.json();
+    const { linkedinUrl, userEmail, linkedinProfilePicture } =
+      await request.json();
 
     if (!linkedinUrl || !userEmail) {
       return new Response(
@@ -304,7 +312,11 @@ export async function POST(request) {
       );
     }
 
-    const result = await processLinkedInProfile(linkedinUrl, userEmail);
+    const result = await processLinkedInProfile(
+      linkedinUrl,
+      userEmail,
+      linkedinProfilePicture,
+    );
 
     if (result.error) {
       return new Response(JSON.stringify({ error: result.error }), {
