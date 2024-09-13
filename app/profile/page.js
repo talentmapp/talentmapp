@@ -55,14 +55,31 @@ export default function Profile() {
   // Handler for generating the profile based on LinkedIn URL
   const handleGenerateProfile = async () => {
     setLoading(true); // Start loading spinner
+    setMessage(""); // Clear any previous messages
     try {
-      const linkedinUrl = `https://www.linkedin.com/in/${linkedinUsername}`;
+      // Use vanityName from the session instead of an input field
+      const vanityName = session?.user?.vanityName;
+      const linkedinProfilePicture = session?.user?.image;
+
+      if (!vanityName) {
+        setMessage("Unable to retrieve your LinkedIn vanity name.");
+        setLoading(false);
+        return;
+      }
+
+      const linkedinUrl = `https://www.linkedin.com/in/${vanityName}`;
+
       const response = await axios.post("/api/generateProfile", {
         linkedinUrl,
         userEmail: session?.user?.email,
+        linkedinProfilePicture,
       });
 
-      setMessage("Profile generated successfully!");
+      if (response.data.success) {
+        setMessage("Profile generated successfully!");
+      } else {
+        setMessage("Failed to generate profile. Please try again.");
+      }
     } catch (error) {
       if (
         error.response &&
@@ -125,49 +142,32 @@ export default function Profile() {
                 ""
               )}
             </div>
-            <div>
-              <label className="text-sm/6 font-medium text-white">Name</label>
-              <Input
-                className={clsx(
-                  "mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
-                  "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
-                )}
-                placeholder={session?.user?.name}
-              />
-            </div>
-            <div>
-              <label className="text-sm/6 font-medium text-white">
-                LinkedIn URL
-              </label>
-              <div className="flex my-3">
-                <span className="bg-gray-700 text-white py-1.5 px-3 rounded-l-lg text-sm/6">
-                  https://www.linkedin.com/in/
-                </span>
+            <div className="flex flex-col justify-center items-center w-full">
+              <div className="flex flex-col items-start w-full mx-12">
+                <label className="text-sm/6 font-medium text-white">Name</label>
                 <Input
                   className={clsx(
-                    "block w-full rounded-r-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
+                    "mt-3 block w-full rounded-lg border-none bg-white/5 py-1.5 px-3 text-sm/6 text-white",
                     "focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25",
                   )}
-                  value={linkedinUsername}
-                  onChange={(e) => setLinkedinUsername(e.target.value)}
-                  placeholder="your-username"
+                  placeholder={session?.user?.name}
                 />
               </div>
-            </div>
-            <button
-              className="py-2 px-3 mt-5 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md"
-              onClick={handleGenerateProfile}
-              disabled={loading}
-            >
-              {loading ? (
-                <span className="animate-spin rounded-full h-5 w-5 border-t-2 border-white inline-block"></span>
-              ) : (
-                "Generate Profile"
+              <button
+                className="py-2 w-[30%] mt-12 text-sm bg-gray-700 hover:bg-[#5013AF] bg-opacity-40 hover:bg-opacity-60 transition text-white rounded-md"
+                onClick={handleGenerateProfile}
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="animate-spin rounded-full h-5 w-5 border-t-2 border-white inline-block"></span>
+                ) : (
+                  "Generate Profile"
+                )}
+              </button>
+              {message && (
+                <p className="text-sm text-white mt-5 text-center">{message}</p>
               )}
-            </button>
-            {message && (
-              <p className="text-sm text-white mt-3 text-center">{message}</p>
-            )}
+            </div>
           </Fieldset>
         ) : (
           <Fieldset className="space-y-6 mx-56 rounded-xl bg-white/5 mt-5 sm:p-10">
