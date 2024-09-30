@@ -6,6 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import Landing from "../components/landing/Landing";
 import InfoSection from "../components/landing/InfoSection";
 import LandingBottom from "../components/landing/LandingBottom";
+import Footer from "../components/landingv2/Footer";
 
 export default function LandingPage() {
   return (
@@ -13,6 +14,7 @@ export default function LandingPage() {
       <Landing />
       <InfoSection />
       <LandingBottom />
+      <Footer />
     </div>
   );
 }
