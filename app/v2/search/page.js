@@ -122,7 +122,7 @@ export default function Home() {
             )}
           </button>
           <span className="ml-4">
-            {profiles.length} results for "{submittedQuery}"
+            {profiles.length} results for &quot;{submittedQuery}&quot;
           </span>
         </div>
       )}
