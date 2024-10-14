@@ -160,11 +160,6 @@ export default function Home() {
                     e.target.src =
                       "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
                   }}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
-                  }}
                   alt={`${profile.firstName} ${profile.lastName}`}
                   className="w-full h-72 object-cover rounded-xl mb-4"
                 />
