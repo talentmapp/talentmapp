@@ -69,7 +69,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black font-jakarta overscroll-none relative">
+    <div className="flex flex-col h-screen font-jakarta overscroll-none relative">
       {/* Navbar */}
       <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
         <span className="text-white text-center">

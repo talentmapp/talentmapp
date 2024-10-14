@@ -59,10 +59,10 @@ export default function WhatWeDo() {
         <div className="flex p-5 mt-16 border-[#B8B8B8]/50 border-[1px] justify-between bg-[#F7F7F7]/20 rounded-xl w-full">
           <div className="w-1/2 flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-semibold mb-4">
+              <h3 className="text-2xl font-semibold mb-4 mt-5">
                 {slideContent[currentSlide].title}
               </h3>
-              <p className="text-base text-gray-600">
+              <p className="text-base text-gray-600 mt-9">
                 {slideContent[currentSlide].description}
               </p>
             </div>
