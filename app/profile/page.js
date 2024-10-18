@@ -98,7 +98,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="h-screen w-full flex flex-col mt-32 items-center">
+    <div className="h-screen w-full flex flex-col pt-32 items-center">
       <span></span>
       <div className="w-[20rem] rounded-full h-[20rem] bg-[#5013AF] z-10 absolute blur-3xl opacity-15 left-36 bottom-16" />
       <div className="w-[25rem] rounded-full h-[30rem] bg-cyan-700 z-10 absolute blur-3xl opacity-10 right-44 bottom-50" />
