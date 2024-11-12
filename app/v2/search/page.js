@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 import { GiAtom } from "react-icons/gi"; // For search icon
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -8,6 +9,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { FiMap } from "react-icons/fi";
 import { CircularProgressbar } from "react-circular-progressbar"; // For relevance indicator
 import { RotatingLines } from "react-loader-spinner"; // For modern loader
+import Link from "next/link";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -19,6 +21,8 @@ export default function Home() {
   const [profiles, setProfiles] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
   const [showAnalysis, setShowAnalysis] = useState(false);
+
+  const router = useRouter();
 
   // Function to handle form submission and API request
   const handleSubmit = async (e) => {
@@ -36,6 +40,10 @@ export default function Home() {
     }
 
     setLoading(false);
+  };
+
+  const handleProfileClick = (id) => {
+    router.push(`/v2/profile/${id}`);
   };
 
   // Function to get relevance indicator based on combined score
@@ -151,28 +159,27 @@ export default function Home() {
           {profiles.map((profile, idx) => {
             const relevance = getRelevanceIndicator(profile.relevancyScore);
             return (
-              <div
-                key={idx}
-                className={`p-2 rounded-2xl flex flex-col`}
-                href={{
-                  pathname: `/v2/profile/${profile._id}`,
-                  query: { profile: JSON.stringify(profile) },
-                }}
-              >
-                <img
-                  src="/dummy.png"
-                  // src={profile.profilePicture}
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
-                  }}
-                  alt={`${profile.firstName} ${profile.lastName}`}
-                  className="w-full h-72 object-cover rounded-xl mb-4"
-                />
-                <h4 className="text-xl font-bold mb-2">
-                  {profile.firstName} {profile.lastName}
-                </h4>
+              <div key={idx} className={`p-2 rounded-2xl flex flex-col`}>
+                <div
+                  key={idx}
+                  className="p-2 rounded-2xl flex flex-col cursor-pointer"
+                  onClick={() => handleProfileClick(profile._id)}
+                >
+                  <img
+                    src="/dummy.png"
+                    // src={profile.profilePicture}
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.src =
+                        "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
+                    }}
+                    alt={`${profile.firstName} ${profile.lastName}`}
+                    className="w-full h-72 object-cover rounded-xl mb-4"
+                  />
+                  <h4 className="text-xl font-bold mb-2">
+                    {profile.firstName} {profile.lastName}
+                  </h4>
+                </div>
                 <div className="flex items-center text-xs text-gray-500 mb-2">
                   <FiMap className="mr-1" />
                   {profile.location ? profile.location : "Unavailable"}
