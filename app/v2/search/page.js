@@ -73,35 +73,35 @@ export default function Home() {
       {/* Search Bar */}
       <div className="flex justify-between items-center mb-4 ">
         <RxHamburgerMenu className="mx-4" size={28} />
-        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white rounded-2xl sm:rounded-full z-10">
-          <div className="relative">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Technical Co-Founder with AI expertise"
-              className="w-full p-2 rounded-lg bg-white border-1 border-black/40 focus:outline-none text-gray-600"
-            />
-            <button
-              onClick={handleSubmit}
-              className="w-1/2 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-0 sm:top-0 sm:bottom-0 group text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
-            >
-              <GiAtom
-                size={28}
-                className="group-hover:rotate-90 transition-all duration-250 text-black"
+        <div className="w-full justify-center flex gap-6">
+          <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white rounded-2xl sm:rounded-full z-10">
+            <div className="relative">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Technical Co-Founder with AI expertise"
+                className="w-full py-2 pl-4 rounded-lg bg-white border-1 border-black/40 focus:outline-none text-gray-600"
               />
-            </button>
+              <button
+                onClick={handleSubmit}
+                className="w-1/2 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-0 sm:top-0 sm:bottom-0 group text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
+              >
+                <GiAtom
+                  size={28}
+                  className="group-hover:rotate-90 transition-all duration-250 text-black"
+                />
+              </button>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-8">
-          <button className="flex justify-start items-center border-1 border-black/40 gap-3 py-2 px-4 rounded-lg">
+          <button className="flex text-left items-center border-1 border-black/40 gap-3 py-2 pl-3 pr-10 rounded-lg">
             <FiMap />
             San Jose
           </button>
-          <button className="rounded-lg">
-            <FaRegCircleUser className="" size={32} />
-          </button>
         </div>
+        <button className="rounded-lg">
+          <FaRegCircleUser className="" size={32} />
+        </button>
       </div>
       {response && (
         <div className="flex items-center mt-4 text-gray-500">
@@ -151,10 +151,17 @@ export default function Home() {
           {profiles.map((profile, idx) => {
             const relevance = getRelevanceIndicator(profile.relevancyScore);
             return (
-              <div key={idx} className={`p-2 rounded-2xl flex flex-col`}>
+              <div
+                key={idx}
+                className={`p-2 rounded-2xl flex flex-col`}
+                href={{
+                  pathname: `/v2/profile/${profile._id}`,
+                  query: { profile: JSON.stringify(profile) },
+                }}
+              >
                 <img
-                  // src="/dummy.png"
-                  src={profile.profilePicture}
+                  src="/dummy.png"
+                  // src={profile.profilePicture}
                   onError={(e) => {
                     e.target.onerror = null;
                     e.target.src =
@@ -168,7 +175,7 @@ export default function Home() {
                 </h4>
                 <div className="flex items-center text-xs text-gray-500 mb-2">
                   <FiMap className="mr-1" />
-                  {profile.location}
+                  {profile.location ? profile.location : "Unavailable"}
                   <span className="mx-2">•</span>
                   <div className="flex items-center gap-1 w-1/2">
                     <div className="w-4 h-4">
@@ -183,19 +190,25 @@ export default function Home() {
                     <span>{relevance.text}</span>
                   </div>
                 </div>
-                <p className="text-gray-700 text-sm mb-4">
+                <p className="text-gray-500 text-sm mb-4">
                   {profile.customSummary?.split(" ").slice(0, 18).join(" ") ||
                     "No summary available."}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {profile.strengths?.map((strength, index) => (
-                    <span
-                      key={index}
-                      className="bg-gray-200 text-gray-700 text-xs font-medium px-3 py-1 rounded-full"
-                    >
-                      {strength}
-                    </span>
-                  ))}
+                  <div className="text-gray-700 text-[0.8rem] font-medium">
+                    <div className="flex justify-around items-center">
+                      <span>{profile.strengths?.[0]}</span>
+                      {profile.strengths?.[1] && (
+                        <span className="mx-3">•</span>
+                      )}
+                      <span>{profile.strengths?.[1]}</span>
+                    </div>
+                    {profile.strengths?.[2] && (
+                      <div className="mt-2">
+                        <span>{profile.strengths?.[2]}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             );
