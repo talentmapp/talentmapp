@@ -166,8 +166,8 @@ export default function Home() {
                   onClick={() => handleProfileClick(profile._id)}
                 >
                   <img
-                    src="/dummy.png"
-                    // src={profile.profilePicture}
+                    // src="/dummy.png"
+                    src={profile.profilePicture}
                     onError={(e) => {
                       e.target.onerror = null;
                       e.target.src =
@@ -180,7 +180,7 @@ export default function Home() {
                     {profile.firstName} {profile.lastName}
                   </h4>
                 </div>
-                <div className="flex items-center text-xs text-gray-500 mb-2">
+                <div className="flex items-center text-xs text-gray-500 mb-2 ml-2">
                   <FiMap className="mr-1" />
                   {profile.location ? profile.location : "Unavailable"}
                   <span className="mx-2">•</span>
@@ -197,11 +197,11 @@ export default function Home() {
                     <span>{relevance.text}</span>
                   </div>
                 </div>
-                <p className="text-gray-500 text-sm mb-4">
+                <p className="text-gray-500 text-sm mb-4 ml-2">
                   {profile.customSummary?.split(" ").slice(0, 18).join(" ") ||
                     "No summary available."}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-4 ml-2 w-full">
                   <div className="text-gray-700 text-[0.8rem] font-medium">
                     <div className="flex justify-around items-center">
                       <span>{profile.strengths?.[0]}</span>
