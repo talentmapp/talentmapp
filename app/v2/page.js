@@ -127,7 +127,7 @@ export default function Landing() {
         </div>
       </div>
       <WhatWeDo />
-      <FAQSection />
+      {/* <FAQSection /> */}
       <LandingBottom />
       <Footer />
     </div>
