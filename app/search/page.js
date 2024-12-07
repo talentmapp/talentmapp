@@ -5,7 +5,7 @@ import axios from "axios";
 import { FiMap } from "react-icons/fi";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { RotatingLines } from "react-loader-spinner";
-import SearchBar from "../../components/SearchBar"; // Import the new shared component
+import SearchBar from "../components/SearchBar"; // Import the new shared component
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -58,7 +58,7 @@ export default function Home() {
     );
 
     // Navigate without URL parameters
-    router.push(`/v2/profile/${profile._id}`);
+    router.push(`/profile/${profile._id}`);
   };
   const getRelevanceIndicator = (score) => {
     if (score >= 0.75) {

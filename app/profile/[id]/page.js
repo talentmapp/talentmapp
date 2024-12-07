@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { FaLinkedin } from "react-icons/fa";
-import SearchBar from "../../../components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 
 export default function ProfileDetail({ params }) {
   const { id } = params;

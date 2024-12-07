@@ -1,157 +1,135 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
-import MessageForm from "./components/ai_search/MessageForm";
-import MessagesList from "./components/ai_search/MessagesList";
-import { Button, Link } from "@nextui-org/react";
-import { useSession, signOut } from "next-auth/react";
+import React, { useEffect, useState } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { GiAtom } from "react-icons/gi";
+import { GoArrowUpRight } from "react-icons/go";
 
-export default function Home() {
-  const { data: session } = useSession(); // Get session data
-  const user = session?.user; // Access user data
+import WhatWeDo from "./components/landingv2/WhatWeDo";
+import FAQSection from "./components/landingv2/FAQ";
+import LandingBottom from "./components/landingv2/LandingBottom";
+import Footer from "./components/landingv2/Footer";
 
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [showLogout, setShowLogout] = useState(false);
+export default function Landing() {
+  const [scrollPosition, setScrollPosition] = useState(0);
 
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
+  // Infinite scroll effect for the tags
   useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const handleSendMessage = async (message, location, userId) => {
-    try {
-      setLoading(true);
-
-      const response = await fetch("/api/search", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message, location, userId }),
-      });
-
-      setLoading(false);
-
-      if (!response.ok) {
-        throw new Error(
-          `Failed to search profiles or interact with OpenAI. Status: ${response.status}`,
-        );
-      }
-
-      const profiles = await response.json();
-
-      setMessages([
-        ...messages,
-        { sender: "user", text: message },
-        { sender: "ai", profiles },
-      ]);
-    } catch (error) {
-      setLoading(false); // Set loading to false if an error occurs
-      console.error("Error details:", error);
-      alert(
-        "An error occurred while searching for profiles. Please try again later.",
+    const interval = setInterval(() => {
+      setScrollPosition((prevPosition) =>
+        prevPosition < 10000 ? prevPosition + 1 : 0,
       );
-    }
-  };
+    }, 30); // Adjust speed here
+    return () => clearInterval(interval);
+  }, []);
 
-  const handleLogout = async () => {
-    await signOut({ callbackUrl: "/search" });
-    window.location.reload();
-  };
-
-  const toggleLogout = () => {
-    setShowLogout((prevShowLogout) => !prevShowLogout);
-  };
+  const examplePrompts = [
+    "Marketing Guru with Tech Background",
+    "Product Manager with Design Eye",
+    "Content Creator with Tech Knowledge",
+    "Business Development Pro",
+    "UX Designer with Startup Experience",
+    "Sales Expert with Startup Experience",
+    "Growth Specialist with Marketing Expertise",
+  ];
+  const examplePrompts2 = [
+    "Data Scientist with Machine Learning Skills",
+    "Technical Co-Founder with AI Expertise",
+    "DevOps Engineer with Cloud Infrastructure Experience",
+    "Blockchain Developer with FinTech Experience",
+    "Creative Director with Branding Expertise",
+    "Cybersecurity Expert with Compliance Knowledge",
+    "Full Stack Developer with JavaScript Expertise",
+    "Digital Marketing Strategist with SEO Expertise",
+  ];
 
   return (
-    <div className="flex flex-col h-screen font-jakarta overscroll-none relative">
+    <div className=" font-jakarta w-full flex flex-col items-center md:justify-between relative bg-white">
+      {/* BG Circles */}
+      <div className="absolute inset-0 z-0 left-auto right-auto">
+        <img src="/circles.png" className="opacity-80" />
+      </div>
+
       {/* Navbar */}
-      <div className="lg:hidden flex flex-col h-full items-center justify-center overflow-hidden mb-12">
-        <span className="text-white text-center">
-          please open this site on a{" "}
-          <span className="text-purple-400">bigger screen</span>
+      <header className="w-full flex justify-between items-center px-5 py-5 md:px-10 md:py-5 bg-transparent z-10">
+        <RxHamburgerMenu className="mx-4" size={28} />
+        <span className="flex gap-3 items-end text-[#1B1B1B] self-center text-2xl md:text-3xl font-bold">
+          <img src="/tm.png" alt="logo" className="w-6 md:w-10" />
+          talentmapp.
         </span>
-        <div className="flex items-center justify-center">
-          <img src="tm-small-logo.png" alt="logo" className="w-[20%]" />
-          <span className="font-bold text-sm w-[30%] my-6 py-3 border-[#dfdede] border-[1px] hover:bg-purple-950 transition-all hover:scale-105 text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-            <a href="/landing">back to landing</a>
-          </span>
-        </div>
-      </div>
+        {/* User profile picture
+        <img
+          src="https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2" // replace with user's profile image
+          alt="User profile"
+          className="rounded-full w-10 h-10 md:w-12 md:h-12 object-cover p-1 border-2"
+        />
+        */}
+        <button className="bg-[#FFEADB] border-[#FFDDC5] border-[1px] text-sm text-[#FF730C] font-medium py-3 px-5 rounded-lg transition-all duration-200 hover:bg-[#FF730C]/70 hover:text-white">
+          Sign Up
+        </button>
+      </header>
 
-      <div className="hidden lg:flex justify-between items-center w-[90%] py-6 ">
-        <div className="w-[100%]">
-          <Link href="/" className="w-[12%] xl:w-[7%] ml-20">
-            <img src="/tm-small-logo.png" alt="logo" className="" />
-          </Link>
-        </div>
-        <span className="font-bold w-[50%] lg:max-w-[10%] py-3 mx-5  hover:text-purple-400 transition-all text-[#dfdede] inline-flex justify-center items-center rounded-lg">
-          <a href="/about">learn more.</a>
-        </span>
-        {!loading && user ? (
+      {/* Main section */}
+      <main className="mt-52 px-8 md:px-0 w-full flex flex-col items-center justify-center text-center z-10">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold text-[#000000] leading-tight">
+          <span className="text-[#FF730C]">Noiseless </span>
+          Networking at <br /> your fingertips
+        </h1>
+
+        {/* Search input with button */}
+        <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white rounded-2xl sm:rounded-full p-5 md:py-5 md:px-5 mt-10 z-10">
           <div className="relative">
-            <img
-              src={user.image}
-              alt="Profile"
-              className="rounded-full w-14 border-dashed p-1 border-[1px] h-auto mx-5 cursor-pointer"
-              onClick={toggleLogout}
-              tabIndex="0" // Make the profile image focusable
+            <input
+              type="text"
+              placeholder="Technical Co-Founder with AI expertise"
+              className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 md:pr-36 text-xs md:text-lg rounded-lg bg-white border-2 border-black focus:outline-none text-gray-600"
             />
-            {showLogout && (
-              <ul className="absolute z-50 flex flex-col divide-y-1 divide-slate-700 border-[1px] border-slate-700 items-center justify-between bottom-[-90px] text-gray-500 rounded-sm shadow-md">
-                <div className="group w-full z-60 py-2 px-4 flex justify-center rounded-t-sm transition bg-slate-800 hover:bg-slate-200">
-                  <Link
-                    href="/profile"
-                    className="group-hover:font-semibold group-hover:text-slate-600 text-slate-300"
-                  >
-                    Profile
-                  </Link>
-                </div>
-                <div className="group w-full z-60 py-2 px-4 flex justify-center rounded-t-sm transition bg-slate-800 hover:bg-slate-200">
-                  <Link
-                    href="/api/auth/signout"
-                    className="group-hover:font-semibold group-hover:text-slate-600 text-slate-300"
-                  >
-                    Logout
-                  </Link>
-                </div>
-              </ul>
-            )}
+            <button className="w-1/2 h-9 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 bg-[#000000] group hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300">
+              <GiAtom
+                size={32}
+                className="group-hover:rotate-90 transition-all duration-250"
+              />
+            </button>
           </div>
-        ) : (
-          <Link
-            href="/api/auth/signin"
-            className="font-bold w-[50%] lg:max-w-[7%] border-[#845AC7] border-2 bg-[#5013AF] py-2 mr-3 hover:bg-purple-900 transition-all text-[#dfdede] hover:text-white inline-flex justify-center items-center rounded-lg"
-          >
-            <span>login</span>
-          </Link>
-        )}
-      </div>
+        </div>
+      </main>
 
-      {/* Main Content */}
-      <div className="hidden lg:block flex-grow pb-28 relative z-10">
-        {loading ? (
-          <div className="flex justify-center items-center h-full">
-            <img
-              src="ai_search/searching.gif"
-              alt="Searching..."
-              className="w-[30%]"
-            />
-          </div>
-        ) : (
-          <MessagesList messages={messages} />
-        )}
+      {/* Scrolling Example Prompts */}
+      <div className="relative mt-28 z-20 w-full px-2 sm:px-4">
+        <div
+          className="flex items-center gap-2 mb-3 whitespace-nowrap"
+          style={{ transform: `translateX(-${scrollPosition}px)` }}
+        >
+          {Array.from({ length: 10 }).map((_, i) =>
+            examplePrompts.map((tag, index) => (
+              <span
+                key={`${i}-${index}`}
+                className="flex items-center justify-center p-3 sm:p-4 bg-[#F7F7F7] hover:bg-[#E9E9E9] text-xs sm:text-sm text-black rounded-xl hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
+              >
+                {tag} <GoArrowUpRight size={21} className="ml-3 mt-1" />
+              </span>
+            )),
+          )}
+        </div>
+        <div
+          className="flex items-center gap-2 whitespace-nowrap"
+          style={{ transform: `translateX(-${scrollPosition}px)` }}
+        >
+          {Array.from({ length: 10 }).map((_, i) =>
+            examplePrompts2.map((tag, index) => (
+              <span
+                key={`${i}-${index}`}
+                className="flex items-center justify-center p-3 sm:p-4 bg-[#F7F7F7] hover:bg-[#E9E9E9] text-xs sm:text-sm text-black rounded-xl hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
+              >
+                {tag} <GoArrowUpRight size={21} className="ml-3 mt-1" />
+              </span>
+            )),
+          )}
+        </div>
       </div>
-
-      {/* Message Form - Positioned at the Bottom */}
-      <div className="hidden lg:block w-full absolute bottom-0 left-0 z-50">
-        <MessageForm onSendMessage={handleSendMessage} />
-      </div>
+      <WhatWeDo />
+      {/* <FAQSection /> */}
+      <LandingBottom />
+      <Footer />
     </div>
   );
 }
