@@ -1,13 +1,18 @@
 "use client";
-import { useState } from "react";
 import { GiAtom } from "react-icons/gi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FiMap } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 
 export default function SearchBar({ query, setQuery, handleSubmit }) {
+  const onKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <div className="flex justify-between items-center mb-4 mt-10">
+    <div className="flex justify-between items-center mt-8 mb-4">
       <RxHamburgerMenu className="mx-4" size={28} />
       <div className="w-full justify-center flex gap-6">
         <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white rounded-2xl sm:rounded-full z-10">
@@ -16,6 +21,7 @@ export default function SearchBar({ query, setQuery, handleSubmit }) {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={onKeyDown}
               placeholder="Technical Co-Founder with AI expertise"
               className="w-full py-2 pl-4 rounded-lg bg-white border-1 border-black/40 focus:outline-none text-gray-600"
             />
@@ -36,7 +42,7 @@ export default function SearchBar({ query, setQuery, handleSubmit }) {
         </button>
       </div>
       <button className="rounded-lg">
-        <FaRegCircleUser className="" size={32} />
+        <FaRegCircleUser size={32} />
       </button>
     </div>
   );

@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GiAtom } from "react-icons/gi";
 import { GoArrowUpRight } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
-import WhatWeDo from "./components/landingv2/WhatWeDo";
-import FAQSection from "./components/landingv2/FAQ";
-import LandingBottom from "./components/landingv2/LandingBottom";
-import Footer from "./components/landingv2/Footer";
+import WhatWeDo from "./components/landing/WhatWeDo";
+import FAQSection from "./components/landing/FAQ";
+import LandingBottom from "./components/landing/LandingBottom";
+import Footer from "./components/landing/Footer";
 
 export default function Landing() {
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [landingQuery, setLandingQuery] = useState("");
+  const router = useRouter();
 
   // Infinite scroll effect for the tags
   useEffect(() => {
@@ -42,8 +45,22 @@ export default function Landing() {
     "Digital Marketing Strategist with SEO Expertise",
   ];
 
+  // Function to navigate to the search screen with the given query
+  const navigateToSearch = (query) => {
+    if (query && query.trim().length > 0) {
+      // Navigate to /search instead of /
+      router.push(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      navigateToSearch(landingQuery);
+    }
+  };
+
   return (
-    <div className=" font-jakarta w-full flex flex-col items-center md:justify-between relative bg-white">
+    <div className="font-jakarta w-full flex flex-col items-center md:justify-between relative bg-white">
       {/* BG Circles */}
       <div className="absolute inset-0 z-0 left-auto right-auto">
         <img src="/circles.png" className="opacity-80" />
@@ -56,13 +73,6 @@ export default function Landing() {
           <img src="/tm.png" alt="logo" className="w-6 md:w-10" />
           talentmapp.
         </span>
-        {/* User profile picture
-        <img
-          src="https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2" // replace with user's profile image
-          alt="User profile"
-          className="rounded-full w-10 h-10 md:w-12 md:h-12 object-cover p-1 border-2"
-        />
-        */}
         <button className="bg-[#FFEADB] border-[#FFDDC5] border-[1px] text-sm text-[#FF730C] font-medium py-3 px-5 rounded-lg transition-all duration-200 hover:bg-[#FF730C]/70 hover:text-white">
           Sign Up
         </button>
@@ -82,8 +92,14 @@ export default function Landing() {
               type="text"
               placeholder="Technical Co-Founder with AI expertise"
               className="w-full py-3 sm:py-4 md:py-5 px-4 sm:px-6 md:pr-36 text-xs md:text-lg rounded-lg bg-white border-2 border-black focus:outline-none text-gray-600"
+              value={landingQuery}
+              onChange={(e) => setLandingQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
-            <button className="w-1/2 h-9 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 bg-[#000000] group hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300">
+            <button
+              onClick={() => navigateToSearch(landingQuery)}
+              className="w-1/2 h-9 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-2 sm:top-2 sm:bottom-2 bg-[#000000] group hover:bg-[#333333] text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
+            >
               <GiAtom
                 size={32}
                 className="group-hover:rotate-90 transition-all duration-250"
@@ -103,6 +119,7 @@ export default function Landing() {
             examplePrompts.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
+                onClick={() => navigateToSearch(tag)}
                 className="flex items-center justify-center p-3 sm:p-4 bg-[#F7F7F7] hover:bg-[#E9E9E9] text-xs sm:text-sm text-black rounded-xl hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag} <GoArrowUpRight size={21} className="ml-3 mt-1" />
@@ -118,6 +135,7 @@ export default function Landing() {
             examplePrompts2.map((tag, index) => (
               <span
                 key={`${i}-${index}`}
+                onClick={() => navigateToSearch(tag)}
                 className="flex items-center justify-center p-3 sm:p-4 bg-[#F7F7F7] hover:bg-[#E9E9E9] text-xs sm:text-sm text-black rounded-xl hover:font-semibold hover:bg-white/70 hover:text-gray-700 border-1 border-white cursor-pointer transition-all duration-250"
               >
                 {tag} <GoArrowUpRight size={21} className="ml-3 mt-1" />
@@ -127,7 +145,6 @@ export default function Landing() {
         </div>
       </div>
       <WhatWeDo />
-      {/* <FAQSection /> */}
       <LandingBottom />
       <Footer />
     </div>

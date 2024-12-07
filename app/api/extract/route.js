@@ -69,8 +69,8 @@ export async function POST(req) {
           index: "vector_index",
           path: "embedding",
           queryVector: queryEmbedding,
-          numCandidates: 20,
-          limit: 9,
+          numCandidates: 39,
+          limit: 12,
         },
       },
       {
