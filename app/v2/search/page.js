@@ -2,14 +2,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { GiAtom } from "react-icons/gi"; // For search icon
-import { RxHamburgerMenu } from "react-icons/rx";
-import { FaStar } from "react-icons/fa"; // For favorites
-import { FaRegCircleUser } from "react-icons/fa6";
 import { FiMap } from "react-icons/fi";
-import { CircularProgressbar } from "react-circular-progressbar"; // For relevance indicator
-import { RotatingLines } from "react-loader-spinner"; // For modern loader
-import Link from "next/link";
+import { CircularProgressbar } from "react-circular-progressbar";
+import { RotatingLines } from "react-loader-spinner";
+import SearchBar from "../../components/SearchBar"; // Import the new shared component
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -17,14 +13,14 @@ export default function Home() {
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [totalTokensUsed, setTotalTokensUsed] = useState(0);
-  const [relevanceFilter, setRelevanceFilter] = useState(0.5); // Relevance filter slider
+  const [relevanceFilter, setRelevanceFilter] = useState(0.5);
   const [profiles, setProfiles] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
   const [showAnalysis, setShowAnalysis] = useState(false);
 
   const router = useRouter();
+  console.log(profiles[0]);
 
-  // Function to handle form submission and API request
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -42,11 +38,28 @@ export default function Home() {
     setLoading(false);
   };
 
-  const handleProfileClick = (id) => {
-    router.push(`/v2/profile/${id}`);
-  };
+  const handleProfileClick = (profile, relevance) => {
+    // Store relevance data
+    sessionStorage.setItem("relevanceText", relevance.text);
+    sessionStorage.setItem(
+      "relevancePercentage",
+      relevance.percentage.toString(),
+    );
 
-  // Function to get relevance indicator based on combined score
+    // Store strongest requirements and unmet requirements from the selected profile
+    // If these properties are not defined, default to "None"
+    sessionStorage.setItem(
+      "strongestRequirements",
+      profile.strongestMatches || "None",
+    );
+    sessionStorage.setItem(
+      "unmetRequirements",
+      profile.unmetRequirements || "None",
+    );
+
+    // Navigate without URL parameters
+    router.push(`/v2/profile/${profile._id}`);
+  };
   const getRelevanceIndicator = (score) => {
     if (score >= 0.75) {
       return {
@@ -78,39 +91,13 @@ export default function Home() {
 
   return (
     <div className="w-full h-screen py-8 bg-white font-jakarta px-16">
-      {/* Search Bar */}
-      <div className="flex justify-between items-center mb-4 ">
-        <RxHamburgerMenu className="mx-4" size={28} />
-        <div className="w-full justify-center flex gap-6">
-          <div className="w-full md:w-[80%] md:max-w-4xl bg-white/45 md:bg-white/20 border-white rounded-2xl sm:rounded-full z-10">
-            <div className="relative">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Technical Co-Founder with AI expertise"
-                className="w-full py-2 pl-4 rounded-lg bg-white border-1 border-black/40 focus:outline-none text-gray-600"
-              />
-              <button
-                onClick={handleSubmit}
-                className="w-1/2 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-0 sm:top-0 sm:bottom-0 group text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
-              >
-                <GiAtom
-                  size={28}
-                  className="group-hover:rotate-90 transition-all duration-250 text-black"
-                />
-              </button>
-            </div>
-          </div>
-          <button className="flex text-left items-center border-1 border-black/40 gap-3 py-2 pl-3 pr-10 rounded-lg">
-            <FiMap />
-            San Jose
-          </button>
-        </div>
-        <button className="rounded-lg">
-          <FaRegCircleUser className="" size={32} />
-        </button>
-      </div>
+      {/* Reusable Search Bar */}
+      <SearchBar
+        query={query}
+        setQuery={setQuery}
+        handleSubmit={handleSubmit}
+      />
+
       {response && (
         <div className="flex items-center mt-4 text-gray-500">
           <button
@@ -143,7 +130,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Search Results */}
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <RotatingLines
@@ -159,28 +145,25 @@ export default function Home() {
           {profiles.map((profile, idx) => {
             const relevance = getRelevanceIndicator(profile.relevancyScore);
             return (
-              <div key={idx} className={`p-2 rounded-2xl flex flex-col`}>
-                <div
-                  key={idx}
-                  className="p-2 rounded-2xl flex flex-col cursor-pointer"
-                  onClick={() => handleProfileClick(profile._id)}
-                >
-                  <img
-                    // src="/dummy.png"
-                    src={profile.profilePicture}
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src =
-                        "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
-                    }}
-                    alt={`${profile.firstName} ${profile.lastName}`}
-                    className="w-full h-72 object-cover rounded-xl mb-4"
-                  />
-                  <h4 className="text-xl font-bold mb-2">
-                    {profile.firstName} {profile.lastName}
-                  </h4>
-                </div>
-                <div className="flex items-center text-xs text-gray-500 mb-2 ml-2">
+              <div
+                key={idx}
+                className="p-2 rounded-2xl flex flex-col cursor-pointer"
+                onClick={() => handleProfileClick(profile, relevance)}
+              >
+                <img
+                  src={profile.profilePicture}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src =
+                      "https://static.licdn.com/aero-v1/sc/h/9c8pery4andzj6ohjkjp54ma2";
+                  }}
+                  alt={`${profile.firstName} ${profile.lastName}`}
+                  className="w-full h-72 object-cover rounded-xl mb-4"
+                />
+                <h4 className="text-xl font-bold mb-2">
+                  {profile.firstName} {profile.lastName}
+                </h4>
+                <div className="flex items-center text-xs text-gray-500 mb-2">
                   <FiMap className="mr-1" />
                   {profile.location ? profile.location : "Unavailable"}
                   <span className="mx-2">•</span>
@@ -197,11 +180,11 @@ export default function Home() {
                     <span>{relevance.text}</span>
                   </div>
                 </div>
-                <p className="text-gray-500 text-sm mb-4 ml-2">
+                <p className="text-gray-500 text-sm mb-4">
                   {profile.customSummary?.split(" ").slice(0, 18).join(" ") ||
                     "No summary available."}
                 </p>
-                <div className="flex flex-wrap gap-2 mb-4 ml-2 w-full">
+                <div className="flex flex-wrap gap-2 mb-4 w-full">
                   <div className="text-gray-700 text-[0.8rem] font-medium">
                     <div className="flex justify-around items-center">
                       <span>{profile.strengths?.[0]}</span>
