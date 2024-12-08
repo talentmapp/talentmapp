@@ -4,6 +4,22 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes stepSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(90deg);
+    }
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.animate-step-spin {
+    animation: stepSpin 0.7s infinite;
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

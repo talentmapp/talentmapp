@@ -4,7 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { FiMap } from "react-icons/fi";
 import { FaRegCircleUser } from "react-icons/fa6";
 
-export default function SearchBar({ query, setQuery, handleSubmit }) {
+export default function SearchBar({ query, setQuery, handleSubmit, loading }) {
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
       handleSubmit(e);
@@ -27,11 +27,12 @@ export default function SearchBar({ query, setQuery, handleSubmit }) {
             />
             <button
               onClick={handleSubmit}
-              className="w-1/2 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-0 sm:top-0 sm:bottom-0 group text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
+              className="w-1/2 sm:mt-0 sm:h-auto sm:w-auto sm:absolute sm:right-0 sm:top-0 sm:bottom-0 text-xs md:text-base text-white font-semibold px-3 py-2 rounded-lg transition duration-300"
             >
               <GiAtom
                 size={28}
-                className="group-hover:rotate-90 transition-all duration-250 text-black"
+                className={`text-black transition-all
+                  ${loading ? "animate-step-spin" : "group-hover:rotate-90"}`}
               />
             </button>
           </div>

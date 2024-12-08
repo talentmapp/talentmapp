@@ -79,7 +79,7 @@ export default function Landing() {
       </header>
 
       {/* Main section */}
-      <main className="mt-52 px-8 md:px-0 w-full flex flex-col items-center justify-center text-center z-10">
+      <main className="mt-48 px-8 md:px-0 w-full flex flex-col items-center justify-center text-center z-10">
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-semibold text-[#000000] leading-tight">
           <span className="text-[#FF730C]">Noiseless </span>
           Networking at <br /> your fingertips

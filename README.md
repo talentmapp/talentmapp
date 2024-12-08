@@ -14,3 +14,4 @@
 - The pronouns feature is currently hardcoded; need to add this to the database schema.
 - Location filter needs to be implemented.
 - View Analysis needs to be implemented.
+- Infinite Scroll has to be added to the Search screen

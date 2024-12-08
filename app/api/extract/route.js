@@ -9,7 +9,7 @@ async function connectToDatabase() {
 
 export async function POST(req) {
   try {
-    const { query } = await req.json();
+    const { query, limit = 12, offset = 0 } = await req.json();
     const OPENAI_API_KEY = process.env.NEW_OPENAI_API_KEY;
 
     // OpenAI API call to extract entities and understand user intent
@@ -69,9 +69,15 @@ export async function POST(req) {
           index: "vector_index",
           path: "embedding",
           queryVector: queryEmbedding,
-          numCandidates: 39,
-          limit: 12,
+          numCandidates: offset + limit, // ensure enough candidates
+          limit: offset + limit, // return a large enough subset
         },
+      },
+      {
+        $skip: offset,
+      },
+      {
+        $limit: limit,
       },
       {
         $project: {

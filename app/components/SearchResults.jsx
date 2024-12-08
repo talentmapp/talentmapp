@@ -30,7 +30,7 @@ export default function SearchResults({
       <div className="flex justify-center items-center h-64">
         <RotatingLines
           strokeColor="gray"
-          strokeWidth="5"
+          strokeWidth="3"
           animationDuration="0.75"
           width="56"
           visible={true}
@@ -139,7 +139,7 @@ export default function SearchResults({
         </div>
       ) : (
         <div className="mt-8 text-gray-600 text-center">
-          No results found for "{submittedQuery}".
+          No results found for &quot;{submittedQuery}&quot;.
         </div>
       )}
     </div>
