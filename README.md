@@ -15,3 +15,4 @@
 - Location filter needs to be implemented.
 - View Analysis needs to be implemented.
 - Infinite Scroll has to be added to the Search screen
+
